@@ -23,6 +23,11 @@ function App(props) {
         setCurrentStep(index)
     };
 
+    const goPreviousStep = () => {
+        wizard.previousStep();
+        setCurrentStep(currentStep - 1)
+    };
+
     const [card, setCard] = useState({
         cvc: '',
         expiry: '',
@@ -56,7 +61,7 @@ function App(props) {
             </div>
             <div id='wizard' style={{overflow: 'hidden'}}>
                 <div className={'steps'}>
-                    <ul className={'step-2'}>
+                    <ul className={`step-${currentStep + 1}`}>
                         {
                             [...new Array(4)].map((item, index) => {
                                 return (
@@ -283,10 +288,10 @@ function App(props) {
                         <ul role="menu" aria-label="Pagination">
                             {
                                 currentStep > 0 && currentStep < 3 ?
-                                    <li aria-disabled="false" onClick={wizard.previousStep}>
+                                    <li aria-disabled="false" onClick={goPreviousStep}>
                                         <a href="#previous" role="menuitem">Previous</a>
                                     </li>
-                                    : <li aria-disabled="true" onClick={wizard.previousStep}>
+                                    : <li aria-disabled="true" onClick={goPreviousStep}>
                                         <a href="#previous" role="menuitem">Previous</a>
                                     </li>
                             }

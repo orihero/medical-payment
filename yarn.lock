@@ -1608,6 +1608,13 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha512-ce5d3q03Ex0sy4R14722Rmt6MT07Ua+k4FwDfdcToYJcMKNtRVQvJ6JCAPdAmAnbRb6CsX6aYb9m96NGod9uTw==
 
+"@types/react-credit-cards@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@types/react-credit-cards/-/react-credit-cards-0.8.0.tgz#f09cc54ffe60715aedae25a79bd56d2f13cdad8d"
+  integrity sha512-PqDipPUMDf8LEqjsoFAxPNrkk9xIEoKL/qCWmvdldgsjMVS2uQjbkyv9cEavdumxsSswP5Uo5Mb1OxyeV5udjQ==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-dom@*", "@types/react-dom@^16.9.0":
   version "16.9.8"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.9.8.tgz#fe4c1e11dfc67155733dfa6aa65108b4971cb423"
@@ -8698,6 +8705,11 @@ react-scripts@3.4.3:
     workbox-webpack-plugin "4.3.1"
   optionalDependencies:
     fsevents "2.1.2"
+
+react-step-wizard@5.3.4:
+  version "5.3.4"
+  resolved "https://registry.yarnpkg.com/react-step-wizard/-/react-step-wizard-5.3.4.tgz#44f0c6781090a103a4d13497908dd9fd60e28dab"
+  integrity sha512-W4FNBjSA1Am5f9t+BWgzUI9xwsXqt9utz7eFb9lNepJm7jEKVZnP/XofTgGb5+HWvwUU3cqU23togTAQGAv1jw==
 
 react@^16.13.1:
   version "16.13.1"

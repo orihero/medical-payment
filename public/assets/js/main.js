@@ -27,7 +27,7 @@ $(function () {
 			return true;
 		},
 		labels: {
-			finish: 'Place Holder',
+			finish: 'Finish',
 			next: 'Next',
 			previous: 'Previous',
 		},

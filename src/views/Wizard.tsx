@@ -272,7 +272,13 @@ function Wizard(props) {
 								</li>
 							) : (
 								<li aria-hidden='true'>
-									<a href='#finish' role='menuitem'>
+									<a
+										onClick={() =>
+											window.location.replace(
+												'https://appointment.accureference.com'
+											)
+										}
+										role='menuitem'>
 										Finish
 									</a>
 								</li>

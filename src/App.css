@@ -7,7 +7,6 @@
 	flex: 1;
 }
 
-
 .customForm {
 	width: auto !important;
 }
@@ -164,7 +163,7 @@ h3 {
 	display: flex;
 }
 .form-row.form-group .form-holder {
-	width: 50%;
+	width: 47%;
 	margin-right: 21px;
 }
 .form-row.form-group .form-holder:last-child {
@@ -579,8 +578,4 @@ textarea.form-control {
 	}
 }
 
-
-
 /*# sourceMappingURL=style.css.map */
-
-

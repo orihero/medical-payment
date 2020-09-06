@@ -205,6 +205,8 @@ textarea.form-control {
 		display: flex;
 		margin-top: 30px;
 		justify-content: space-between;
+		flex-wrap: nowrap;
+		width: 47%;
 		&.step-last {
 			justify-content: flex-end;
 			li:first-child {

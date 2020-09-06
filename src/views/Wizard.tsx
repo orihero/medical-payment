@@ -275,7 +275,7 @@ function Wizard(props) {
 									<a
 										onClick={() =>
 											window.location.replace(
-												'https://appointment.accureference.com'
+												`https://appointment.accureference.com?paymentId=${0}`
 											)
 										}
 										role='menuitem'>

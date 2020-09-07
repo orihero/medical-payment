@@ -80,7 +80,7 @@ function Wizard(props) {
 						setCurrentStep={setCurrentStep}
 						nextStep={() => wizard.nextStep()}
 					/>
-					{/* <Wizard2
+					<Wizard2
 						data={data}
 						setData={setData}
 						setCurrentStep={setCurrentStep}
@@ -91,7 +91,7 @@ function Wizard(props) {
 						setData={setData}
 						setCurrentStep={setCurrentStep}
 						previousStep={() => wizard.previousStep()}
-					/> */}
+					/>
 				</StepWizard>
 			</div>
 		</div>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function Home() {
 	return (
-		<div>
+		<div style={{overflowX: 'hidden'}}>
 			<header
 				id='home'
 				className='home-area hero-equal-height section-padding overflow-hidden d-flex align-items-center'>

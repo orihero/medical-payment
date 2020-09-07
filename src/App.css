@@ -2,6 +2,12 @@
 	padding-top: 10px;
 }
 
+.validation-error {
+	color:  red;
+	font-size: 0.8em;
+	line-height: 2em;
+}
+
 .flex {
 	display: flex;
 	flex: 1;

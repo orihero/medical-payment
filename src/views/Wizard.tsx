@@ -52,14 +52,7 @@ function Wizard(props) {
 			<div className='image-holder'>
 				<img src={require('../assets/images/logo-blue.png')} />
 			</div>
-		</div>
-	);
-}
-
-export default Wizard;
-
-/**
- * <div id='wizard' style={{ overflow: 'hidden' }}>
+			<div id='wizard' style={{ overflow: 'hidden' }}>
 				<div className={'steps'}>
 					<ul className={`step-${currentStep + 1}`}>
 						{[...new Array(3)].map((item, index) => {
@@ -80,7 +73,7 @@ export default Wizard;
 				</div>
 				<StepWizard
 					instance={(wizardInstance) => setWizard(wizardInstance)}>
-					<Wizard1
+					{/* <Wizard1
 						data={data}
 						setData={setData}
 						currentStep={currentStep}
@@ -98,8 +91,11 @@ export default Wizard;
 						setData={setData}
 						setCurrentStep={setCurrentStep}
 						previousStep={() => wizard.previousStep()}
-					/>
-					</StepWizard>
-					</div>
-				
- */
+					/> */}
+				</StepWizard>
+			</div>
+		</div>
+	);
+}
+
+export default Wizard;

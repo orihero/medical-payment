@@ -6,9 +6,9 @@ import 'react-credit-cards/es/styles-compiled.css';
 import StepWizard from 'react-step-wizard';
 import yup from 'yup';
 
-import Wizard1 from '../components/wizard1'
-import Wizard2 from '../components/wizard2'
-import Wizard3 from '../components/wizard3'
+import Wizard1 from '../components/wizard1';
+import Wizard2 from '../components/wizard2';
+import Wizard3 from '../components/wizard3';
 
 function Wizard(props) {
 	// let requestModel = yup.shape();
@@ -29,7 +29,7 @@ function Wizard(props) {
 		cardOwner: '',
 		expiry: '',
 		cvc: '',
-	})
+	});
 
 	const nextStep = () => {
 		setCurrentStep(currentStep + 1);
@@ -50,7 +50,7 @@ function Wizard(props) {
 	return (
 		<div className='wrapper'>
 			<div className='image-holder'>
-				<img src='./assets/images/logo-blue.png' alt='' />
+				<img src={require('../assets/images/logo-blue.png')} />
 			</div>
 			<div id='wizard' style={{ overflow: 'hidden' }}>
 				<div className={'steps'}>
@@ -62,7 +62,7 @@ function Wizard(props) {
 									className={`${index === 0 && 'first'} ${
 										index === 2 && 'last'
 									} ${currentStep >= index && 'checked'}`}>
-									<a style={{cursor: 'pointer'}}>
+									<a style={{ cursor: 'pointer' }}>
 										<span />
 									</a>
 								</li>
@@ -71,8 +71,7 @@ function Wizard(props) {
 					</ul>
 				</div>
 				<StepWizard
-					instance={(wizardInstance) => setWizard(wizardInstance)}
-				>
+					instance={(wizardInstance) => setWizard(wizardInstance)}>
 					<Wizard1
 						data={data}
 						setData={setData}

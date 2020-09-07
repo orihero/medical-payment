@@ -9818,10 +9818,24 @@ ul {
 	line-height: 1.4;
 }
 
+.custom-header {
+	background-color: white;
+	width: 100%;
+	justify-content: center;
+}
+
 .my-class {
 	position: absolute;
-	top: 30px;
-	left: 30px;
+	top: 0;
+	left: 0px;
+	background-color: wheat;
+	height: 80px;
+	width: 100%;
+	justify-content: flex-start;
+	flex-direction: row;
+	display: flex;
+	align-items: center;
+	padding-left: 40px;
 }
 @media (max-width: 576px) {
 	.button {

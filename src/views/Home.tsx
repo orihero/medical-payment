@@ -4,11 +4,17 @@ import { Link } from 'react-router-dom';
 
 export default function Home() {
 	return (
-		<div style={{overflowX: 'hidden'}}>
+		<div style={{ overflowX: 'hidden' }}>
 			<header
 				id='home'
 				className='home-area hero-equal-height section-padding overflow-hidden d-flex align-items-center'>
-				<a className='navbar-brand my-class js-scroll'>Covid 19</a>
+				<div className='custom-heaader my-class'>
+					<img
+						className='navbar-brand js-scroll'
+						style={{ width: '20%' }}
+						src={require('../assets/images/logo-blue.png')}
+					/>
+				</div>
 				<div className='container'>
 					<div className='row align-items-center'>
 						<div className='col-12 col-md-12 col-lg-12'>

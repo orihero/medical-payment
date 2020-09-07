@@ -58,6 +58,7 @@ function Wizard(props) {
 						{[...new Array(3)].map((item, index) => {
 							return (
 								<li
+									key={index}
 									onClick={() => goToStep(index)}
 									className={`${index === 0 && 'first'} ${
 										index === 2 && 'last'

@@ -73,14 +73,14 @@ function Wizard(props) {
 				</div>
 				<StepWizard
 					instance={(wizardInstance) => setWizard(wizardInstance)}>
-					{/* <Wizard1
+					<Wizard1
 						data={data}
 						setData={setData}
 						currentStep={currentStep}
 						setCurrentStep={setCurrentStep}
 						nextStep={() => wizard.nextStep()}
 					/>
-					<Wizard2
+					{/* <Wizard2
 						data={data}
 						setData={setData}
 						setCurrentStep={setCurrentStep}

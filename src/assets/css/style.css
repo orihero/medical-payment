@@ -9817,11 +9817,7 @@ ul {
 	font-size: 18px;
 	line-height: 1.4;
 }
-.button {
-	position: absolute;
-	top: 30px;
-	right: 30px;
-}
+
 .my-class {
 	position: absolute;
 	top: 30px;
@@ -9829,8 +9825,8 @@ ul {
 }
 @media (max-width: 576px) {
 	.button {
-		top: 0;
-		right: 10px;
+		/* top: 0; */
+		/* right: 10px; */
 	}
 	.my-class {
 		top: 25px;

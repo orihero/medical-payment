@@ -9,9 +9,6 @@ export default function Home() {
 				id='home'
 				className='home-area hero-equal-height section-padding overflow-hidden d-flex align-items-center'>
 				<a className='navbar-brand my-class js-scroll'>Covid 19</a>
-				<Link to='/appointment' className='button js-scroll'>
-					Schedule test
-				</Link>
 				<div className='container'>
 					<div className='row align-items-center'>
 						<div className='col-12 col-md-12 col-lg-12'>
@@ -27,6 +24,9 @@ export default function Home() {
 									Wuhan, China, in December 2019.
 								</p>
 							</div>
+							<Link to='/appointment' className='button'>
+								Schedule test
+							</Link>
 						</div>
 					</div>
 				</div>

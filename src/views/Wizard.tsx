@@ -4,12 +4,14 @@ import Cards from 'react-credit-cards';
 import '../App.css';
 import 'react-credit-cards/es/styles-compiled.css';
 import StepWizard from 'react-step-wizard';
+import yup from 'yup';
 
 enum Fields {
 	cvc = 'cvc',
 }
 
 function Wizard(props) {
+	// let requestModel = yup.shape();
 	const [wizard, setWizard] = useState();
 	const [currentStep, setCurrentStep] = useState(0);
 

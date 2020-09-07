@@ -52,7 +52,14 @@ function Wizard(props) {
 			<div className='image-holder'>
 				<img src={require('../assets/images/logo-blue.png')} />
 			</div>
-			<div id='wizard' style={{ overflow: 'hidden' }}>
+		</div>
+	);
+}
+
+export default Wizard;
+
+/**
+ * <div id='wizard' style={{ overflow: 'hidden' }}>
 				<div className={'steps'}>
 					<ul className={`step-${currentStep + 1}`}>
 						{[...new Array(3)].map((item, index) => {
@@ -92,14 +99,7 @@ function Wizard(props) {
 						setCurrentStep={setCurrentStep}
 						previousStep={() => wizard.previousStep()}
 					/>
-					{/* SECTION 4 */}
-					{/* <section>
-						<div className='checkbox-circle'></div>
-					</section> */}
-				</StepWizard>
-			</div>
-		</div>
-	);
-}
-
-export default Wizard;
+					</StepWizard>
+					</div>
+				
+ */

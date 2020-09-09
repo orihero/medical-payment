@@ -1,64 +1,122 @@
 import React from 'react'
 
-import {Field, Form, withFormik, ErrorMessage, FormikValues} from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 
-let Wizard1 = ({ data, setData }) => {
+let Wizard1 = ({
+    data,
+    setData,
+    nextStep,
+    setCurrentStep
+}) => {
+
+    const formik = useFormik({
+        initialValues: {
+            firstName: data.firstName || '',
+            lastName: data.lastName || '',
+            address1: data.address1 || '',
+            address2: data.address2 || '',
+            townCity: data.townCity || '',
+        },
+        validationSchema: () => Yup.object().shape({
+            firstName: Yup.string().required('Required'),
+            lastName: Yup.string().required('Required'),
+            address1: Yup.string().required('Required'),
+            address2: Yup.string().required('Required'),
+            townCity: Yup.string().required('Required'),
+        }),
+        onSubmit: values => {
+            const {
+                firstName,
+                lastName,
+                address1,
+                address2,
+                townCity,
+            } = values
+
+            setData({
+                ...data,
+                firstName,
+                lastName,
+                address1,
+                address2,
+                townCity,
+            })
+
+            setCurrentStep(1)
+            nextStep()
+        },
+    })
 
     return(
-        // SECTION 1
-        <Form style={{width: '100%'}}>
+        <form style={{width: '100%'}} onSubmit={formik.handleSubmit}>
             <section>
                 <div className='form-row form-group'>
                     <div className='form-holder'>
                         <label>First Name *</label>
-                        <Field
+                        <input
                             type='text'
                             name={'firstName'}
                             className='form-control'
+                            onChange={formik.handleChange}
+                            value={formik.values.firstName}
                         />
-                        <ErrorMessage name={'firstName'} className={'validation-error'} component={'div'}/>
+                        {formik.touched.firstName && formik.errors.firstName ? (
+                            <div className='validation-error'>{formik.errors.firstName}</div>
+                        ) : null}
                     </div>
                     <div className='form-holder'>
                         <label>Last Name *</label>
-                        <Field
+                        <input
                             type='text'
                             name={'lastName'}
                             className='form-control'
+                            onChange={formik.handleChange}
+                            value={formik.values.lastName}
                         />
-                        <ErrorMessage name={'lastName'} className={'validation-error'} component={'div'}/>
+                        {formik.touched.lastName && formik.errors.lastName ? (
+                            <div className='validation-error'>{formik.errors.lastName}</div>
+                        ) : null}
                     </div>
                 </div>
                 <div className='form-row'>
                     <label>Address *</label>
-                    <Field
+                    <input
                         type='text'
                         name={'address1'}
                         className='form-control'
                         placeholder='Street address'
+                        onChange={formik.handleChange}
+                        value={formik.values.address1}
                     />
-                    <ErrorMessage
-                        name={'address1'}
-                        component={'div'}
-                        className={'validation-error'}
-                    />
-                    <Field
+                    {formik.touched.address1 && formik.errors.address1 ? (
+                        <div className='validation-error'>{formik.errors.address1}</div>
+                    ) : null}
+                    <input
                         type='text'
                         name={'address2'}
                         className='form-control'
                         style={{ marginTop: '20px' }}
                         placeholder='Apartment, suite, unit etc. (optional)'
+                        onChange={formik.handleChange}
+                        value={formik.values.address2}
                     />
-                    <ErrorMessage name={'address2'} className={'validation-error'} component={'div'}/>
+                    {formik.touched.address2 && formik.errors.address2 ? (
+                        <div className='validation-error'>{formik.errors.address2}</div>
+                    ) : null}
                 </div>
                 <div className='form-row'>
                     <label>Town / City *</label>
-                    <Field
+                    <input
                         type='text'
                         name={'townCity'}
                         className='form-control'
+                        onChange={formik.handleChange}
+                        value={formik.values.townCity}
                     />
-                    <ErrorMessage name={'townCity'} className={'validation-error'} component={'div'}/>
+                    {formik.touched.townCity && formik.errors.townCity ? (
+                        <div className='validation-error'>{formik.errors.townCity}</div>
+                    ) : null}
                 </div>
                 <div className='actions'>
                     <ul role='menu' aria-label='Pagination'>
@@ -80,51 +138,8 @@ let Wizard1 = ({ data, setData }) => {
                     </ul>
                 </div>
             </section>
-        </Form>
+        </form>
     )
 }
 
-const Wizard1Form = withFormik<any, any>({
-    validationSchema: () => Yup.object().shape({
-        firstName: Yup.string()
-            .min(3)
-            .required('Required'),
-        lastName: Yup.string()
-            .min(3)
-            .required('Required'),
-        address1: Yup.string()
-            .min(3)
-            .required('Required'),
-        address2: Yup.string()
-            .min(3)
-            .required('Required'),
-        townCity: Yup.string()
-            .min(3)
-            .required('Required'),
-    }),
-    mapPropsToValues: (props) => {
-        return ({
-            firstName: '',
-            lastName: '',
-            address1: '',
-            address2: '',
-            townCity: ''
-        })
-    },
-    handleSubmit: (values, {props, setSubmitting, resetForm}) => {
-        console.log('1 values: ', values)
-        const { firstName, lastName, address1, address2, townCity } = values
-        props.setData({
-            ...props.data,
-            firstName,
-            lastName,
-            address1,
-            address2,
-            townCity,
-        })
-        props.setCurrentStep(1)
-        props.nextStep()
-    }
-})(Wizard1)
-
-export default Wizard1Form
+export default Wizard1

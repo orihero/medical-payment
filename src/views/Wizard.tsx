@@ -10,26 +10,35 @@ import Wizard1 from '../components/wizard1';
 import Wizard2 from '../components/wizard2';
 import Wizard3 from '../components/wizard3';
 
+const initialState = {
+	firstName: '',
+	lastName: '',
+	address1: '',
+	address2: '',
+	townCity: '',
+	country: '',
+	postCode: '',
+	phone: '',
+	email: '',
+	commit: '',
+	cardNumber: '',
+	cardOwner: '',
+	expiry: '',
+	cvc: '',
+}
+
 function Wizard(props) {
 	// let requestModel = yup.shape();
 	const [wizard, setWizard] = useState();
 	const [currentStep, setCurrentStep] = useState(0);
-	const [data, setData] = useState({
-		firstName: '',
-		lastName: '',
-		address1: '',
-		address2: '',
-		townCity: '',
-		country: '',
-		postCode: '',
-		phone: '',
-		email: '',
-		commit: '',
-		cardNumber: '',
-		cardOwner: '',
-		expiry: '',
-		cvc: '',
-	});
+	const [data, setData] = useState({...initialState});
+
+	const goToInitial = () => {
+		setData({...initialState})
+		console.log('iwladi')
+		setCurrentStep(0)
+		wizard.goToStep(1);
+	}
 
 	const nextStep = () => {
 		setCurrentStep(currentStep + 1);
@@ -76,21 +85,24 @@ function Wizard(props) {
 					<Wizard1
 						data={data}
 						setData={setData}
-						currentStep={currentStep}
+						nextStep={nextStep}
 						setCurrentStep={setCurrentStep}
-						nextStep={() => wizard.nextStep()}
 					/>
 					<Wizard2
 						data={data}
 						setData={setData}
+						nextStep={nextStep}
+						previousStep={goPreviousStep}
 						setCurrentStep={setCurrentStep}
-						previousStep={() => wizard.previousStep()}
+						// previousStep={() => wizard.previousStep()}
 					/>
 					<Wizard3
 						data={data}
 						setData={setData}
+						goInitial={goToInitial}
+						previousStep={goPreviousStep}
 						setCurrentStep={setCurrentStep}
-						previousStep={() => wizard.previousStep()}
+						// previousStep={() => wizard.previousStep()}
 					/>
 				</StepWizard>
 			</div>

@@ -1,14 +1,19 @@
 import React, { useState } from 'react'
 
-import validator from 'validator'
-import MaskedInput from 'react-maskedinput'
+import axios from 'axios'
 
+import MaskedInput from 'react-maskedinput'
 import Cards from 'react-credit-cards';
-import { error } from 'console';
 
 enum Fields { cvc = 'cvc' }
 
-const Wizard3 = ({ setCurrentStep, previousStep, data, setData }) => {
+const Wizard3 = ({
+    data,
+    setData,
+    goInitial,
+    previousStep,
+    setCurrentStep
+}) => {
     const [card, setCard] = useState({
 		cvc: '',
 		expiry: '',
@@ -25,23 +30,31 @@ const Wizard3 = ({ setCurrentStep, previousStep, data, setData }) => {
         last: '',
     })
 
+    const formData = (rawData) => {
+        let form = new FormData();
+
+        Object.keys(rawData).forEach((key) => {
+            form.append(key, rawData[key]);
+        });
+
+        return form;
+    };
+
     const onPreviousStep = () => {
         setCurrentStep(1)
         previousStep()
     }
     
-    let handleInputFocus = (e: any) => {
-		console.log({ e });
+    const handleInputFocus = (e: any) => {
 		setCard({ ...card, focus: e.target.name });
 	};
 
-	let handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 		setCard({ ...card, [name]: value });
 	};
 
-	let onCardChange = (e) => {
-        console.log('e', e);
+	const onCardChange = (e) => {
         if(e.issuer === 'unknown'){
             setErrorText({...errorText, number: 'Please enter valid card number'})
         } else {
@@ -78,14 +91,70 @@ const Wizard3 = ({ setCurrentStep, previousStep, data, setData }) => {
         setCard({...card, cvc: e.target.value.replace(/[^\d+]/g, '')})
     }
 
-    const onSubmit = (e: any) => {
+    const onSubmit = async (e: any) => {
         e.preventDefault()
         const { cvc, expiry, name, number } = card
+        const { cvc: cvcError, expiry: expiryError } = errorText
 
-        if(cvc === '' || expiry === '' || name === '' || number === ''){
-            setErrorText({...errorText, last: 'Please fill all fields'})
+        setErrorText({...errorText, last: ''})
+
+        if(
+            cvc === '' || expiry === '' || name === '' ||
+            number === '' || cvcError || expiryError ||
+            parseInt(number).toString().length !== 16
+
+        ){
+            setErrorText({...errorText, last: 'Make sure you filled all fields correctly'})
         } else {
-            alert('OK!')
+            const {
+                firstName,
+                lastName,
+                address1,
+                address2,
+                townCity,
+                country,
+                postCode,
+                phone,
+                email,
+            } = data
+
+            let rawData = {
+                firstname: firstName,
+                lastname: lastName,
+                country: 1,
+                address: `${address1}, ${address2}`,
+                city: townCity,
+                postcode: postCode,
+                phone,
+                email,
+                card_numer: number,
+                card_owner: name,
+                card_expiry: expiry,
+                card_cvv: cvc,
+            }
+            
+            try {
+                const response = await axios.post('https://appointment.accureference.com/api/payment', rawData)
+
+                if(response.data.status === 'error'){
+                    alert('Invalid credentials')
+                } else {
+                    setCard({
+                        cvc: '',
+                        expiry: '',
+                        focus: '' as Fields,
+                        name: '',
+                        number: '',
+                    })
+                    console.log('response: ', response)
+                    console.log('response.data: ', response.data)
+                    setErrorText({...errorText, number: ''})
+                    window.location.reload()
+                    // goInitial()
+                }
+            } catch(err){
+                console.log('apiErr: ', err)
+            }
         }
         // window.location.replace(
         //     `https://appointment.accureference.com?paymentId=${0}`
@@ -128,8 +197,9 @@ const Wizard3 = ({ setCurrentStep, previousStep, data, setData }) => {
                             <label>Card owner *</label>
                             <input
                                 type='text'
-                                className='form-control'
                                 name='name'
+                                className='form-control'
+                                value={card.name}
                                 onFocus={handleInputFocus}
                                 onChange={handleInputChange}
                             />

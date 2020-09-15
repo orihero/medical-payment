@@ -30,7 +30,7 @@ export default function Home() {
 									Wuhan, China, in December 2019.
 								</p>
 							</div>
-							<Link to='/appointment' className='button'>
+							<Link to='/agreement' className='button'>
 								Schedule test
 							</Link>
 						</div>

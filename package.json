@@ -22,7 +22,7 @@
 		"react-scripts": "3.4.3",
 		"react-step-wizard": "5.3.4",
 		"reactstrap-date-picker": "^0.0.9",
-		"typescript": "~3.7.2",
+		"typescript": "3.8",
 		"validator": "^13.1.1",
 		"yup": "^0.29.3"
 	},

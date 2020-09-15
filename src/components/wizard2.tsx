@@ -1,66 +1,107 @@
 import React, { useState } from 'react';
 
-import { Field, Form, withFormik, ErrorMessage, FormikValues } from 'formik';
 import * as Yup from 'yup';
+import { useFormik } from 'formik';
 import validator from 'validator';
 import MaskedInput from 'react-maskedinput';
 
-const Wizard2 = ({ previousStep, setCurrentStep, data, setData }) => {
-	const [phoneNumber, setPhoneNumber] = useState('');
-	const [errorPhoneNum, setErrorPhoneNum] = useState('');
+const Wizard2 = ({
+	data,
+	setData,
+	nextStep,
+	previousStep,
+	setCurrentStep
+}) => {
+	const [errorText, setErrorText] = useState('')
 
 	const onPreviousStep = () => {
-		setCurrentStep(0);
-		previousStep();
-	};
+		setCurrentStep(0)
+		previousStep()
+	}
 
 	const onPhoneNumberChange = ({ target }) => {
 		setData({ ...data, phone: target.value });
-		// setPhoneNumber(target.value)
 		if (!validator.isMobilePhone(target.value, 'en-US')) {
-			setErrorPhoneNum('Please enter valid phone number');
+			setErrorText('Please enter valid phone number');
 		} else {
-			setErrorPhoneNum('');
+			setErrorText('');
 		}
 	};
 
-	const onCheck = () => {
-		setErrorPhoneNum('');
-		if (!data.phone) {
-			setErrorPhoneNum('Required');
+	const checkPhoneNumber = () => {
+		let str = ''
+		for (let i = 0; i < data.phone.length; i++){
+			if(parseInt(data.phone[i])){
+				str += parseInt(data.phone[i])
+			}
 		}
-	};
+		if(str.toString().length === 11){
+			return true
+		} else {
+			return false
+		}
+	}
+
+	const formik = useFormik({
+		initialValues: {
+			country: data.country || '',
+			postCode: data.postCode || '',
+			email: data.email || '',
+		},
+		validationSchema: () => Yup.object().shape({
+			country: Yup.string().required('Required'),
+			postCode: Yup.string().min(3).max(12).required('Required'),
+			email: Yup.string().required('Required'),
+		}),
+		onSubmit: values => {
+			if(!checkPhoneNumber()) {
+				setErrorText('Please enter valid phone number')
+			} else {
+				setErrorText('')
+				const { country, postCode, email } = values
+
+				setData({
+					...data,
+					country,
+					postCode,
+					email,
+				})
+
+				setCurrentStep(2)
+				nextStep()
+			}
+		},
+	})
 
 	return (
-		// SECTION 2
-		<Form style={{ width: '100%' }}>
+		<form style={{ width: '100%' }} onSubmit={formik.handleSubmit}>
 			<section>
 				<div className='form-row'>
 					<label>Country *</label>
 					<br />
-					<Field
+					<input
 						type='text'
 						name='country'
 						className='form-control'
+						value={formik.values.country}
+						onChange={formik.handleChange}
 					/>
-					<ErrorMessage
-						name={'country'}
-						className={'validation-error'}
-						component={'div'}
-					/>
+					{formik.touched.country && formik.errors.country ? (
+						<div className='validation-error'>{formik.errors.country}</div>
+					) : null}
 				</div>
 				<div className='form-row'>
 					<label>Postcode / Zip *</label>
-					<Field
+					<input
 						type='text'
 						name='postCode'
 						className='form-control'
+						value={formik.values.postCode}
+						onChange={formik.handleChange}
 					/>
-					<ErrorMessage
-						name={'postCode'}
-						className={'validation-error'}
-						component={'div'}
-					/>
+					{formik.touched.postCode && formik.errors.postCode ? (
+						<div className='validation-error'>{formik.errors.postCode}</div>
+					) : null}
 				</div>
 				<div className='form-row form-group'>
 					<div className='form-holder'>
@@ -73,43 +114,26 @@ const Wizard2 = ({ previousStep, setCurrentStep, data, setData }) => {
 							onChange={onPhoneNumberChange}
 							placeholder={`+1 (XXX) XXX-XXXX`}
 						/>
-						{errorPhoneNum ? (
+						{errorText ? (
 							<div className='validation-error'>
-								{errorPhoneNum}
+								{errorText}
 							</div>
 						) : null}
 					</div>
 					<div className='form-holder'>
 						<label>Email Address *</label>
-						<Field
+						<input
 							type='email'
 							name='email'
 							className='form-control'
+							value={formik.values.email}
+							onChange={formik.handleChange}
 						/>
-						<ErrorMessage
-							name={'email'}
-							className={'validation-error'}
-							component={'div'}
-						/>
+						{formik.touched.email && formik.errors.email ? (
+                            <div className='validation-error'>{formik.errors.email}</div>
+                        ) : null}
 					</div>
 				</div>
-				{/* <div
-                    className='form-row'
-                    style={{ marginBottom: '18px' }}>
-                    <label>Order Notes</label>
-                    <Field
-                        defaultValue={''}
-                        name='commit'
-                        className='form-control'
-                        placeholder='Note about your order, eg. special notes fordelivery.'
-                        style={{ height: '149px' }}
-                    />
-                    <ErrorMessage
-                        name={'commit'}
-                        component={'div'}
-                        className={'validation-error'}
-                    />
-                </div> */}
 				<div className='actions'>
 					<ul role='menu' aria-label='Pagination'>
 						<li aria-disabled='false' onClick={onPreviousStep}>
@@ -118,55 +142,19 @@ const Wizard2 = ({ previousStep, setCurrentStep, data, setData }) => {
 						<li
 							aria-hidden='false'
 							aria-disabled='false'
-							onClick={onCheck}>
-							{errorPhoneNum ? (
+						>
+							<button
+								type='submit'
+								style={{ background: 'none' }}
+							>
 								<a role='menuitem'>Next</a>
-							) : (
-								<button
-									type='submit'
-									style={{ background: 'none' }}>
-									<a role='menuitem'>Next</a>
-								</button>
-							)}
+							</button>
 						</li>
 					</ul>
 				</div>
 			</section>
-		</Form>
+		</form>
 	);
 };
 
-const Wizard2Form = withFormik<any, any>({
-	validationSchema: () =>
-		Yup.object().shape({
-			country: Yup.string().min(3).required('Required'),
-			postCode: Yup.string().min(3).max(12).required('Required'),
-			email: Yup.string().min(3).required('Required'),
-			commit: Yup.string().min(3),
-		}),
-	mapPropsToValues: (props) => {
-		return {
-			country: '',
-			postCode: '',
-			email: '',
-			commit: '',
-		};
-	},
-	handleSubmit: (values, { props, setSubmitting, resetForm }) => {
-		if (props.data.phone !== '') {
-			console.log('2 values: ', values);
-			const { country, postCode, email, commit } = values;
-			props.setData({
-				...props.data,
-				country,
-				postCode,
-				email,
-				commit,
-			});
-			props.setCurrentStep(2);
-			props.nextStep();
-		}
-	},
-})(Wizard2);
-
-export default Wizard2Form;
+export default Wizard2;

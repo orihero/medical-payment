@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
@@ -13,6 +13,14 @@ const Wizard2 = ({
 	setCurrentStep
 }) => {
 	const [errorText, setErrorText] = useState('')
+
+	useEffect(() => {
+		formik.setValues({
+            country: data.country || '',
+			postCode: data.postCode || '',
+			email: data.email || '',
+        })
+	}, [data])
 
 	const onPreviousStep = () => {
 		setCurrentStep(0)
@@ -108,7 +116,7 @@ const Wizard2 = ({
 						<label>Phone *</label>
 						<MaskedInput
 							type='text'
-							value={data.number}
+							value={data.phone}
 							className='form-control'
 							mask='\+\1 (111) 111-1111'
 							onChange={onPhoneNumberChange}

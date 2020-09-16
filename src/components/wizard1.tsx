@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -10,7 +10,17 @@ let Wizard1 = ({
     setCurrentStep
 }) => {
 
-    const formik = useFormik({
+    useEffect(() => {
+        formik.setValues({
+            firstName: data.firstName || '',
+            lastName: data.lastName || '',
+            address1: data.address1 || '',
+            address2: data.address2 || '',
+            townCity: data.townCity || '',
+        })
+    }, [data])
+
+    let formik = useFormik({
         initialValues: {
             firstName: data.firstName || '',
             lastName: data.lastName || '',
@@ -48,8 +58,8 @@ let Wizard1 = ({
         },
     })
 
-    return(
-        <form style={{width: '100%'}} onSubmit={formik.handleSubmit}>
+    return (
+        <form style={{ width: '100%' }} onSubmit={formik.handleSubmit}>
             <section>
                 <div className='form-row form-group'>
                     <div className='form-holder'>
@@ -125,11 +135,11 @@ let Wizard1 = ({
                                 Previous
                             </a>
                         </li>
-                        <li 
+                        <li
                             aria-hidden='false'
                             aria-disabled='false'
                         >
-                            <button type='submit' style={{background: 'none'}}>
+                            <button type='submit' style={{ background: 'none' }}>
                                 <a role='menuitem'>
                                     Next
                                 </a>

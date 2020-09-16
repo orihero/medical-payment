@@ -39,8 +39,7 @@ const Agreement = () => {
             && (secondCheckValue.a || secondCheckValue.b)
         ){
             if(secondCheckValue.a){
-                console.log('onFinish Pressed...')
-                history.push('https://google.com')
+                window.location.href = 'https://google.com'
             } else {
                 history.push('/home-draw')
             }
@@ -62,77 +61,97 @@ const Agreement = () => {
 				<img src={require('../assets/images/logo-blue.png')} />
 			</div>
 			<div id='wizard' style={{ overflow: 'hidden' }}>
-				<div style={{width: '35vw'}}>
-                    <div className='checkbox--row--title'>Type test</div>
-                    <div
-                        className='checkbox--row'
-                        onClick={() => onFirstChange('a')}
-                    >
-                        <input
-                            id="bir"
-                            name="bir"
-                            type="checkbox"
-                            checked={firstCheckValue.a ? true : false}
-                        />
-                        <label htmlFor="bir">Covid 19</label>
-                    </div>
-                    <div
-                        className='checkbox--row'
-                        onClick={() => onFirstChange('b')}
-                    >
-                        <input
-                            id="ikki"
-                            name="ikki"
-                            type="checkbox"
-                            checked={firstCheckValue.b ? true : false}
-                        />
-                        <label htmlFor="ikki">Antibody Test</label>
-                    </div>
-                    <div
-                        className='checkbox--row'
-                        onClick={() => onFirstChange('c')}
-                    >
-                        <input
-                            id="uch"
-                            name="uch"
-                            type="checkbox"
-                            checked={firstCheckValue.c ? true : false}
-                        />
-                        <label htmlFor="uch">Covid 19 + Antibody Test</label>
+				<div style={{width: '40vw'}}>
+                    <div className='checkbox--row--title'>Choose type of the Test</div>
+                    <div className='flex--row'>
+                        <div
+                            className='checkbox--row'
+                            onClick={() => onFirstChange('a')}
+                        >
+                            <input
+                                id="bir"
+                                name="bir"
+                                type="checkbox"
+                                checked={firstCheckValue.a ? true : false}
+                            />
+                            <label htmlFor="bir">Covid 19</label>
+                        </div>
+                        <div
+                            className='checkbox--row'
+                            style={{marginLeft: '2em'}}
+                            onClick={() => onFirstChange('b')}
+                        >
+                            <input
+                                id="ikki"
+                                name="ikki"
+                                type="checkbox"
+                                checked={firstCheckValue.b ? true : false}
+                            />
+                            <label htmlFor="ikki">Antibody Test</label>
+                        </div>
+                        <div
+                            className='checkbox--row'
+                            style={{marginLeft: '2em'}}
+                            onClick={() => onFirstChange('c')}
+                        >
+                            <input
+                                id="uch"
+                                name="uch"
+                                type="checkbox"
+                                checked={firstCheckValue.c ? true : false}
+                            />
+                            <label htmlFor="uch">Covid 19 + Antibody Test</label>
+                        </div>
                     </div>
                     {errorText.a ? (
-                        <div className='validation-error'>Type test required</div>
+                        <div
+                            style={{marginTop: '10px'}}
+                            className='validation-error'
+                        >
+                            Type test required
+                        </div>
                     ) : null}
-                    <div className='checkbox--row--title'>Type location</div>
                     <div
-                        className='checkbox--row'
-                        onClick={() => onSecondChange('a')}
+                        style={{marginTop: '2em'}}
+                        className='checkbox--row--title'
                     >
-                        <input
-                            id="tort"
-                            name="tort"
-                            type="checkbox"
-                            checked={secondCheckValue.a ? true : false}
-                        />
-                        <label htmlFor="tort">Site Visit</label>
+                        Choose type of the Visit
                     </div>
-                    <div
-                        className='checkbox--row'
-                        onClick={() => onSecondChange('b')}
-                    >
-                        <input
-                            id="besh"
-                            name="besh"
-                            type="checkbox"
-                            checked={secondCheckValue.b ? true : false}
-                        />
-                        <label htmlFor="besh">Home Draw</label>
+                    <div className='flex--row'>
+                        <div
+                            className='checkbox--row'
+                            onClick={() => onSecondChange('a')}
+                        >
+                            <input
+                                id="tort"
+                                name="tort"
+                                type="checkbox"
+                                checked={secondCheckValue.a ? true : false}
+                            />
+                            <label htmlFor="tort">Site Visit</label>
+                        </div>
+                        <div
+                            className='checkbox--row'
+                            style={{marginLeft: '2em'}}
+                            onClick={() => onSecondChange('b')}
+                        >
+                            <input
+                                id="besh"
+                                name="besh"
+                                type="checkbox"
+                                checked={secondCheckValue.b ? true : false}
+                            />
+                            <label htmlFor="besh">Home Draw</label>
+                        </div>
                     </div>
                     {errorText.b ? (
                         <div className='validation-error'>Type location required</div>
                     ) : null}
-                    <div className='checkbox--btn--row'>
-                        <button onClick={onFinish}>Finish</button>
+                    <div
+                        className='checkbox--btn--row'
+                        style={{justifyContent: 'center'}}
+                    >
+                        <button onClick={onFinish}>Next</button>
                     </div>
                 </div>
 			</div>

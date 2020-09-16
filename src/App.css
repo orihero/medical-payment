@@ -108,21 +108,30 @@ body {
 	font-weight: 500;
 	margin: 2vh 0 4vh 0;
 }
-.wrapper #wizard .checkbox--row{
-	margin-top: 1vh;
+.wrapper #wizard .flex--row{
+	display: flex;
 	align-items: center;
+	/* justify-content: space-between; */
+	/* background-color: aqua; */
+}
+.wrapper #wizard .checkbox--row{
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #aaa;
+	/* background-color: aquamarine; */
 }
 .wrapper #wizard .checkbox--row input{
 	width: 1em;
 	height: 1em;
 }
 .wrapper #wizard .checkbox--row label{
-	margin-left: 1vw;
-	font-size: 1.1em;
+	font-size: 1.05em;
 	font-weight: 400;
+	margin-left: 6px;
+	margin-top: 8px;
 }
 .wrapper #wizard .checkbox--btn--row{
-	margin-top: 5vh;
+	margin-top: 10vh;
 	display: flex;
 	justify-content: flex-end;
 }
@@ -138,13 +147,21 @@ body {
 	width: 35vw;
 	/* background-color: aqua; */
 }
+.wrapper #wizard .homedraw--cont .homedraw--row{
+	
+}
+.wrapper #wizard .homedraw--row .homedraw--error{
+	margin: 0.5em 0 0 1em;
+	font-size: 0.9em;
+	color: red;
+}
 .wrapper #wizard .homedraw--cont .input{
 	width: 100%;
 	display: block;
 	font-size: 1.1em;
 	font-weight: 500;
-	padding: 0.75em 1em;
-	border-radius: 10px;
+	padding: 0.5em;
+	border-radius: 5px;
 	border: 1px solid #aaa;
 }
 .wrapper #wizard .homedraw--cont label{
@@ -158,7 +175,7 @@ body {
 	margin-top: 1em;
 	font-size: 1.1em;
 	font-weight: 400;
-	padding: 0.25em 0.75em;
+	/* padding: 0.25em 0.75em; */
 }
 .wrapper #wizard .homedraw--cont select{
 	width: 100%;
@@ -168,6 +185,29 @@ body {
 	font-weight: 500;
 	border-radius: 5px;
 	border: 1px solid #aaa;
+}
+.wrapper #wizard .homedraw--cont .flex--input--row{
+	display: flex;
+	padding-bottom: 1em;
+	justify-content: space-between;
+	border-bottom: 1px solid #ccc;
+}
+.wrapper #wizard .homedraw--cont .flex--input--box{
+	width: 45%;
+}
+.wrapper #wizard .homedraw--cont .flex--input--box .flex--input--error{
+	font-size: 0.8em;
+	margin: 0.5em 0 0 1em;
+	color: red;
+}
+.wrapper #wizard .homedraw--cont .flex--input--box input{
+	width: 100%;
+	border-radius: 5px;
+	padding: 0.25em 0.75em;
+	border: 1px solid #aaa;
+}
+.wrapper #wizard .homedraw--cont .flex--input--box label{
+	font-size: 0.9em;
 }
 .modal--bottom--box{
 	display: flex;

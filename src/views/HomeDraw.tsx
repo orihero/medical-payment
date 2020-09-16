@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { Modal } from 'react-bootstrap'
 import DateTimePicker from 'reactstrap-date-picker'
+
+import validator from 'validator';
+import MaskedInput from 'react-maskedinput';
 
 const times = [
     '9:00', '9:05', '9:10', '9:15', '9:20', '9:25', '9:30', '9:35', '9:40', '9:45', '9:50', '9:55',
@@ -18,27 +21,128 @@ const times = [
 const HomeDraw = () => {
     const history = useHistory()
 
-    const [number, setNumber] = useState(0)
-    const [pickerDate, setPickerDate] = useState({
-        value: new Date().toISOString(),
-        formattedValue: null
+    const [state, setState] = useState({
+        phone: '',
+        address: '',
+        visitDate: {
+            value: null,
+            formattedValue: null
+        },
+        visitTime: '9:00',
+        numberOfPeople: 0
     })
-    const [visitDate, setVisitDate] = useState('')
+    const [errorState, setErrorState] = useState({
+        phone: false,
+        address: false,
+        visitDate: false,
+        numberOfPeople: false,
+    })
+
+    const [fullnameArr, setFullnameArr] = useState<any[]>([])
+    const [errFullArr, setErrFullArr] = useState<any[]>([])
 
     const [modalShow, setModalShow] = useState(false)
     const [acceptChecked, setAcceptChecked] = useState(false)
 
+    useEffect(() => {
+        if(state.numberOfPeople){
+            let arr: any[] = []
+            let errArr: any[] = []
+            for (let i = 0; i < state.numberOfPeople; i++){
+                arr = [...arr, {firstname: '', lastname: ''}]
+                errArr = [...errArr, {first: false, last: false}]
+            }
+            setFullnameArr([...arr])
+            setErrFullArr([...errArr])
+        } else{
+            setState({...state, numberOfPeople: 0})
+        }
+    }, [state.numberOfPeople])
+
     const onPickerDateChange = (value, formattedValue) => {
-        setPickerDate({value, formattedValue})
+        setState({...state, visitDate: {value, formattedValue}})
     }
 
     const onChange = (e) => {
-        setNumber(e.target.value.replace(/[^\d+]/g, ''))
+        setState({
+            ...state,
+            numberOfPeople: parseInt(e.target.value.replace(/[^\d+]/g, ''))
+        })
+    }
+
+    const onPhoneNumberChange = ({ target }) => {
+        setState({...state, phone: target.value})
+		// setData({ ...data, phone: target.value });
+		if (!validator.isMobilePhone(target.value, 'en-US')) {
+            setErrorState({...errorState, phone: true})
+		} else {
+			setErrorState({...errorState, phone: false})
+		}
+	};
+
+    const handleChange = (e, key, index) => {
+        let arr = fullnameArr
+        arr[index][key] = e.target.value
+        setFullnameArr([...arr])
     }
 
     const onFinish = (e) => {
         e.preventDefault()
-        setModalShow(true)
+
+        const {
+            phone,
+            address,
+            visitDate,
+            numberOfPeople,
+        } = state
+
+        let obj = {
+            phone: false,
+            address: false,
+            visitDate: false,
+            numberOfPeople: false,
+        }
+        let arr = errFullArr.map(item => {
+            item.first = false
+            item.last = false
+
+            return item
+        })
+
+        if(
+            visitDate.formattedValue && phone
+            && address && numberOfPeople &&
+            fullnameArr.every(item => item.firstname && item.lastname)
+        ){
+            console.log('OK!')
+            setModalShow(true)
+        } else{
+            let arr = [...errFullArr]
+
+            if(!visitDate.formattedValue)
+                obj.visitDate = true
+            if(!phone)
+                obj.phone = true
+            if(!address)
+                obj.address = true
+            if(!numberOfPeople)
+                obj.numberOfPeople = true
+
+            fullnameArr.map((item, index) => {
+                if(!item.firstname)
+                    arr[index].first = true
+                if(!item.lastname)
+                    arr[index].last = true
+            })
+            
+        }
+
+        setErrFullArr([...arr])
+        setErrorState({...obj})
+
+        console.log('state: ', state)
+        console.log('arr: ', fullnameArr)
+        console.log('errArr: ', errFullArr)
     }
 
     const onFinishClick = e => {
@@ -49,34 +153,173 @@ const HomeDraw = () => {
     return(
         <div className='wrapper'>
 			<div className='image-holder'>
-				<img src={require('../assets/images/logo-blue.png')} />
+				<img
+                    src={require('../assets/images/logo-blue.png')}
+                />
 			</div>
-			<div id='wizard' style={{ overflow: 'hidden' }}>
+			<div
+                id='wizard'
+                style={{ overflow: 'hidden', paddingTop: '2em' }}
+            >
 				<div className='homedraw--cont'>
-                    <label htmlFor="numberOfPeople">Number of People</label>
-                    <input
-                        type="text"
-                        value={number}
-                        className='input'
-                        id='numberOfPeople'
-                        onChange={onChange}
-                        placeholder='Enter number of people'
-                    />
+                    <div className='homedraw--row'>
+                        <label htmlFor="visitDate">Visit Date</label>
+                        <DateTimePicker
+                            id="visitDate" 
+                            value={state.visitDate.value}
+                            onChange={(v,f) => onPickerDateChange(v, f)}
+                        />
+                        {errorState.visitDate ? (
+                            <div className='homedraw--error'>
+                                Required
+                            </div>
+                        ) : null}
+                    </div>
+                    <div className='homedraw--row'>
+                        <label htmlFor="visitTime" style={{marginTop: '1em'}}>
+                            Visit Time
+                        </label>
+                        <select
+                            id="visitTime"
+                            name="visitTime"
+                            defaultValue={times[0]}
+                            onChange={e => setState({...state, visitTime: e.target.value})}
+                        >
+                            {times.map((item: any, index) => (
+                                <option key={index} value={item}>
+                                    {item}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className='homedraw--row'>
+                        <label htmlFor="address" style={{marginTop: '1em'}}>
+                            Address
+                        </label>
+                        <input
+                            type="text"
+                            id='address'
+                            className='input'
+                            value={state.address}
+                            placeholder='Enter address...'
+                            onChange={e => setState({...state, address: e.target.value})}
+                        />
+                        {errorState.address ? (
+                            <div className='homedraw--error'>
+                                Required
+                            </div>
+                        ) : null}
+                    </div>
+                    <div className='homedraw--row'>
+                        <label htmlFor="phone" style={{marginTop: '1em'}}>
+                            Phone number
+                        </label>
+                        <MaskedInput
+                            type='text'
+							className='input'
+                            value={state.phone}
+							mask='\+\1 (111) 111-1111'
+							onChange={onPhoneNumberChange}
+							placeholder={`+1 (XXX) XXX-XXXX`}
+						/>
+                        {errorState.phone ? (
+                            <div className='homedraw--error'>
+                                Please enter valid phone number
+                            </div>
+                        ) : null}
+                    </div>
+                    <div className='homedraw--row'>
+                        <label
+                            htmlFor="numberOfPeople"
+                            style={{marginTop: '2em'}}
+                        >
+                            Number of People
+                        </label>
+                        <input
+                            type="text"
+                            className='input'
+                            id='numberOfPeople'
+                            onChange={onChange}
+                            value={state.numberOfPeople}
+                            placeholder='Enter number of people'
+                        />
+                        {errorState.numberOfPeople ? (
+                            <div className='homedraw--error'>
+                                Required
+                            </div>
+                        ) : null}
+                    </div>
                     <p>
-                        {`60$  for each = Total cost ${60*number}$`}
+                        {`60$  for each = Total cost ${60*state.numberOfPeople}$`}
                     </p>
-                    <label htmlFor="visitDate" style={{marginTop: '1em'}}>Visit Date</label>
-                    <DateTimePicker
-                        id="visitDate" 
-                        value={pickerDate.value} 
-                        onChange={(v,f) => onPickerDateChange(v, f)}
-                    />
-                    <label htmlFor="visitTime" style={{marginTop: '1em'}}>Visit Time</label>
-                    <select name="visitTime" id="visitTime">
-                        {times.map((item, index) => (
-                            <option key={index} value={item}>{item}</option>
-                        ))}
-                    </select>
+                    {fullnameArr.length ? fullnameArr.map((item, index) => (
+                        <div key={index} className='flex--input--row'>
+                            <div className='flex--input--box'>
+                                <label htmlFor={`firstnameLabel${index}`}>
+                                    Firstname
+                                </label>
+                                <input
+                                    type="text"
+                                    value={item.firstname}
+                                    id={`firstnameLabel${index}`}
+                                    onChange={(e) => handleChange(e, 'firstname', index)}
+                                />
+                                {errFullArr[index].first ? (
+                                    <div className='flex--input--error'>
+                                        Required
+                                    </div>
+                                ) : null}
+                            </div>
+                            <div className='flex--input--box'>
+                                <label htmlFor={`lastnameLabel${index}`}>
+                                    Lastname
+                                </label>
+                                <input
+                                    type="text"
+                                    value={item.lastname}
+                                    id={`lastnameLabel${index}`}
+                                    onChange={(e) => handleChange(e, 'lastname', index)}
+                                />
+                                {errFullArr[index].last ? (
+                                    <div className='flex--input--error'>
+                                        Required
+                                    </div>
+                                ) : null}
+                            </div>
+                        </div>
+                    )) : null}
+                    {/* <div className='flex--input--row'>
+                        <div className='flex--input--box'>
+                            <label htmlFor="firstnameLabel">Firstname</label>
+                            <input
+                                type="text"
+                                id='firstnameLabel'
+                            />
+                        </div>
+                        <div className='flex--input--box'>
+                            <label htmlFor="lastnameLabel">Lastname</label>
+                            <input
+                                type="text"
+                                id='lastnameLabel'
+                            />
+                        </div>
+                    </div>
+                    <div className='flex--input--row'>
+                        <div className='flex--input--box'>
+                            <label htmlFor="firstnameLabel">Firstname</label>
+                            <input
+                                type="text"
+                                id='firstnameLabel'
+                            />
+                        </div>
+                        <div className='flex--input--box'>
+                            <label htmlFor="lastnameLabel">Lastname</label>
+                            <input
+                                type="text"
+                                id='lastnameLabel'
+                            />
+                        </div>
+                    </div> */}
                 </div>
                 <Modal show={modalShow} onHide={() => setModalShow(false)}>
                     <Modal.Header closeButton>

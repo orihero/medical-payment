@@ -1,45 +1,52 @@
-import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const Agreement = () => {
-    const history = useHistory()
+	const history = useHistory();
 
-    const [firstCheckValue, setFirstCheckValue] = useState({a: false, b: false, c: false})
-    const [secondCheckValue, setSecondCheckValue] = useState({a: false, b: false})
-    const [errorText, setErrorText] = useState({a: false, b: false})
+	const [firstCheckValue, setFirstCheckValue] = useState({
+		a: false,
+		b: false,
+		c: false,
+	});
+	const [secondCheckValue, setSecondCheckValue] = useState({
+		a: false,
+		b: false,
+	});
+	const [errorText, setErrorText] = useState({ a: false, b: false });
 
-    const onFirstChange = (value) => {
-        setErrorText({a: false, b: false})
-        if(value === 'a'){
-            setFirstCheckValue({a: !firstCheckValue.a, b: false, c: false})
-        }
-        if(value === 'b'){
-            setFirstCheckValue({b: !firstCheckValue.b, a: false, c: false})
-        }
-        if(value === 'c'){
-            setFirstCheckValue({c: !firstCheckValue.c, a: false, b: false})
-        }
-    }
+	const onFirstChange = (value) => {
+		setErrorText({ a: false, b: false });
+		if (value === 'a') {
+			setFirstCheckValue({ a: !firstCheckValue.a, b: false, c: false });
+		}
+		if (value === 'b') {
+			setFirstCheckValue({ b: !firstCheckValue.b, a: false, c: false });
+		}
+		if (value === 'c') {
+			setFirstCheckValue({ c: !firstCheckValue.c, a: false, b: false });
+		}
+	};
 
-    const onSecondChange = (value) => {
-        setErrorText({a: false, b: false})
-        if(value === 'a'){
-            setSecondCheckValue({a: !secondCheckValue.a, b: false})
-        }
-        if(value === 'b'){
-            setSecondCheckValue({b: !secondCheckValue.b, a: false})
-        }
-    }
+	const onSecondChange = (value) => {
+		setErrorText({ a: false, b: false });
+		if (value === 'a') {
+			setSecondCheckValue({ a: !secondCheckValue.a, b: false });
+		}
+		if (value === 'b') {
+			setSecondCheckValue({ b: !secondCheckValue.b, a: false });
+		}
+	};
 
-    const onFinish = (e) => {
-        e.preventDefault()
+	const onFinish = (e) => {
+		e.preventDefault();
 
         if(
             (firstCheckValue.a || firstCheckValue.b || firstCheckValue.c)
             && (secondCheckValue.a || secondCheckValue.b)
         ){
             if(secondCheckValue.a){
-                window.location.href = 'https://google.com'
+                window.location.href = 'https://appointment.accureference.com'
             } else {
                 history.push('/home-draw')
             }
@@ -55,8 +62,8 @@ const Agreement = () => {
         }
     }
 
-    return(
-        <div className='wrapper'>
+	return (
+		<div className='wrapper'>
 			<div className='image-holder'>
 				<img src={require('../assets/images/logo-blue.png')} />
 			</div>
@@ -156,7 +163,7 @@ const Agreement = () => {
                 </div>
 			</div>
 		</div>
-    )
-}
+	);
+};
 
-export default Agreement
+export default Agreement;

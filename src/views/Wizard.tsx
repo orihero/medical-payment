@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import '../App.css';
 import 'react-credit-cards/es/styles-compiled.css';
-import StepWizard from 'react-step-wizard';
+import StepWizard, { StepWizardProps } from 'react-step-wizard';
 import yup from 'yup';
 
 import Wizard1 from '../components/wizard1';
@@ -25,32 +25,36 @@ const initialState = {
 	cardOwner: '',
 	expiry: '',
 	cvc: '',
-}
+};
 
 function Wizard(props) {
 	// let requestModel = yup.shape();
-	const [wizard, setWizard] = useState();
+	const [wizard, setWizard] = useState<StepWizardProps>();
 	const [currentStep, setCurrentStep] = useState(0);
-	const [data, setData] = useState({...initialState});
+	const [data, setData] = useState({ ...initialState });
 
 	const goToInitial = () => {
-		setData({...initialState})
-		console.log('iwladi')
-		setCurrentStep(0)
+		setData({ ...initialState });
+		console.log('iwladi');
+		setCurrentStep(0);
+		//@ts-ignore
 		wizard.goToStep(1);
-	}
+	};
 
 	const nextStep = () => {
 		setCurrentStep(currentStep + 1);
+		//@ts-ignore
 		wizard.nextStep();
 	};
 
 	const goToStep = (index) => {
+		//@ts-ignore
 		wizard.goToStep(index + 1);
 		setCurrentStep(index);
 	};
 
 	const goPreviousStep = () => {
+		//@ts-ignore
 		wizard.previousStep();
 		setCurrentStep(currentStep - 1);
 	};

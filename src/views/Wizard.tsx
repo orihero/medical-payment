@@ -31,7 +31,6 @@ const initialState = {
 };
 
 const Wizard = (props) => {
-	// let requestModel = yup.shape();
 	const [wizard, setWizard] = useState<StepWizardProps>();
 	const [currentStep, setCurrentStep] = useState(0);
 	const [data, setData] = useState({ ...initialState });

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import axios from 'axios'
 
+import { Form } from 'react-bootstrap'
 import MaskedInput from 'react-maskedinput'
 import Cards from 'react-credit-cards';
 
@@ -29,6 +30,7 @@ const Wizard3 = ({
         number: '',
         last: '',
     })
+    const [typeCont, setTypeCont] = useState(false)
 
     const formData = (rawData) => {
         let form = new FormData();
@@ -163,87 +165,144 @@ const Wizard3 = ({
 
     return(
         // SECTION 3
-        <section>
+        <section style={{width: '40vw'}}>
             <div id='PaymentForm'>
-                <Cards
-                    cvc={card.cvc}
-                    expiry={card.expiry}
-                    name={card.name}
-                    focused={card.focus}
-                    number={card.number}
-                    callback={onCardChange}
-                />
-                <form className='pt-10 customForm'>
-                    <div className='pt-10'>
-                        <div className='form-row'>
-                            <label>Card number *</label>
-                            <MaskedInput
-                                type='tel'
-                                name='number'
-                                value={card.number}
-                                className='form-control'
-                                onFocus={handleInputFocus}
-                                mask='1111-1111-1111-1111'
-                                onChange={onCardNumberChange}
-                                placeholder={`XXXX-XXXX-XXXX-XXXX`}
-                            />
-                            {errorText.number ? (
-                                <div className='validation-error'>
-                                    {errorText.number}
-                                </div>
-                            ) : null}
-                        </div>
-                        <div className='form-row'>
-                            <label>Card owner *</label>
-                            <input
-                                type='text'
-                                name='name'
-                                className='form-control'
-                                value={card.name}
-                                onFocus={handleInputFocus}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div className='form-row form-group'>
-                            <div className='form-holder'>
-                                <label>Expiry *</label>
-                                <input
-                                    type='tel'
-                                    name='expiry'
-                                    maxLength={4}
-                                    value={card.expiry}
-                                    className='form-control'
-                                    onFocus={handleInputFocus}
-                                    onChange={onExpiryChange}
-                                    // onChange={handleInputChange}
-                                />
-                                {errorText.expiry ? (
-                                    <div className='validation-error'>
-                                        {errorText.expiry}
-                                    </div>
-                                ) : null}
-                            </div>
-                            <div className='form-holder'>
-                                <label>CVV *</label>
-                                <input
-                                    type='text'
-                                    name='cvc'
-                                    maxLength={3}
-                                    value={card.cvc}
-                                    onChange={onCvcChange}
-                                    className='form-control'
-                                    onFocus={handleInputFocus}
-                                    // onChange={handleInputChange}
-                                />
-                                {errorText.cvc ? (
-                                    <div className='validation-error'>
-                                        {errorText.cvc}
-                                    </div>
-                                ) : null}
-                            </div>
-                        </div>
+                <div className='checkbox--row--title'>
+                    Payment Type
+                </div>
+                <div
+                    className='flex--row'
+                    style={{marginBottom: '2em'}}
+                >
+                    <div
+                        className='checkbox--row'
+                        onClick={() => setTypeCont(false)}
+                    >
+                        <input
+                            id="biir"
+                            name="biir"
+                            type="checkbox"
+                            checked={!typeCont ? true : false}
+                        />
+                        <label htmlFor="biir">Card payment</label>
                     </div>
-                </form>
+                    <div
+                        className='checkbox--row'
+                        style={{marginLeft: '2em'}}
+                        onClick={() => setTypeCont(true)}
+                    >
+                        <input
+                            id="ikkii"
+                            name="ikkii"
+                            type="checkbox"
+                            checked={typeCont ? true : false}
+                        />
+                        <label htmlFor="ikkii">Insurance</label>
+                    </div>
+                </div>
+                {typeCont ? (
+                    <div>
+                        <label htmlFor="custom-file-1">Choose file 1</label>
+                        <Form>
+                            <Form.File 
+                                id="custom-file-1"
+                                label="Custom file"
+                                custom
+                            />
+                        </Form>
+                        <label htmlFor="custom-file-2" style={{margin: '2em 0'}}>Choose file 2</label>
+                        <Form>
+                            <Form.File 
+                                id="custom-file-2"
+                                label="Custom file"
+                                custom
+                            />
+                        </Form>
+                    </div>
+                ) : (
+                    <>
+                        <Cards
+                            cvc={card.cvc}
+                            expiry={card.expiry}
+                            name={card.name}
+                            focused={card.focus}
+                            number={card.number}
+                            callback={onCardChange}
+                        />
+                        <form className='pt-10 customForm'>
+                            <div className='pt-10'>
+                                <div className='form-row'>
+                                    <label>Card number *</label>
+                                    <MaskedInput
+                                        type='tel'
+                                        name='number'
+                                        value={card.number}
+                                        className='form-control'
+                                        onFocus={handleInputFocus}
+                                        mask='1111-1111-1111-1111'
+                                        onChange={onCardNumberChange}
+                                        placeholder={`XXXX-XXXX-XXXX-XXXX`}
+                                    />
+                                    {errorText.number ? (
+                                        <div className='validation-error'>
+                                            {errorText.number}
+                                        </div>
+                                    ) : null}
+                                </div>
+                                <div className='form-row'>
+                                    <label>Card owner *</label>
+                                    <input
+                                        type='text'
+                                        name='name'
+                                        className='form-control'
+                                        value={card.name}
+                                        onFocus={handleInputFocus}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                                <div className='form-row form-group'>
+                                    <div className='form-holder'>
+                                        <label>Expiry *</label>
+                                        <input
+                                            type='tel'
+                                            name='expiry'
+                                            maxLength={4}
+                                            value={card.expiry}
+                                            className='form-control'
+                                            onFocus={handleInputFocus}
+                                            onChange={onExpiryChange}
+                                            // onChange={handleInputChange}
+                                        />
+                                        {errorText.expiry ? (
+                                            <div className='validation-error'>
+                                                {errorText.expiry}
+                                            </div>
+                                        ) : null}
+                                    </div>
+                                    <div className='form-holder'>
+                                        <label>CVV *</label>
+                                        <input
+                                            type='text'
+                                            name='cvc'
+                                            maxLength={3}
+                                            value={card.cvc}
+                                            onChange={onCvcChange}
+                                            className='form-control'
+                                            onFocus={handleInputFocus}
+                                            // onChange={handleInputChange}
+                                        />
+                                        {errorText.cvc ? (
+                                            <div className='validation-error'>
+                                                {errorText.cvc}
+                                            </div>
+                                        ) : null}
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </>
+                )}
+                
             </div>
             {errorText.last ? (
                 <div className='validation-error'>

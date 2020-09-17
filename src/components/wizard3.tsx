@@ -165,7 +165,7 @@ const Wizard3 = ({
 
     return(
         // SECTION 3
-        <section style={{width: '40vw'}}>
+        <section>
             <div id='PaymentForm'>
                 <div className='checkbox--row--title'>
                     Payment Type
@@ -201,7 +201,7 @@ const Wizard3 = ({
                     </div>
                 </div>
                 {typeCont ? (
-                    <div>
+                    <div style={{width: '35vw'}}>
                         <label htmlFor="custom-file-1">Choose file 1</label>
                         <Form>
                             <Form.File 

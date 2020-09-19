@@ -68,7 +68,7 @@ const Agreement = () => {
 				<img src={require('../assets/images/logo-blue.png')} />
 			</div>
 			<div id='wizard' style={{ overflow: 'hidden' }}>
-				<div style={{width: '40vw'}}>
+				<div className='parent--flex--row'>
                     <div className='checkbox--row--title'>Choose type of the Test</div>
                     <div className='flex--row'>
                         <div

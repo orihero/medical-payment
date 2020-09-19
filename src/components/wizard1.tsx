@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -7,6 +7,7 @@ let Wizard1 = ({
     data,
     setData,
     nextStep,
+    previousStep,
     setCurrentStep
 }) => {
 
@@ -19,6 +20,11 @@ let Wizard1 = ({
             townCity: data.townCity || '',
         })
     }, [data])
+
+    const onPreviousStep = () => {
+        setCurrentStep(0)
+        previousStep()
+    }
 
     let formik = useFormik({
         initialValues: {
@@ -53,7 +59,7 @@ let Wizard1 = ({
                 townCity,
             })
 
-            setCurrentStep(1)
+            setCurrentStep(2)
             nextStep()
         },
     })
@@ -130,8 +136,10 @@ let Wizard1 = ({
                 </div>
                 <div className='actions'>
                     <ul role='menu' aria-label='Pagination'>
-                        <li aria-disabled='true'>
-                            <a href='#previous' role='menuitem'>
+                        <li
+                            aria-disabled='false'
+                            onClick={onPreviousStep}>
+                            <a role='menuitem'>
                                 Previous
                             </a>
                         </li>

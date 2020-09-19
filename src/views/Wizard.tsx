@@ -28,6 +28,10 @@ const initialState = {
 	cardOwner: '',
 	expiry: '',
 	cvc: '',
+	isRealPayment: 1,
+	insurancePhoto: null,
+	stateId: null,
+	requestId: null,
 };
 
 const Wizard = (props) => {
@@ -37,53 +41,54 @@ const Wizard = (props) => {
 
 	const effect = async () => {
 		const obj: any = getJsonFromUrl(window.location.href)
+
 		let response = await axios.get(`https://appointment.accureference.com/api/request/${obj.requestId}`)
-		console.log('response.data: ', response.data)
 
-		let resData = {...response.data[0]}
-		let objData: any = {}
+		if(response.data.length){
+			let resData = {...response.data[0]}
+			let objData: any = {}
 
-		objData.email = resData.email
-		objData.phone = resData.phone
+			objData.email = resData.email
+			objData.phone = resData.phone
 
-		let fullnameArr = resData.fullname.split(' ').map(item => item.trim())
-		objData.firstName = fullnameArr[0]
-		objData.lastName = fullnameArr[1]
+			let fullnameArr = resData.fullname.split(' ').map(item => item.trim())
+			objData.firstName = fullnameArr[0]
+			objData.lastName = fullnameArr[1]
 
-		let addressArr = resData.address.split(',').map(item => item.trim())
-		if(addressArr.length === 1)
-			objData.country = addressArr[0]
-		if(addressArr.length === 2)
-			objData.townCity = addressArr[0]
-			objData.country = addressArr[1]
-		if(addressArr.length === 3)
-			objData.address2 = addressArr[0]
-			objData.townCity = addressArr[1]
-			objData.country = addressArr[2]
-		if(addressArr.length === 4)
-			objData.address1 = addressArr[0]
-			objData.address2 = addressArr[1]
-			objData.townCity = addressArr[2]
-			objData.country = addressArr[3]
-		if(addressArr.length > 4){
-			let lastIndex = addressArr.length - 1
-			let str = ''
-			for (let i = 0; i < lastIndex - 2; i++){
-				if(i !== 0){
-					str += `, ${addressArr[i]}`
-				} else {
-					str += addressArr[i]
+			let addressArr = resData.address.split(',').map(item => item.trim())
+			if(addressArr.length === 1)
+				objData.country = addressArr[0]
+			if(addressArr.length === 2)
+				objData.townCity = addressArr[0]
+				objData.country = addressArr[1]
+			if(addressArr.length === 3)
+				objData.address2 = addressArr[0]
+				objData.townCity = addressArr[1]
+				objData.country = addressArr[2]
+			if(addressArr.length === 4)
+				objData.address1 = addressArr[0]
+				objData.address2 = addressArr[1]
+				objData.townCity = addressArr[2]
+				objData.country = addressArr[3]
+			if(addressArr.length > 4){
+				let lastIndex = addressArr.length - 1
+				let str = ''
+				for (let i = 0; i < lastIndex - 2; i++){
+					if(i !== 0){
+						str += `, ${addressArr[i]}`
+					} else {
+						str += addressArr[i]
+					}
 				}
+
+				objData.address1 = str
+				objData.address2 = addressArr[lastIndex-2]
+				objData.townCity = addressArr[lastIndex-1]
+				objData.country = addressArr[lastIndex]
 			}
 
-			objData.address1 = str
-			objData.address2 = addressArr[lastIndex-2]
-			objData.townCity = addressArr[lastIndex-1]
-			objData.country = addressArr[lastIndex]
+			setData({...data, ...objData, requestId: obj.requestId})
 		}
-
-		setData({...data, ...objData})
-		console.log('addressArr: ', addressArr)
 	}
 
 	useEffect(() => {
@@ -143,28 +148,36 @@ const Wizard = (props) => {
 				</div>
 				<StepWizard
 					instance={(wizardInstance) => setWizard(wizardInstance)}>
-					<Wizard1
+					<Wizard3
 						data={data}
 						setData={setData}
 						nextStep={nextStep}
 						setCurrentStep={setCurrentStep}
+						// previousStep={goPreviousStep}
 					/>
-					<Wizard2
+					<Wizard1
 						data={data}
 						setData={setData}
 						nextStep={nextStep}
 						previousStep={goPreviousStep}
 						setCurrentStep={setCurrentStep}
+					/>
+					<Wizard2
+						data={data}
+						setData={setData}
+						initialState={initialState}
+						previousStep={goPreviousStep}
+						setCurrentStep={setCurrentStep}
 						// previousStep={() => wizard.previousStep()}
 					/>
-					<Wizard3
+					{/* <Wizard3
 						data={data}
 						setData={setData}
 						goInitial={goToInitial}
 						previousStep={goPreviousStep}
 						setCurrentStep={setCurrentStep}
 						// previousStep={() => wizard.previousStep()}
-					/>
+					/> */}
 				</StepWizard>
 			</div>
 		</div>

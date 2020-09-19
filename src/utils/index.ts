@@ -37,3 +37,13 @@ export const getJsonFromUrl = (url: string) => {
     });
     return result;
 }
+
+export const formData = (rawData) => {
+    let form = new FormData();
+
+    Object.keys(rawData).forEach((key) => {
+        form.append(key, rawData[key]);
+    });
+
+    return form;
+};

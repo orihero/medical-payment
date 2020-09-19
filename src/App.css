@@ -266,17 +266,20 @@ body {
 	transition: all 0.5s ease;
 }
 .steps ul:before {
-	content: 'Billing Details';
+	/* content: 'Billing Details'; */
+	content: 'Your Order';
 	font-size: 22px;
 	color: #333;
 	top: -38px;
 	position: absolute;
 }
 .steps ul.step-2:before {
-	content: 'Additional Information';
+	/* content: 'Additional Information'; */
+	content: 'Billing Details';
 }
 .steps ul.step-3:before {
-	content: 'Your Order';
+	/* content: 'Your Order'; */
+	content: 'Additional Information';
 }
 .steps ul.step-4:before {
 	content: 'Billing Method';

@@ -4,11 +4,14 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import validator from 'validator';
 import MaskedInput from 'react-maskedinput';
+import axios from 'axios'
+
+import { formData } from '../utils'
 
 const Wizard2 = ({
 	data,
 	setData,
-	nextStep,
+	initialState,
 	previousStep,
 	setCurrentStep
 }) => {
@@ -23,7 +26,7 @@ const Wizard2 = ({
 	}, [data])
 
 	const onPreviousStep = () => {
-		setCurrentStep(0)
+		setCurrentStep(1)
 		previousStep()
 	}
 
@@ -61,22 +64,84 @@ const Wizard2 = ({
 			postCode: Yup.string().min(3).max(12).required('Required'),
 			email: Yup.string().required('Required'),
 		}),
-		onSubmit: values => {
+		onSubmit: async values => {
 			if(!checkPhoneNumber()) {
 				setErrorText('Please enter valid phone number')
 			} else {
 				setErrorText('')
 				const { country, postCode, email } = values
 
-				setData({
-					...data,
-					country,
-					postCode,
-					email,
-				})
+				console.log('OK!')
+				const {
+					firstName,
+					lastName,
+					address1,
+					address2,
+					townCity,
+					phone,
+					cardNumber,
+					cardOwner,
+					expiry,
+					cvc,
+					isRealPayment,
+					insurancePhoto,
+					stateId,
+					requestId,
+				} = data
 
-				setCurrentStep(2)
-				nextStep()
+				let rawData: any = {
+					firstname: firstName,
+					lastname: lastName,
+					address: `${address1} ${address2}`,
+					city: townCity,
+					postcode: postCode,
+					phone,
+					email,
+					country: '1',
+					isRealPayment,
+					request_id: requestId,
+					company_name: 'company_name',
+					add_address: 'add_address',
+				}
+
+				if(isRealPayment){
+					rawData = {
+						...rawData,
+						card_numer: cardNumber,
+						card_owner: cardOwner,
+						card_expiry: expiry,
+						card_cvv: cvc,
+					}
+				} else {
+					rawData = {
+						...rawData,
+						stateId,
+						insurancePhoto,
+					}
+				}
+
+				console.log('rawData: ', rawData)
+
+				let fmData = formData(rawData)
+				
+				try {
+					const response = await axios.post('https://appointment.accureference.com/api/payment', fmData)
+
+					console.log('response: ', response)
+
+				    if(response.data.status === 'error'){
+				        alert('Invalid credentials')
+				    } else if (response.data.type === 'error' && response.data.data === 'Insufficient funds'){
+						alert(response.data.data)
+					} else {
+						setData({ ...initialState })
+				        window.location.reload()
+				        // goInitial()
+				    }
+				} catch(err){
+					alert(`Error: ${err.toString()}`)
+				    console.log('apiErr: ', err)
+				}
 			}
 		},
 	})
@@ -155,7 +220,7 @@ const Wizard2 = ({
 								type='submit'
 								style={{ background: 'none' }}
 							>
-								<a role='menuitem'>Next</a>
+								<a role='menuitem'>Finish</a>
 							</button>
 						</li>
 					</ul>

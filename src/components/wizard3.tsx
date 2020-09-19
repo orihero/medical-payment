@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 
-import axios from 'axios'
-
 import { Form } from 'react-bootstrap'
 import MaskedInput from 'react-maskedinput'
 import Cards from 'react-credit-cards';
@@ -11,16 +9,17 @@ enum Fields { cvc = 'cvc' }
 const Wizard3 = ({
     data,
     setData,
-    goInitial,
-    previousStep,
+    nextStep,
     setCurrentStep
 }) => {
+    const [typeCont, setTypeCont] = useState(!data.isRealPayment ? true : false)
+
     const [card, setCard] = useState({
-		cvc: '',
-		expiry: '',
+		cvc: data.cvc || '',
+		expiry: data.expiry || '',
 		focus: '' as Fields,
-		name: '',
-		number: '',
+		name: data.cardOwner || '',
+		number: data.cardNumber || '',
     });
     const [errorText, setErrorText] = useState({
         cvc: '',
@@ -30,22 +29,6 @@ const Wizard3 = ({
         number: '',
         last: '',
     })
-    const [typeCont, setTypeCont] = useState(false)
-
-    const formData = (rawData) => {
-        let form = new FormData();
-
-        Object.keys(rawData).forEach((key) => {
-            form.append(key, rawData[key]);
-        });
-
-        return form;
-    };
-
-    const onPreviousStep = () => {
-        setCurrentStep(1)
-        previousStep()
-    }
     
     const handleInputFocus = (e: any) => {
 		setCard({ ...card, focus: e.target.name });
@@ -93,74 +76,78 @@ const Wizard3 = ({
         setCard({...card, cvc: e.target.value.replace(/[^\d+]/g, '')})
     }
 
+    const [files, setFiles] = useState({
+        insurancePhoto: data.insurancePhoto || null,
+        stateId: data.stateId || null,
+    })
+
+    const onSelectedFileChange = (e, isFirst) => {
+        if(isFirst){
+            setFiles({...files, insurancePhoto: e.target.files[0]})
+        } else {
+            setFiles({...files, stateId: e.target.files[0]})
+        }
+    }
+
     const onSubmit = async (e: any) => {
         e.preventDefault()
-        const { cvc, expiry, name, number } = card
-        const { cvc: cvcError, expiry: expiryError } = errorText
-
         setErrorText({...errorText, last: ''})
 
-        if(
-            cvc === '' || expiry === '' || name === '' ||
-            number === '' || cvcError || expiryError ||
-            parseInt(number).toString().length !== 16
-
-        ){
-            setErrorText({...errorText, last: 'Make sure you filled all fields correctly'})
-        } else {
+        if(typeCont){
             const {
-                firstName,
-                lastName,
-                address1,
-                address2,
-                townCity,
-                country,
-                postCode,
-                phone,
-                email,
-            } = data
+                stateId,
+                insurancePhoto,
+            } = files
 
-            let rawData = {
-                firstname: firstName,
-                lastname: lastName,
-                country: 1,
-                address: `${address1}, ${address2}`,
-                city: townCity,
-                postcode: postCode,
-                phone,
-                email,
-                card_numer: number,
-                card_owner: name,
-                card_expiry: expiry,
-                card_cvv: cvc,
+            if(insurancePhoto && stateId){
+                setData({
+                    ...data,
+                    cvc: '',
+                    expiry: '',
+                    cardNumber: '',
+                    cardOwner: '',
+                    stateId,
+                    insurancePhoto,
+                    isRealPayment: 0,
+                })
+
+                setCurrentStep(1)
+                nextStep()
+            } else {
+                setErrorText({...errorText, last: 'Make sure you selected all fields with files'})
             }
-            
-            try {
-                const response = await axios.post('https://appointment.accureference.com/api/payment', rawData)
+        } else {
+            const { cvc, expiry, name, number } = card
+            const {
+                cvc: cvcError,
+                name: nameError,
+                expiry: expiryError,
+                number: numberError,
+            } = errorText
 
-                if(response.data.status === 'error'){
-                    alert('Invalid credentials')
-                } else {
-                    setCard({
-                        cvc: '',
-                        expiry: '',
-                        focus: '' as Fields,
-                        name: '',
-                        number: '',
-                    })
-                    console.log('response: ', response)
-                    console.log('response.data: ', response.data)
-                    setErrorText({...errorText, number: ''})
-                    window.location.reload()
-                    // goInitial()
-                }
-            } catch(err){
-                console.log('apiErr: ', err)
+            if(
+                cvc === '' || expiry === '' || name === '' ||
+                number === '' || cvcError || expiryError ||
+                parseInt(number).toString().length !== 16 ||
+                numberError || nameError
+            ){
+                setErrorText({...errorText, last: 'Make sure you filled all fields correctly'})
+            } else {
+                setData({
+                    ...data,
+                    stateId: null,
+                    insurancePhoto: null,
+                    cvc,
+                    expiry,
+                    cardOwner: name,
+                    isRealPayment: 1,
+                    cardNumber: number,
+                })
+
+                setCurrentStep(1)
+                nextStep()
             }
         }
-        // window.location.replace(
-        //     `https://appointment.accureference.com?paymentId=${0}`
-        // )
     }
 
     return(
@@ -202,20 +189,28 @@ const Wizard3 = ({
                 </div>
                 {typeCont ? (
                     <div style={{width: '35vw'}}>
-                        <label htmlFor="custom-file-1">Choose file 1</label>
+                        <label htmlFor="custom-file-1">
+                            {files.insurancePhoto ? 'File 1 selected' : 'Choose file 1'}
+                        </label>
                         <Form>
                             <Form.File 
-                                id="custom-file-1"
-                                label="Custom file"
                                 custom
+                                id="custom-file-1"
+                                accept=".png, .jpg, .jpeg"
+                                onChange={e => onSelectedFileChange(e, true)}
+                                label={files.insurancePhoto ? 'File Selected' : "Choose file"}
                             />
                         </Form>
-                        <label htmlFor="custom-file-2" style={{margin: '2em 0'}}>Choose file 2</label>
+                        <label htmlFor="custom-file-2" style={{margin: '2em 0'}}>
+                            {files.stateId ? 'File 2 selected' : 'Choose file 2'}
+                        </label>
                         <Form>
                             <Form.File 
-                                id="custom-file-2"
-                                label="Custom file"
                                 custom
+                                id="custom-file-2"
+                                accept=".png, .jpg, .jpeg"
+                                onChange={e => onSelectedFileChange(e, false)}
+                                label={files.stateId ? 'File Selected' : "Choose file"}
                             />
                         </Form>
                     </div>
@@ -271,7 +266,6 @@ const Wizard3 = ({
                                             className='form-control'
                                             onFocus={handleInputFocus}
                                             onChange={onExpiryChange}
-                                            // onChange={handleInputChange}
                                         />
                                         {errorText.expiry ? (
                                             <div className='validation-error'>
@@ -289,7 +283,6 @@ const Wizard3 = ({
                                             onChange={onCvcChange}
                                             className='form-control'
                                             onFocus={handleInputFocus}
-                                            // onChange={handleInputChange}
                                         />
                                         {errorText.cvc ? (
                                             <div className='validation-error'>
@@ -305,16 +298,14 @@ const Wizard3 = ({
                 
             </div>
             {errorText.last ? (
-                <div className='validation-error'>
+                <div className='validation-error' style={{marginTop: '2em'}}>
                     {errorText.last}
                 </div>
             ) : null}
             <div className='actions'>
                 <ul role='menu' aria-label='Pagination'>
-                    <li
-                        aria-disabled='false'
-                        onClick={onPreviousStep}>
-                        <a role='menuitem'>
+                    <li aria-disabled='true'>
+                        <a href='#previous' role='menuitem'>
                             Previous
                         </a>
                     </li>
@@ -323,7 +314,7 @@ const Wizard3 = ({
                             role='menuitem'
                             onClick={onSubmit}
                         >
-                            Finish
+                            Next
                         </a>
                     </li>
                 </ul>

@@ -685,6 +685,9 @@ textarea.form-control {
 	.checkbox--btn--row button{
 		padding: 10px 22px;
 	}
+	.homedraw--cont{
+		padding-top: 5em;
+	}
 }
 @media (max-width: 1073px) {
 	.checkbox--row--title{
@@ -804,6 +807,11 @@ textarea.form-control {
 		font-size: 0.75em;
 		padding: 8px 18px;
 	}
+	.homedraw--cont {
+		width: 350px;
+		background-color: aqua;
+		padding-top: 0;
+	}
 }
 @media (max-width: 476px){
 	.checkbox--row--title{
@@ -837,6 +845,10 @@ textarea.form-control {
 	.checkbox--btn--row button{
 		font-size: 0.65em;
 		padding: 7px 14px;
+	}
+	.homedraw--cont {
+		width: 250px;
+		background-color: aquamarine;
 	}
 }
 @media (max-width: 370px){
@@ -878,6 +890,10 @@ textarea.form-control {
 		font-size: 0.5em;
 		padding: 5px 10px;
 	}
+	.homedraw--cont {
+		width: 200px;
+		background-color: pink;
+	}
 }
 @media (max-width: 250px){
 	.checkbox--row--title{
@@ -903,6 +919,10 @@ textarea.form-control {
 	.checkbox--btn--row button{
 		font-size: 0.5em;
 		padding: 5px 10px;
+	}
+	.homedraw--cont {
+		width: 170px;
+		background-color: yellow;
 	}
 }
 

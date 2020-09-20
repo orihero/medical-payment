@@ -355,8 +355,6 @@ const HomeDraw = () => {
 												</div>
 											) : null}
 										</div>
-									</div>
-									<div className='flex--input--row'>
 										<div className='flex--input--box'>
 											<label
 												htmlFor={`lastnameLabel${index}`}>
@@ -381,6 +379,9 @@ const HomeDraw = () => {
 											) : null}
 										</div>
 									</div>
+									{/* <div className='flex--input--row'>
+										
+									</div> */}
 								</div>
 						  ))
 						: null}

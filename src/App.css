@@ -3,7 +3,7 @@
 }
 
 .validation-error {
-	color:  red;
+	color: red;
 	font-size: 0.8em;
 	line-height: 2em;
 }
@@ -102,61 +102,72 @@ body {
 .wrapper form {
 	width: 49%;
 }
-.checkbox--row--title{ /* / */
+.checkbox--row--title {
+	/* / */
 	font-size: 1.4em;
 	color: #333;
 	font-weight: 500;
 	margin: 2vh 0 4vh 0;
 }
-.parent--flex--row{
+.parent--flex--row {
 	width: 40vw;
 }
-.flex--row{ /* / */
+.flex--row {
+	/* / */
 	display: flex;
 	align-items: center;
 	/* justify-content: space-between; */
 	/* background-color: aqua; */
 }
-.checkbox--row{ /* / */
+.checkbox--row {
+	/* / */
 	display: flex;
 	align-items: center;
 	border-bottom: 1px solid #aaa;
 }
-.checkbox--row input{ /* / */
+.checkbox--row input {
+	/* / */
 	width: 20px;
 	height: 20px;
 }
-.checkbox--row label{ /* / */
+.checkbox--row label {
+	/* / */
 	font-size: 1.05em;
 	font-weight: 400;
 	margin-left: 6px;
 	margin-top: 8px;
 }
-.checkbox--btn--row{ /* / */
+.checkbox--btn--row {
+	/* / */
 	margin-top: 10vh;
 	display: flex;
 	justify-content: flex-end;
 }
-.checkbox--btn--row button{ /* / */
+.checkbox--btn--row button {
+	/* / */
 	outline: none;
 	border: none;
 	padding: 0.75em 1.8em;
 }
-.checkbox--btn--row button:hover{ /* / */
+.checkbox--btn--row button:hover {
+	/* / */
 	background-color: #ddd;
 }
-.homedraw--cont { /* / */
+.homedraw--cont {
+	/* / */
 	width: 35vw;
 }
-.homedraw--cont .homedraw--row{ /* / */
-	
+.homedraw--cont .homedraw--row {
+	/* / */
 }
-.homedraw--row .homedraw--error{ /* / */
+.homedraw--row .homedraw--error {
+	/* / */
 	margin: 0.5em 0 0 1em;
 	font-size: 0.9em;
 	color: red;
 }
-.homedraw--cont .input{ /* / */
+.homedraw--cont .input {
+	/* / */
 	width: 100%;
 	display: block;
 	font-size: 1.1em;
@@ -165,20 +176,23 @@ body {
 	border-radius: 5px;
 	border: 1px solid #aaa;
 }
-.homedraw--cont label{ /* / */
+.homedraw--cont label {
+	/* / */
 	color: #444;
 	cursor: pointer;
 	font-size: 1.1em;
 	font-weight: 500;
 	padding: 0.25em 0.75em;
 }
-.homedraw--cont p{ /* / */
+.homedraw--cont p {
+	/* / */
 	margin-top: 1em;
 	font-size: 1.1em;
 	font-weight: 400;
 	/* padding: 0.25em 0.75em; */
 }
-.homedraw--cont select{ /* / */
+.homedraw--cont select {
+	/* / */
 	width: 100%;
 	padding: 0.5em;
 	display: block;
@@ -187,31 +201,36 @@ body {
 	border-radius: 5px;
 	border: 1px solid #aaa;
 }
-.homedraw--cont .flex--input--row{ /* / */
+.homedraw--cont .flex--input--row {
+	/* / */
 	display: flex;
 	flex-direction: row;
 	padding-bottom: 1em;
 	justify-content: space-between;
 	border-bottom: 1px solid #ccc;
 }
-.homedraw--cont .flex--input--box{ /* / */
-	width: 45%;
+.homedraw--cont .flex--input--box {
+	/* / */
+	width: 100%;
 }
-.homedraw--cont .flex--input--box .flex--input--error{ /* / */
+.homedraw--cont .flex--input--box .flex--input--error {
+	/* / */
 	font-size: 0.8em;
 	margin: 0.5em 0 0 1em;
 	color: red;
 }
-.homedraw--cont .flex--input--box input{ /* / */
+.homedraw--cont .flex--input--box input {
+	/* / */
 	width: 100%;
 	border-radius: 5px;
 	padding: 0.25em 0.75em;
 	border: 1px solid #aaa;
 }
-.homedraw--cont .flex--input--box label{ /* / */
+.homedraw--cont .flex--input--box label {
+	/* / */
 	font-size: 0.9em;
 }
-.modal--bottom--box{
+.modal--bottom--box {
 	display: flex;
 	margin-top: 1em;
 	padding-top: 1em;
@@ -219,12 +238,12 @@ body {
 	border-top: 1px solid #444;
 	justify-content: space-between;
 }
-.modal--bottom--box label{
+.modal--bottom--box label {
 	font-size: 1.1em;
 	font-weight: 400;
 	margin-left: 0.5em;
 }
-.modal--bottom--box button{
+.modal--bottom--box button {
 	outline: none;
 	border: none;
 	padding: 0.5em 1em;
@@ -240,7 +259,7 @@ body {
 	margin-right: 60px;
 	padding: 107px 75px 65px;
 }
-.wrapper #wizard .wizard4{
+.wrapper #wizard .wizard4 {
 	width: 35vw;
 	background-color: aqua;
 }
@@ -667,40 +686,40 @@ textarea.form-control {
 		padding-right: 60px;
 	}
 
-	.flex--row{
+	.flex--row {
 		/* background-color: yellow; */
 	}
-	.checkbox--row--title{
+	.checkbox--row--title {
 		font-size: 1.3em;
 	}
-	.checkbox--row label{
+	.checkbox--row label {
 		font-size: 0.9em;
 	}
-	.checkbox--row input{
+	.checkbox--row input {
 		width: 15px;
 		height: 15px;
 	}
-	.checkbox--btn--row{
+	.checkbox--btn--row {
 		margin-top: 55px;
 	}
-	.checkbox--btn--row button{
+	.checkbox--btn--row button {
 		padding: 10px 22px;
 	}
-	.homedraw--cont{
+	.homedraw--cont {
 		padding-top: 5em;
 	}
 }
 @media (max-width: 1073px) {
-	.checkbox--row--title{
+	.checkbox--row--title {
 		font-size: 1.2em;
 	}
-	.checkbox--row label{
+	.checkbox--row label {
 		font-size: 0.8em;
 	}
-	.checkbox--btn--row{
+	.checkbox--btn--row {
 		margin-top: 45px;
 	}
-	.checkbox--btn--row button{
+	.checkbox--btn--row button {
 		font-size: 0.9em;
 		padding: 9px 20px;
 	}
@@ -721,39 +740,39 @@ textarea.form-control {
 		padding-left: 40px;
 		padding-right: 40px;
 	}
-	.checkbox--row--title{
+	.checkbox--row--title {
 		font-size: 1.15em;
 	}
-	.checkbox--row label{
+	.checkbox--row label {
 		font-size: 0.69em;
 	}
-	.checkbox--row input{
+	.checkbox--row input {
 		width: 12px;
 		height: 12px;
 	}
-	.checkbox--btn--row{
+	.checkbox--btn--row {
 		margin-top: 35px;
 	}
-	.checkbox--btn--row button{
+	.checkbox--btn--row button {
 		font-size: 0.85em;
 		padding: 8px 18px;
 	}
 }
 @media (max-width: 879px) {
-	.checkbox--row--title{
+	.checkbox--row--title {
 		font-size: 1.1em;
 	}
-	.checkbox--row label{
+	.checkbox--row label {
 		font-size: 0.55em;
 	}
-	.checkbox--row input{
+	.checkbox--row input {
 		width: 10px;
 		height: 10px;
 	}
-	.checkbox--btn--row{
+	.checkbox--btn--row {
 		margin-top: 25px;
 	}
-	.checkbox--btn--row button{
+	.checkbox--btn--row button {
 		font-size: 0.8em;
 		padding: 8px 18px;
 	}
@@ -788,23 +807,23 @@ textarea.form-control {
 	.item .purchase {
 		margin-left: 11px;
 	}
-	.flex--row{
+	.flex--row {
 		width: max-content;
 	}
-	.checkbox--row--title{
+	.checkbox--row--title {
 		font-size: 1.1em;
 	}
-	.checkbox--row label{
+	.checkbox--row label {
 		font-size: 0.9em;
 	}
-	.checkbox--row input{
+	.checkbox--row input {
 		width: 18px;
 		height: 18px;
 	}
-	.checkbox--btn--row{
+	.checkbox--btn--row {
 		margin-top: 20px;
 	}
-	.checkbox--btn--row button{
+	.checkbox--btn--row button {
 		font-size: 0.75em;
 		padding: 8px 18px;
 	}
@@ -813,36 +832,36 @@ textarea.form-control {
 		padding-top: 0;
 	}
 }
-@media (max-width: 476px){
-	.checkbox--row--title{
+@media (max-width: 476px) {
+	.checkbox--row--title {
 		font-size: 0.95em;
 	}
-	.checkbox--row label{
+	.checkbox--row label {
 		font-size: 0.75em;
 	}
-	.checkbox--row input{
+	.checkbox--row input {
 		width: 15px;
 		height: 15px;
 	}
-	.checkbox--btn--row{
+	.checkbox--btn--row {
 		margin-top: 30px;
 	}
 }
-@media (max-width: 420px){
-	.checkbox--row--title{
+@media (max-width: 420px) {
+	.checkbox--row--title {
 		font-size: 0.85em;
 	}
-	.checkbox--row label{
+	.checkbox--row label {
 		font-size: 0.65em;
 	}
-	.checkbox--row input{
+	.checkbox--row input {
 		width: 13px;
 		height: 13px;
 	}
-	.checkbox--btn--row{
+	.checkbox--btn--row {
 		margin-top: 20px;
 	}
-	.checkbox--btn--row button{
+	.checkbox--btn--row button {
 		font-size: 0.65em;
 		padding: 7px 14px;
 	}
@@ -850,42 +869,42 @@ textarea.form-control {
 		width: 250px;
 	}
 }
-@media (max-width: 370px){
-	.checkbox--row--title{
+@media (max-width: 370px) {
+	.checkbox--row--title {
 		font-size: 0.69em;
 	}
-	.checkbox--row label{
+	.checkbox--row label {
 		margin-left: 3px;
 		font-size: 0.53em;
 	}
-	.checkbox--row input{
+	.checkbox--row input {
 		width: 8px;
 		height: 8px;
 	}
-	.checkbox--btn--row{
+	.checkbox--btn--row {
 		margin-top: 20px;
 	}
-	.checkbox--btn--row button{
+	.checkbox--btn--row button {
 		font-size: 0.55em;
 		padding: 6px 12px;
 	}
 }
-@media (max-width: 300px){
-	.checkbox--row--title{
+@media (max-width: 300px) {
+	.checkbox--row--title {
 		font-size: 0.57em;
 	}
-	.checkbox--row label{
+	.checkbox--row label {
 		margin-left: 2px;
 		font-size: 0.4em;
 	}
-	.checkbox--row input{
+	.checkbox--row input {
 		width: 6px;
 		height: 6px;
 	}
-	.checkbox--btn--row{
+	.checkbox--btn--row {
 		margin-top: 30px;
 	}
-	.checkbox--btn--row button{
+	.checkbox--btn--row button {
 		font-size: 0.5em;
 		padding: 5px 10px;
 	}
@@ -893,28 +912,28 @@ textarea.form-control {
 		width: 200px;
 	}
 }
-@media (max-width: 250px){
-	.checkbox--row--title{
+@media (max-width: 250px) {
+	.checkbox--row--title {
 		font-size: 0.46em;
 	}
-	#wizard{
+	#wizard {
 		padding-left: 5px;
 	}
-	.flex--row{
+	.flex--row {
 		justify-content: flex-start;
 	}
-	.checkbox--row label{
+	.checkbox--row label {
 		margin-left: 1px;
 		font-size: 0.2em;
 	}
-	.checkbox--row input{
+	.checkbox--row input {
 		width: 4px;
 		height: 4px;
 	}
-	.checkbox--btn--row{
+	.checkbox--btn--row {
 		margin-top: 30px;
 	}
-	.checkbox--btn--row button{
+	.checkbox--btn--row button {
 		font-size: 0.5em;
 		padding: 5px 10px;
 	}

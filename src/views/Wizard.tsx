@@ -97,7 +97,6 @@ const Wizard = (props) => {
 
 	const goToInitial = () => {
 		setData({ ...initialState });
-		console.log('iwladi');
 		setCurrentStep(0);
 		//@ts-ignore
 		wizard.goToStep(1);

@@ -32,6 +32,7 @@ const initialState = {
 	insurancePhoto: null,
 	stateId: null,
 	requestId: null,
+	request_type: 0,
 };
 
 const Wizard = (props) => {
@@ -41,6 +42,7 @@ const Wizard = (props) => {
 
 	const effect = async () => {
 		const obj: any = getJsonFromUrl(window.location.href)
+		console.log('obj: ', obj)
 
 		let response = await axios.get(`https://appointment.accureference.com/api/request/${obj.requestId}`)
 
@@ -85,6 +87,11 @@ const Wizard = (props) => {
 				objData.address2 = addressArr[lastIndex-2]
 				objData.townCity = addressArr[lastIndex-1]
 				objData.country = addressArr[lastIndex]
+			}
+
+			if(parseInt(obj.type) === 1){
+				console.log('if:')
+				objData.request_type = 1
 			}
 
 			setData({...data, ...objData, requestId: obj.requestId})

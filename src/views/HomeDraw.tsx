@@ -5,6 +5,7 @@ import DateTimePicker from 'reactstrap-date-picker';
 import validator from 'validator';
 import MaskedInput from 'react-maskedinput';
 import axios from 'axios'
+import { formData } from '../utils'
 
 const times = [
 	'9:00',
@@ -232,6 +233,7 @@ const HomeDraw = () => {
 		} = state
 
 		let visitD = formattedValue.replace(/\//g, '-')
+		visitD = visitD.slice(6) + '-' + visitD.slice(3, 5) + '-' + visitD.slice(0, 2)
 		let visit_date_time = visitD + ' ' + visitTime + ':00'
 
 		let obj: any = {
@@ -241,16 +243,18 @@ const HomeDraw = () => {
 			visit_date_time,
 			number_of_peoples,
 		}
-
 		for(let i = 0; i < number_of_peoples; i++){
 			obj[`firstname[${i}]`] = fullnameArr[i].firstname
 			obj[`lastname[${i}]`] = fullnameArr[i].lastname
 		}
+		obj.type = parseInt(obj.type)
+		obj = formData(obj)
 
 		axios.post('https://appointment.accureference.com/api/homedraw', obj)
 			.then(res => {
 				if(res.data.status === 'success'){
-					history.push('/agreement');
+					console.log('res.data: ', res.data)
+					history.push(`/appointment?type=1&requestId=${res.data.data.id}`);
 				} else {
 					console.log('res.data: ', res.data)
 					alert('Invalid credentials')

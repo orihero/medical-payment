@@ -104,6 +104,7 @@ const Wizard2 = ({
 			insurancePhoto,
 			stateId,
 			requestId,
+			request_type,
 		} = data
 
 		let rawData: any = {
@@ -119,6 +120,7 @@ const Wizard2 = ({
 			request_id: requestId,
 			company_name: 'company_name',
 			add_address: 'add_address',
+			request_type,
 		}
 
 		if(isRealPayment){
@@ -138,6 +140,9 @@ const Wizard2 = ({
 		}
 
 		let fmData = formData(rawData)
+
+		console.log('rawData: ', rawData)
+		console.log('fmData: ', fmData)
 				
 		try {
 			const response = await axios.post('https://appointment.accureference.com/api/payment', fmData)

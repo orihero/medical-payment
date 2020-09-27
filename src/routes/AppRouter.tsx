@@ -19,7 +19,7 @@ export default function AppRouter() {
 				<Route path='/agreement' exact>
 					<Agreement />
 				</Route>
-				<Route path='/home-draw' exact>
+				<Route path='/home-draw/:typeTest' exact>
 					<HomeDraw />
 				</Route>
 			</Switch>

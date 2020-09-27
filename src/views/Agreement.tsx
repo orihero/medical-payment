@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { FormCheck as Check } from 'react-bootstrap';
 
 const Agreement = () => {
 	const history = useHistory();
@@ -41,26 +42,28 @@ const Agreement = () => {
 	const onFinish = (e) => {
 		e.preventDefault();
 
-        if(
-            (firstCheckValue.a || firstCheckValue.b || firstCheckValue.c)
-            && (secondCheckValue.a || secondCheckValue.b)
-        ){
-            if(secondCheckValue.a){
-                window.location.href = 'https://appointment.accureference.com'
-            } else {
-                history.push('/home-draw')
-            }
-        } else {
-            let objBool = { a: false, b: false }
-            if(!(firstCheckValue.a || firstCheckValue.b || firstCheckValue.c)){
-                objBool.a = true
-            }
-            if(!(secondCheckValue.a || secondCheckValue.b)){
-                objBool.b = true
-            }
-            setErrorText(objBool)
-        }
-    }
+		if (
+			(firstCheckValue.a || firstCheckValue.b || firstCheckValue.c) &&
+			(secondCheckValue.a || secondCheckValue.b)
+		) {
+			if (secondCheckValue.a) {
+				window.location.href = 'https://appointment.accureference.com';
+			} else {
+				history.push('/home-draw');
+			}
+		} else {
+			let objBool = { a: false, b: false };
+			if (
+				!(firstCheckValue.a || firstCheckValue.b || firstCheckValue.c)
+			) {
+				objBool.a = true;
+			}
+			if (!(secondCheckValue.a || secondCheckValue.b)) {
+				objBool.b = true;
+			}
+			setErrorText(objBool);
+		}
+	};
 
 	return (
 		<div className='wrapper'>
@@ -69,98 +72,94 @@ const Agreement = () => {
 			</div>
 			<div id='wizard' style={{ overflow: 'hidden' }}>
 				<div className='parent--flex--row'>
-                    <div className='checkbox--row--title'>Choose type of the Test</div>
-                    <div className='flex--row'>
-                        <div
-                            className='checkbox--row'
-                            onClick={() => onFirstChange('a')}
-                        >
-                            <input
-                                id="bir"
-                                name="bir"
-                                type="checkbox"
-                                checked={firstCheckValue.a ? true : false}
-                            />
-                            <label htmlFor="bir">Covid 19</label>
-                        </div>
-                        <div
-                            className='checkbox--row'
-                            style={{marginLeft: '2em'}}
-                            onClick={() => onFirstChange('b')}
-                        >
-                            <input
-                                id="ikki"
-                                name="ikki"
-                                type="checkbox"
-                                checked={firstCheckValue.b ? true : false}
-                            />
-                            <label htmlFor="ikki">Antibody Test</label>
-                        </div>
-                        <div
-                            className='checkbox--row'
-                            style={{marginLeft: '2em'}}
-                            onClick={() => onFirstChange('c')}
-                        >
-                            <input
-                                id="uch"
-                                name="uch"
-                                type="checkbox"
-                                checked={firstCheckValue.c ? true : false}
-                            />
-                            <label htmlFor="uch">Covid 19 + Antibody Test</label>
-                        </div>
-                    </div>
-                    {errorText.a ? (
-                        <div
-                            style={{marginTop: '10px'}}
-                            className='validation-error'
-                        >
-                            Type test required
-                        </div>
-                    ) : null}
-                    <div
-                        style={{marginTop: '2em'}}
-                        className='checkbox--row--title'
-                    >
-                        Choose type of the Visit
-                    </div>
-                    <div className='flex--row'>
-                        <div
-                            className='checkbox--row'
-                            onClick={() => onSecondChange('a')}
-                        >
-                            <input
-                                id="tort"
-                                name="tort"
-                                type="checkbox"
-                                checked={secondCheckValue.a ? true : false}
-                            />
-                            <label htmlFor="tort">Site Visit</label>
-                        </div>
-                        <div
-                            className='checkbox--row'
-                            style={{marginLeft: '2em'}}
-                            onClick={() => onSecondChange('b')}
-                        >
-                            <input
-                                id="besh"
-                                name="besh"
-                                type="checkbox"
-                                checked={secondCheckValue.b ? true : false}
-                            />
-                            <label htmlFor="besh">Home Draw</label>
-                        </div>
-                    </div>
-                    {errorText.b ? (
-                        <div className='validation-error'>Type location required</div>
-                    ) : null}
-                    <div
-                        className='checkbox--btn--row'
-                        style={{justifyContent: 'center'}}
-                    >
-                        <button onClick={onFinish}>Next</button>
-                    </div>
-                </div>
+					<div className='checkbox--row--title'>
+						Choose type of the Test
+					</div>
+					<div className='flex--row'>
+						<div className='checkbox--row'>
+							<Check
+								type='switch'
+								id='custom-switch1'
+								label='Covid 19'
+								checked={firstCheckValue.a}
+								onChange={() => onFirstChange('a')}
+							/>
+							{/* <label htmlFor='bir'></label> */}
+						</div>
+						<div
+							className='checkbox--row'
+							style={{ marginLeft: '2em' }}>
+							<Check
+								type='switch'
+								id='custom-switch2'
+								label='Antibody Test'
+								checked={firstCheckValue.b}
+								onChange={() => onFirstChange('b')}
+							/>
+							{/* <label htmlFor='ikki'>Antibody Test</label> */}
+						</div>
+						<div
+							className='checkbox--row'
+							style={{ marginLeft: '2em' }}>
+							<Check
+								type='switch'
+								id='custom-switch3'
+								label='Covid 19 + Antibody Test'
+								checked={firstCheckValue.c}
+								onChange={() => onFirstChange('c')}
+							/>
+							{/* <label htmlFor='uch'>
+								
+							</label> */}
+						</div>
+					</div>
+					{errorText.a ? (
+						<div
+							style={{ marginTop: '10px' }}
+							className='validation-error'>
+							Type test required
+						</div>
+					) : null}
+					<div
+						style={{ marginTop: '2em' }}
+						className='checkbox--row--title'>
+						Choose type of the Visit
+					</div>
+					<div className='flex--row'>
+						<div className='checkbox--row'>
+							<Check
+								type='switch'
+								id='custom-switch4'
+								label='Site Visit'
+								checked={secondCheckValue.a}
+								onChange={() => onSecondChange('a')}
+							/>
+							{/* <label htmlFor='tort'>Site Visit</label> */}
+						</div>
+						<div
+							className='checkbox--row'
+							style={{ marginLeft: '2em' }}>
+							<Check
+								type='switch'
+								id='custom-switch5'
+								label='Home Draw'
+								checked={secondCheckValue.b}
+								onChange={() => onSecondChange('b')}
+							/>
+							{/* <label htmlFor='besh'>Home Draw</label> */}
+						</div>
+					</div>
+					{errorText.b ? (
+						<div className='validation-error'>
+							Type location required
+						</div>
+					) : null}
+					<div
+						className='checkbox--btn--row'
+						style={{ justifyContent: 'center' }}>
+						<button onClick={onFinish}>Next</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

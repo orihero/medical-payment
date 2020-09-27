@@ -161,7 +161,7 @@ const HomeDraw = () => {
 	const onPhoneNumberChange = ({ target }) => {
 		setState({ ...state, phone: target.value });
 		// setData({ ...data, phone: target.value });
-		if (!validator.isMobilePhone(target.value, 'en-US')) {
+		if (!validator.isMobilePhone(target.value, 'any')) {
 			setErrorState({ ...errorState, phone: true });
 		} else {
 			setErrorState({ ...errorState, phone: false });

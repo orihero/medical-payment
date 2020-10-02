@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { Modal } from 'react-bootstrap';
+import { Modal, Card } from 'react-bootstrap';
 import DateTimePicker from 'reactstrap-date-picker';
 import validator from 'validator';
 import MaskedInput from 'react-maskedinput';
 import axios from 'axios'
 import { formData } from '../utils'
+import PlacesAutocomplete from 'react-places-autocomplete'
 
 const times = [
 	'9:00',
@@ -113,6 +114,8 @@ const HomeDraw = () => {
 	const [state, setState] = useState({
 		phone: '',
 		address: '',
+		suite: '',
+		apartment: '',
 		visitDate: {
 			value: null,
 			formattedValue: null,
@@ -123,6 +126,8 @@ const HomeDraw = () => {
 	const [errorState, setErrorState] = useState({
 		phone: false,
 		address: false,
+		suite: false,
+		apartment: false,
 		visitDate: false,
 		numberOfPeople: false,
 	});
@@ -149,7 +154,22 @@ const HomeDraw = () => {
 	}, [state.numberOfPeople]);
 
 	const onPickerDateChange = (value, formattedValue) => {
-		setState({ ...state, visitDate: { value, formattedValue } });
+		let currentDate = new Date()
+		let selectedDate = new Date(value)
+		currentDate.setHours(0)
+		selectedDate.setHours(0)
+		if(selectedDate > currentDate){
+			setState({ ...state, visitDate: { value, formattedValue } });
+		} else {
+			setState({
+				...state,
+				visitDate: {
+					value: null,
+					formattedValue: null
+				}
+			})
+			alert('You cannot make an appointment on this day!')
+		}
 	};
 
 	const onChange = (e) => {
@@ -178,10 +198,19 @@ const HomeDraw = () => {
 	const onFinish = (e) => {
 		e.preventDefault();
 
-		const { phone, address, visitDate, numberOfPeople } = state;
+		const {
+			suite,
+			phone,
+			address,
+			visitDate,
+			apartment,
+			numberOfPeople
+		} = state;
 
 		let obj = {
 			phone: false,
+			apartment: false,
+			suite: false,
 			address: false,
 			visitDate: false,
 			numberOfPeople: false,
@@ -197,6 +226,8 @@ const HomeDraw = () => {
 			visitDate.formattedValue &&
 			phone &&
 			address &&
+			suite &&
+			apartment &&
 			numberOfPeople &&
 			fullnameArr.every((item) => item.firstname && item.lastname)
 		) {
@@ -208,6 +239,8 @@ const HomeDraw = () => {
 			if (!phone) obj.phone = true;
 			if (!address) obj.address = true;
 			if (!numberOfPeople) obj.numberOfPeople = true;
+			if (!suite) obj.suite = true
+			if (!apartment) obj.apartment = true
 
 			fullnameArr.map((item, index) => {
 				if (!item.firstname) arr[index].first = true;
@@ -216,7 +249,7 @@ const HomeDraw = () => {
 		}
 
 		setErrFullArr([...arr]);
-		setErrorState({ ...obj });
+		setErrorState(obj);
 	};
 
 	const onFinishClick = async (e) => {
@@ -224,7 +257,9 @@ const HomeDraw = () => {
 
 		const {
 			phone,
+			suite,
 			address,
+			apartment,
 			visitDate: {
 				formattedValue
 			},
@@ -237,8 +272,10 @@ const HomeDraw = () => {
 		let visit_date_time = visitD + ' ' + visitTime + ':00'
 
 		let obj: any = {
+			suite,
 			phone,
 			address,
+			apartment,
 			type: typeTest,
 			visit_date_time,
 			number_of_peoples,
@@ -267,156 +304,245 @@ const HomeDraw = () => {
 			<div className='image-holder'>
 				<img src={require('../assets/images/logo-blue.png')} />
 			</div>
-			<div id='wizard' style={{ overflow: 'hidden', paddingTop: '2em' }}>
-				<div className='homedraw--cont'>
-					<div className='homedraw--row'>
-						<label htmlFor='visitDate'>Visit Date</label>
-						<DateTimePicker
-							id='visitDate'
-							value={state.visitDate.value}
-							onChange={(v, f) => onPickerDateChange(v, f)}
-						/>
-						{errorState.visitDate ? (
-							<div className='homedraw--error'>Required</div>
-						) : null}
-					</div>
-					<div className='homedraw--row'>
-						<label htmlFor='visitTime' style={{ marginTop: '1em' }}>
-							Visit Time
-						</label>
-						<select
-							id='visitTime'
-							name='visitTime'
-							defaultValue={times[0]}
-							onChange={(e) =>
-								setState({
-									...state,
-									visitTime: e.target.value,
-								})
-							}>
-							{times.map((item: any, index) => (
-								<option key={index} value={item}>
-									{item}
-								</option>
-							))}
-						</select>
-					</div>
-					<div className='homedraw--row'>
-						<label htmlFor='address' style={{ marginTop: '1em' }}>
-							Address
-						</label>
-						<input
-							type='text'
-							id='address'
-							className='input'
-							value={state.address}
-							placeholder='Enter address...'
-							onChange={(e) =>
-								setState({ ...state, address: e.target.value })
-							}
-						/>
-						{errorState.address ? (
-							<div className='homedraw--error'>Required</div>
-						) : null}
-					</div>
-					<div className='homedraw--row'>
-						<label htmlFor='phone' style={{ marginTop: '1em' }}>
-							Phone number
-						</label>
-						<MaskedInput
-							type='text'
-							className='input'
-							value={state.phone}
-							mask='\+\1 (111) 111-1111'
-							onChange={onPhoneNumberChange}
-							placeholder={`+1 (XXX) XXX-XXXX`}
-						/>
-						{errorState.phone ? (
-							<div className='homedraw--error'>
-								Please enter valid phone number
+			<Card>
+			<div className='homedraw--cont' style={{padding: '2em 4em'}}>
+				<div className='homedraw--row'>
+					<label htmlFor='visitDate'>Visit Date</label>
+					<DateTimePicker
+						id='visitDate'
+						value={state.visitDate.value}
+						onChange={(v, f) => onPickerDateChange(v, f)}
+					/>
+					{errorState.visitDate ? (
+						<div className='homedraw--error'>Required</div>
+					) : null}
+				</div>
+				<div className='homedraw--row'>
+					<label htmlFor='visitTime' style={{ marginTop: '1em' }}>
+						Visit Time
+					</label>
+					<select
+						id='visitTime'
+						name='visitTime'
+						defaultValue={times[0]}
+						onChange={(e) =>
+							setState({
+								...state,
+								visitTime: e.target.value,
+							})
+						}>
+						{times.map((item: any, index) => (
+							<option key={index} value={item}>
+								{item}
+							</option>
+						))}
+					</select>
+				</div>
+				<PlacesAutocomplete
+					value={state.address}
+					onChange={address => setState({...state, address})}
+					onSelect={(address, p1) => setState({ ...state, address })}
+				>
+					{({
+						getInputProps,
+						suggestions,
+						getSuggestionItemProps,
+						loading,
+					}) => (
+						<div className='homedraw--row'>
+							<label htmlFor='address' style={{ marginTop: '1em' }}>
+								Address
+							</label>
+							<input
+								type='text'
+								id='address'
+								className='input'
+								value={state.address}
+								placeholder='Enter address...'
+								onChange={(e) =>
+									setState({ ...state, address: e.target.value })
+								}
+								{...getInputProps({
+									placeholder: 'Enter your address',
+									// className: 'location-search-input',
+								})}
+							/>
+							{errorState.address ? (
+								<div className='homedraw--error'>Required</div>
+							) : null}
+							<div className='autocomplete-dropdown-container'>
+								{loading && <div>Loading...</div>}
+								{suggestions.map((suggestion) => {
+									const className = suggestion.active
+										? 'suggestion-item--active'
+										: 'suggestion-item';
+									// inline style for demonstration purpose
+									const style = suggestion.active
+										? {
+												backgroundColor:
+													'#fafafa',
+												cursor: 'pointer',
+											}
+										: {
+												backgroundColor:
+													'#ffffff',
+												cursor: 'pointer',
+											};
+									return (
+										<div
+											{...getSuggestionItemProps(
+												suggestion,
+												{
+													className,
+													style,
+												}
+											)}>
+											<span>
+												{suggestion.description}
+											</span>
+										</div>
+									);
+								})}
 							</div>
-						) : null}
-					</div>
-					<div className='homedraw--row'>
-						<label
-							htmlFor='numberOfPeople'
-							style={{ marginTop: '2em' }}>
-							Number of People
-						</label>
-						<input
-							type='text'
-							className='input'
-							id='numberOfPeople'
-							onChange={onChange}
-							value={state.numberOfPeople}
-							placeholder='Enter number of people'
-						/>
-						{errorState.numberOfPeople ? (
-							<div className='homedraw--error'>Required</div>
-						) : null}
-					</div>
-					<p>
-						{`60$  for each = Total cost ${
-							60 * state.numberOfPeople
-						}$`}
-					</p>
-					{fullnameArr.length
-						? fullnameArr.map((item, index) => (
-								<div>
-									<div key={index}>
-										<div className='flex--input--box'>
-											<label
-												htmlFor={`firstnameLabel${index}`}>
-												Firstname
-											</label>
-											<input
-												type='text'
-												value={item.firstname}
-												id={`firstnameLabel${index}`}
-												onChange={(e) =>
-													handleChange(
-														e,
-														'firstname',
-														index
-													)
-												}
-											/>
-											{errFullArr[index].first ? (
-												<div className='flex--input--error'>
-													Required
-												</div>
-											) : null}
-										</div>
-									</div>
-									<div className='flex--input--row'>
-										<div className='flex--input--box'>
-											<label
-												htmlFor={`lastnameLabel${index}`}>
-												Lastname
-											</label>
-											<input
-												type='text'
-												value={item.lastname}
-												id={`lastnameLabel${index}`}
-												onChange={(e) =>
-													handleChange(
-														e,
-														'lastname',
-														index
-													)
-												}
-											/>
-											{errFullArr[index].last ? (
-												<div className='flex--input--error'>
-													Required
-												</div>
-											) : null}
-										</div>
+						</div>
+					)}
+				</PlacesAutocomplete>
+				<div className='homedraw--row'>
+					<label htmlFor='apartment' style={{ marginTop: '1em' }}>
+						Apartment
+					</label>
+					<input
+						type='text'
+						id='apartment'
+						className='input'
+						value={state.apartment}
+						placeholder='Enter apartment...'
+						onChange={(e) =>
+							setState({ ...state, apartment: e.target.value })
+						}
+					/>
+					{errorState.apartment ? (
+						<div className='homedraw--error'>Required</div>
+					) : null}
+				</div>
+				<div className='homedraw--row'>
+					<label htmlFor='suite' style={{ marginTop: '1em' }}>
+						Suite
+					</label>
+					<input
+						type='text'
+						id='suite'
+						className='input'
+						value={state.suite}
+						placeholder='Enter suite...'
+						onChange={(e) =>
+							setState({ ...state, suite: e.target.value })
+						}
+					/>
+					{errorState.suite ? (
+						<div className='homedraw--error'>Required</div>
+					) : null}
+				</div>
+				<div className='homedraw--row'>
+					<label htmlFor='phone' style={{ marginTop: '1em' }}>
+						Phone number
+					</label>
+					<MaskedInput
+						type='text'
+						className='input'
+						value={state.phone}
+						mask='\+\1 (111) 111-1111'
+						onChange={onPhoneNumberChange}
+						placeholder={`+1 (XXX) XXX-XXXX`}
+					/>
+					{errorState.phone ? (
+						<div className='homedraw--error'>
+							Please enter valid phone number
+						</div>
+					) : null}
+				</div>
+				<div className='homedraw--row'>
+					<label
+						htmlFor='numberOfPeople'
+						style={{ marginTop: '2em' }}>
+						Number of People
+					</label>
+					<input
+						type='text'
+						className='input'
+						id='numberOfPeople'
+						onChange={onChange}
+						value={state.numberOfPeople}
+						placeholder='Enter number of people'
+					/>
+					{errorState.numberOfPeople ? (
+						<div className='homedraw--error'>Required</div>
+					) : null}
+				</div>
+				<p>
+					{`60$  for each = Total cost ${
+						60 * state.numberOfPeople
+					}$`}
+				</p>
+				{fullnameArr.length
+					? fullnameArr.map((item, index) => (
+							<div>
+								<div key={index}>
+									<div className='flex--input--box'>
+										<label
+											htmlFor={`firstnameLabel${index}`}>
+											Firstname
+										</label>
+										<input
+											type='text'
+											value={item.firstname}
+											id={`firstnameLabel${index}`}
+											onChange={(e) =>
+												handleChange(
+													e,
+													'firstname',
+													index
+												)
+											}
+										/>
+										{errFullArr[index].first ? (
+											<div className='flex--input--error'>
+												Required
+											</div>
+										) : null}
 									</div>
 								</div>
-						  ))
-						: null}
+								<div className='flex--input--row'>
+									<div className='flex--input--box'>
+										<label
+											htmlFor={`lastnameLabel${index}`}>
+											Lastname
+										</label>
+										<input
+											type='text'
+											value={item.lastname}
+											id={`lastnameLabel${index}`}
+											onChange={(e) =>
+												handleChange(
+													e,
+													'lastname',
+													index
+												)
+											}
+										/>
+										{errFullArr[index].last ? (
+											<div className='flex--input--error'>
+												Required
+											</div>
+										) : null}
+									</div>
+								</div>
+							</div>
+						))
+					: null}
 				</div>
+			</Card>
+			{/* <div id='wizard' style={{ overflow: 'hidden', paddingTop: '2em' }}>
 				<Modal show={modalShow} onHide={() => setModalShow(false)}>
 					<Modal.Header closeButton>
 						<Modal.Title>Contract</Modal.Title>
@@ -462,11 +588,11 @@ const HomeDraw = () => {
 							</button>
 						</div>
 					</Modal.Body>
-				</Modal>
-				<div className='checkbox--btn--row'>
+				</Modal> */}
+				{/* <div className='checkbox--btn--row'>
 					<button onClick={onFinish}>Finish</button>
-				</div>
-			</div>
+				</div> */}
+			{/* </div> */}
 		</div>
 	);
 };

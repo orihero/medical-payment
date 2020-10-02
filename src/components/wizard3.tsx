@@ -28,6 +28,7 @@ const Wizard3 = ({ data, setData, nextStep, setCurrentStep }) => {
 		number: '',
 		last: '',
 	});
+	const [insuranceNumber, setInsuranceNumber] = useState('')
 
 	const handleInputFocus = (e: any) => {
 		setCard({ ...card, focus: e.target.name });
@@ -217,10 +218,11 @@ const Wizard3 = ({ data, setData, nextStep, setCurrentStep }) => {
 						</Form>
 						<label
 							htmlFor='custom-file-2'
-							style={{ margin: '2em 0' }}>
+							style={{ marginTop: '2em' }}
+						>
 							{files.stateId
 								? 'Picture of Insurance selected'
-								: 'Picture of Insyrance'}
+								: 'Picture of Insurance'}
 						</label>
 						<Form>
 							<Form.File
@@ -235,6 +237,22 @@ const Wizard3 = ({ data, setData, nextStep, setCurrentStep }) => {
 								}
 							/>
 						</Form>
+						<label
+							htmlFor="insuranceNumber"
+							style={{ marginTop: '2em' }}
+						>
+								Insurance number
+						</label>
+						<input
+                            type='text'
+							name={'firstName'}
+                            className='form-control'
+							style={{ width: '50%' }}
+							value={insuranceNumber}
+							onChange={e => setInsuranceNumber(e.target.value)}
+                            // onChange={formik.handleChange}
+                            // value={formik.values.firstName}
+                        />
 					</div>
 				) : (
 					<>

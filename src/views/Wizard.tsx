@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import '../App.css';
 import 'react-credit-cards/es/styles-compiled.css';
 import StepWizard, { StepWizardProps } from 'react-step-wizard';
-import yup from 'yup';
+// import yup from 'yup';
 import axios from 'axios'
 
 import Wizard1 from '../components/wizard1';

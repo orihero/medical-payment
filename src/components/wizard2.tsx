@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import validator from 'validator';
+// import validator from 'validator';
 import MaskedInput from 'react-maskedinput';
 import { Modal } from 'react-bootstrap';
 import axios from 'axios';

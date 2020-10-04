@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { FormCheck as Check } from 'react-bootstrap';
+import { FormCheck as Check, Card } from 'react-bootstrap';
 
 const Agreement = () => {
 	const history = useHistory();
@@ -78,7 +78,7 @@ const Agreement = () => {
 			<div className='image-holder'>
 				<img src={require('../assets/images/logo-blue.png')} />
 			</div>
-			<div id='wizard' style={{ overflow: 'hidden' }}>
+			<Card>
 				<div className='parent--flex--row'>
 					<div className='checkbox--row--title'>
 						Choose type of the Test
@@ -168,7 +168,10 @@ const Agreement = () => {
 						<button onClick={onFinish}>Next</button>
 					</div>
 				</div>
-			</div>
+			</Card>
+			{/* <div id='wizard' style={{ overflow: 'hidden' }}>
+				
+			</div> */}
 		</div>
 	);
 };

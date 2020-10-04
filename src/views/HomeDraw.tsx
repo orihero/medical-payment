@@ -305,241 +305,242 @@ const HomeDraw = () => {
 				<img src={require('../assets/images/logo-blue.png')} />
 			</div>
 			<Card>
-			<div className='homedraw--cont' style={{padding: '2em 4em'}}>
-				<div className='homedraw--row'>
-					<label htmlFor='visitDate'>Visit Date</label>
-					<DateTimePicker
-						id='visitDate'
-						value={state.visitDate.value}
-						onChange={(v, f) => onPickerDateChange(v, f)}
-					/>
-					{errorState.visitDate ? (
-						<div className='homedraw--error'>Required</div>
-					) : null}
-				</div>
-				<div className='homedraw--row'>
-					<label htmlFor='visitTime' style={{ marginTop: '1em' }}>
-						Visit Time
-					</label>
-					<select
-						id='visitTime'
-						name='visitTime'
-						defaultValue={times[0]}
-						onChange={(e) =>
-							setState({
-								...state,
-								visitTime: e.target.value,
-							})
-						}>
-						{times.map((item: any, index) => (
-							<option key={index} value={item}>
-								{item}
-							</option>
-						))}
-					</select>
-				</div>
-				<PlacesAutocomplete
-					value={state.address}
-					onChange={address => setState({...state, address})}
-					onSelect={(address, p1) => setState({ ...state, address })}
-				>
-					{({
-						getInputProps,
-						suggestions,
-						getSuggestionItemProps,
-						loading,
-					}) => (
-						<div className='homedraw--row'>
-							<label htmlFor='address' style={{ marginTop: '1em' }}>
-								Address
-							</label>
-							<input
-								type='text'
-								id='address'
-								className='input'
-								value={state.address}
-								placeholder='Enter address...'
-								onChange={(e) =>
-									setState({ ...state, address: e.target.value })
-								}
-								{...getInputProps({
-									placeholder: 'Enter your address',
-									// className: 'location-search-input',
-								})}
-							/>
-							{errorState.address ? (
-								<div className='homedraw--error'>Required</div>
-							) : null}
-							<div className='autocomplete-dropdown-container'>
-								{loading && <div>Loading...</div>}
-								{suggestions.map((suggestion) => {
-									const className = suggestion.active
-										? 'suggestion-item--active'
-										: 'suggestion-item';
-									// inline style for demonstration purpose
-									const style = suggestion.active
-										? {
-												backgroundColor:
-													'#fafafa',
-												cursor: 'pointer',
-											}
-										: {
-												backgroundColor:
-													'#ffffff',
-												cursor: 'pointer',
-											};
-									return (
-										<div
-											{...getSuggestionItemProps(
-												suggestion,
-												{
-													className,
-													style,
+				<div className='homedraw--cont'>
+					<div className='homedraw--row'>
+						<label htmlFor='visitDate'>Visit Date</label>
+						<DateTimePicker
+							id='visitDate'
+							value={state.visitDate.value}
+							onChange={(v, f) => onPickerDateChange(v, f)}
+						/>
+						{errorState.visitDate ? (
+							<div className='homedraw--error'>Required</div>
+						) : null}
+					</div>
+					<div className='homedraw--row'>
+						<label htmlFor='visitTime' style={{ marginTop: '1em' }}>
+							Visit Time
+						</label>
+						<select
+							id='visitTime'
+							name='visitTime'
+							defaultValue={times[0]}
+							onChange={(e) =>
+								setState({
+									...state,
+									visitTime: e.target.value,
+								})
+							}>
+							{times.map((item: any, index) => (
+								<option key={index} value={item}>
+									{item}
+								</option>
+							))}
+						</select>
+					</div>
+					<PlacesAutocomplete
+						value={state.address}
+						onChange={address => setState({...state, address})}
+						onSelect={(address, p1) => setState({ ...state, address })}
+					>
+						{({
+							getInputProps,
+							suggestions,
+							getSuggestionItemProps,
+							loading,
+						}) => (
+							<div className='homedraw--row'>
+								<label htmlFor='address' style={{ marginTop: '1em' }}>
+									Address
+								</label>
+								<input
+									type='text'
+									id='address'
+									className='input'
+									value={state.address}
+									placeholder='Enter address...'
+									onChange={(e) =>
+										setState({ ...state, address: e.target.value })
+									}
+									{...getInputProps({
+										placeholder: 'Enter your address',
+										// className: 'location-search-input',
+									})}
+								/>
+								{errorState.address ? (
+									<div className='homedraw--error'>Required</div>
+								) : null}
+								<div className='autocomplete-dropdown-container'>
+									{loading && <div>Loading...</div>}
+									{suggestions.map((suggestion) => {
+										const className = suggestion.active
+											? 'suggestion-item--active'
+											: 'suggestion-item';
+										// inline style for demonstration purpose
+										const style = suggestion.active
+											? {
+													backgroundColor:
+														'#fafafa',
+													cursor: 'pointer',
 												}
-											)}>
-											<span>
-												{suggestion.description}
-											</span>
+											: {
+													backgroundColor:
+														'#ffffff',
+													cursor: 'pointer',
+												};
+										return (
+											<div
+												{...getSuggestionItemProps(
+													suggestion,
+													{
+														className,
+														style,
+													}
+												)}>
+												<span>
+													{suggestion.description}
+												</span>
+											</div>
+										);
+									})}
+								</div>
+							</div>
+						)}
+					</PlacesAutocomplete>
+					<div className='homedraw--row'>
+						<label htmlFor='apartment' style={{ marginTop: '1em' }}>
+							Apartment
+						</label>
+						<input
+							type='text'
+							id='apartment'
+							className='input'
+							value={state.apartment}
+							placeholder='Enter apartment...'
+							onChange={(e) =>
+								setState({ ...state, apartment: e.target.value })
+							}
+						/>
+						{errorState.apartment ? (
+							<div className='homedraw--error'>Required</div>
+						) : null}
+					</div>
+					<div className='homedraw--row'>
+						<label htmlFor='suite' style={{ marginTop: '1em' }}>
+							Suite
+						</label>
+						<input
+							type='text'
+							id='suite'
+							className='input'
+							value={state.suite}
+							placeholder='Enter suite...'
+							onChange={(e) =>
+								setState({ ...state, suite: e.target.value })
+							}
+						/>
+						{errorState.suite ? (
+							<div className='homedraw--error'>Required</div>
+						) : null}
+					</div>
+					<div className='homedraw--row'>
+						<label htmlFor='phone' style={{ marginTop: '1em' }}>
+							Phone number
+						</label>
+						<MaskedInput
+							type='text'
+							className='input'
+							value={state.phone}
+							mask='\+\1 (111) 111-1111'
+							onChange={onPhoneNumberChange}
+							placeholder={`+1 (XXX) XXX-XXXX`}
+						/>
+						{errorState.phone ? (
+							<div className='homedraw--error'>
+								Please enter valid phone number
+							</div>
+						) : null}
+					</div>
+					<div className='homedraw--row'>
+						<label
+							htmlFor='numberOfPeople'
+							style={{ marginTop: '2em' }}>
+							Number of People
+						</label>
+						<input
+							type='text'
+							className='input'
+							id='numberOfPeople'
+							onChange={onChange}
+							value={state.numberOfPeople}
+							placeholder='Enter number of people'
+						/>
+						{errorState.numberOfPeople ? (
+							<div className='homedraw--error'>Required</div>
+						) : null}
+					</div>
+					<p>
+						{`60$  for each = Total cost ${
+							60 * state.numberOfPeople
+						}$`}
+					</p>
+					{fullnameArr.length
+						? fullnameArr.map((item, index) => (
+								<div>
+									<div key={index}>
+										<div className='flex--input--box'>
+											<label
+												htmlFor={`firstnameLabel${index}`}>
+												Firstname
+											</label>
+											<input
+												type='text'
+												value={item.firstname}
+												id={`firstnameLabel${index}`}
+												onChange={(e) =>
+													handleChange(
+														e,
+														'firstname',
+														index
+													)
+												}
+											/>
+											{errFullArr[index].first ? (
+												<div className='flex--input--error'>
+													Required
+												</div>
+											) : null}
 										</div>
-									);
-								})}
-							</div>
-						</div>
-					)}
-				</PlacesAutocomplete>
-				<div className='homedraw--row'>
-					<label htmlFor='apartment' style={{ marginTop: '1em' }}>
-						Apartment
-					</label>
-					<input
-						type='text'
-						id='apartment'
-						className='input'
-						value={state.apartment}
-						placeholder='Enter apartment...'
-						onChange={(e) =>
-							setState({ ...state, apartment: e.target.value })
-						}
-					/>
-					{errorState.apartment ? (
-						<div className='homedraw--error'>Required</div>
-					) : null}
-				</div>
-				<div className='homedraw--row'>
-					<label htmlFor='suite' style={{ marginTop: '1em' }}>
-						Suite
-					</label>
-					<input
-						type='text'
-						id='suite'
-						className='input'
-						value={state.suite}
-						placeholder='Enter suite...'
-						onChange={(e) =>
-							setState({ ...state, suite: e.target.value })
-						}
-					/>
-					{errorState.suite ? (
-						<div className='homedraw--error'>Required</div>
-					) : null}
-				</div>
-				<div className='homedraw--row'>
-					<label htmlFor='phone' style={{ marginTop: '1em' }}>
-						Phone number
-					</label>
-					<MaskedInput
-						type='text'
-						className='input'
-						value={state.phone}
-						mask='\+\1 (111) 111-1111'
-						onChange={onPhoneNumberChange}
-						placeholder={`+1 (XXX) XXX-XXXX`}
-					/>
-					{errorState.phone ? (
-						<div className='homedraw--error'>
-							Please enter valid phone number
-						</div>
-					) : null}
-				</div>
-				<div className='homedraw--row'>
-					<label
-						htmlFor='numberOfPeople'
-						style={{ marginTop: '2em' }}>
-						Number of People
-					</label>
-					<input
-						type='text'
-						className='input'
-						id='numberOfPeople'
-						onChange={onChange}
-						value={state.numberOfPeople}
-						placeholder='Enter number of people'
-					/>
-					{errorState.numberOfPeople ? (
-						<div className='homedraw--error'>Required</div>
-					) : null}
-				</div>
-				<p>
-					{`60$  for each = Total cost ${
-						60 * state.numberOfPeople
-					}$`}
-				</p>
-				{fullnameArr.length
-					? fullnameArr.map((item, index) => (
-							<div>
-								<div key={index}>
-									<div className='flex--input--box'>
-										<label
-											htmlFor={`firstnameLabel${index}`}>
-											Firstname
-										</label>
-										<input
-											type='text'
-											value={item.firstname}
-											id={`firstnameLabel${index}`}
-											onChange={(e) =>
-												handleChange(
-													e,
-													'firstname',
-													index
-												)
-											}
-										/>
-										{errFullArr[index].first ? (
-											<div className='flex--input--error'>
-												Required
-											</div>
-										) : null}
+									</div>
+									<div className='flex--input--row'>
+										<div className='flex--input--box'>
+											<label
+												htmlFor={`lastnameLabel${index}`}>
+												Lastname
+											</label>
+											<input
+												type='text'
+												value={item.lastname}
+												id={`lastnameLabel${index}`}
+												onChange={(e) =>
+													handleChange(
+														e,
+														'lastname',
+														index
+													)
+												}
+											/>
+											{errFullArr[index].last ? (
+												<div className='flex--input--error'>
+													Required
+												</div>
+											) : null}
+										</div>
 									</div>
 								</div>
-								<div className='flex--input--row'>
-									<div className='flex--input--box'>
-										<label
-											htmlFor={`lastnameLabel${index}`}>
-											Lastname
-										</label>
-										<input
-											type='text'
-											value={item.lastname}
-											id={`lastnameLabel${index}`}
-											onChange={(e) =>
-												handleChange(
-													e,
-													'lastname',
-													index
-												)
-											}
-										/>
-										{errFullArr[index].last ? (
-											<div className='flex--input--error'>
-												Required
-											</div>
-										) : null}
-									</div>
-								</div>
-							</div>
-						))
-					: null}
+							))
+						: null
+					}
 				</div>
 			</Card>
 			{/* <div id='wizard' style={{ overflow: 'hidden', paddingTop: '2em' }}>

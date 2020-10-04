@@ -111,6 +111,10 @@ body {
 }
 .parent--flex--row {
 	width: 40vw;
+	padding: 2em;
+	height: 100vh;
+	background-color: aquamarine;
+	overflow-y: auto;
 }
 .flex--row {
 	/* / */
@@ -156,6 +160,9 @@ body {
 .homedraw--cont {
 	/* / */
 	width: 35vw;
+	height: 100vh;
+	padding: 2em 4em;
+	overflow-y: auto;
 }
 .homedraw--cont .homedraw--row {
 	/* / */
@@ -794,7 +801,7 @@ textarea.form-control {
 		min-height: unset;
 		padding: 70px 20px 40px;
 	}
-
+	
 	.form-row.form-group {
 		display: block;
 	}
@@ -826,6 +833,9 @@ textarea.form-control {
 	.checkbox--btn--row button {
 		font-size: 0.75em;
 		padding: 8px 18px;
+	}
+	.parent--flex--row{
+		width: 100vw;
 	}
 	.homedraw--cont {
 		width: 350px;

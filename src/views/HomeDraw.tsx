@@ -541,6 +541,9 @@ const HomeDraw = () => {
 							))
 						: null
 					}
+					<div className='checkbox--btn--row'>
+						<button onClick={onFinish}>Finish</button>
+					</div>
 				</div>
 			</Card>
 			{/* <div id='wizard' style={{ overflow: 'hidden', paddingTop: '2em' }}>
@@ -590,9 +593,6 @@ const HomeDraw = () => {
 						</div>
 					</Modal.Body>
 				</Modal> */}
-				{/* <div className='checkbox--btn--row'>
-					<button onClick={onFinish}>Finish</button>
-				</div> */}
 			{/* </div> */}
 		</div>
 	);

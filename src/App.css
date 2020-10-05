@@ -90,10 +90,10 @@ body {
 }
 
 .wrapper {
-	max-width: 1400px;
-	height: 100vh;
 	margin: auto;
+	height: 100vh;
 	display: flex;
+	max-width: 1400px;
 	align-items: center;
 }
 .wrapper .image-holder {
@@ -102,81 +102,67 @@ body {
 .wrapper form {
 	width: 49%;
 }
+
+.parent--flex--row {
+	padding: 2em;
+	height: 90vh;
+	overflow-y: auto;
+}
 .checkbox--row--title {
-	/* / */
 	font-size: 1.4em;
 	color: #333;
 	font-weight: 500;
 	margin: 2vh 0 4vh 0;
 }
-.parent--flex--row {
-	width: 40vw;
-	padding: 2em;
-	height: 100vh;
-	overflow-y: auto;
-}
 .flex--row {
-	/* / */
 	display: flex;
 	align-items: center;
-	/* justify-content: space-between; */
-	/* background-color: aqua; */
 }
 .checkbox--row {
-	/* / */
 	display: flex;
-	align-items: center;
-	font-size: 0.75em;
 	font-weight: 400;
-	/* border-bottom: 1px solid #aaa; */
+	font-size: 0.75em;
+	align-items: center;
 }
 .checkbox--row input {
-	/* / */
 	width: 20px;
 	height: 20px;
 }
 .checkbox--row label {
-	/* / */
-
 	margin-left: 6px;
 	padding-top: 2px;
 }
 .checkbox--btn--row {
-	/* / */
 	margin-top: 10vh;
 	display: flex;
 	justify-content: flex-end;
 }
 .checkbox--btn--row button {
-	/* / */
-	outline: none;
 	border: none;
+	outline: none;
 	padding: 0.75em 1.8em;
 }
 .checkbox--btn--row button:hover {
-	/* / */
 	background-color: #ddd;
 }
+
 .homedraw--cont {
-	/* / */
-	width: 35vw;
-	height: 85vh;
-	/* margin-top: 7.5vh; */
-	padding: 1em 4em;
+	width: 470px;
+	padding: 2em;
+	height: 90vh;
 	overflow-y: auto;
-	background-color: aqua;
 }
-.homedraw--cont .homedraw--row {
-	/* / */
+.homedraw--cont p {
+	margin-top: 1em;
+	font-size: 1.1em;
+	font-weight: 400;
 }
 .homedraw--row .homedraw--error {
-	/* / */
 	margin: 0.5em 0 0 1em;
 	font-size: 0.9em;
 	color: red;
 }
-.homedraw--cont .input {
-	/* / */
+.homedraw--row .input {
 	width: 100%;
 	display: block;
 	font-size: 1.1em;
@@ -185,23 +171,14 @@ body {
 	border-radius: 5px;
 	border: 1px solid #aaa;
 }
-.homedraw--cont label {
-	/* / */
+.homedraw--row label {
 	color: #444;
 	cursor: pointer;
 	font-size: 1.1em;
 	font-weight: 500;
 	padding: 0.25em 0.75em;
 }
-.homedraw--cont p {
-	/* / */
-	margin-top: 1em;
-	font-size: 1.1em;
-	font-weight: 400;
-	/* padding: 0.25em 0.75em; */
-}
 .homedraw--cont select {
-	/* / */
 	width: 100%;
 	padding: 0.5em;
 	display: block;
@@ -211,7 +188,6 @@ body {
 	border: 1px solid #aaa;
 }
 .homedraw--cont .flex--input--row {
-	/* / */
 	display: flex;
 	flex-direction: row;
 	padding-bottom: 1em;
@@ -219,24 +195,20 @@ body {
 	border-bottom: 1px solid #ccc;
 }
 .homedraw--cont .flex--input--box {
-	/* / */
 	width: 100%;
 }
 .homedraw--cont .flex--input--box .flex--input--error {
-	/* / */
+	color: red;
 	font-size: 0.8em;
 	margin: 0.5em 0 0 1em;
-	color: red;
 }
 .homedraw--cont .flex--input--box input {
-	/* / */
 	width: 100%;
 	border-radius: 5px;
 	padding: 0.25em 0.75em;
 	border: 1px solid #aaa;
 }
 .homedraw--cont .flex--input--box label {
-	/* / */
 	font-size: 0.9em;
 }
 .modal--bottom--box {
@@ -296,7 +268,6 @@ body {
 	transition: all 0.5s ease;
 }
 .steps ul:before {
-	/* content: 'Billing Details'; */
 	content: 'Your Order';
 	font-size: 22px;
 	color: #333;
@@ -304,11 +275,9 @@ body {
 	position: absolute;
 }
 .steps ul.step-2:before {
-	/* content: 'Additional Information'; */
 	content: 'Billing Details';
 }
 .steps ul.step-3:before {
-	/* content: 'Your Order'; */
 	content: 'Additional Information';
 }
 .steps ul.step-4:before {
@@ -683,6 +652,11 @@ textarea.form-control {
 		height: auto;
 	}
 }
+@media (max-width: 1366px) {
+	.wrapper {
+		height: 100vh;
+	}
+}
 @media (max-width: 1299px) {
 	.checkbox--row {
 		font-size: 0.68em;
@@ -697,15 +671,12 @@ textarea.form-control {
 	}
 
 	#wizard {
-		margin-right: 40px;
 		min-height: 829px;
+		margin-right: 40px;
 		padding-left: 60px;
 		padding-right: 60px;
 	}
 
-	.flex--row {
-		/* background-color: yellow; */
-	}
 	.checkbox--row--title {
 		font-size: 1.3em;
 	}
@@ -726,13 +697,17 @@ textarea.form-control {
 	.checkbox--btn--row button {
 		padding: 10px 22px;
 	}
+
 	.homedraw--cont {
-		padding-top: 5em;
+		width: 420px;
 	}
 }
 @media (max-width: 1073px) {
 	.checkbox--row--title {
 		font-size: 1.2em;
+	}
+	.checkbox--row {
+		font-size: 8px;
 	}
 	.checkbox--row label {
 		padding-top: 6px;
@@ -745,8 +720,9 @@ textarea.form-control {
 		font-size: 0.9em;
 		padding: 9px 20px;
 	}
-	.checkbox--row {
-		font-size: 8px;
+
+	.homedraw--cont {
+		width: 400px;
 	}
 }
 @media (max-width: 1025px) {
@@ -770,8 +746,15 @@ textarea.form-control {
 		padding-left: 40px;
 		padding-right: 40px;
 	}
+
+	.parent--flex--row {
+		width: 60vw;
+	}
 	.checkbox--row--title {
 		font-size: 1.15em;
+	}
+	.checkbox--row {
+		font-size: 1.08em;
 	}
 	.checkbox--row label {
 		padding-top: 4px;
@@ -788,16 +771,17 @@ textarea.form-control {
 		font-size: 0.85em;
 		padding: 8px 18px;
 	}
-	.checkbox--row {
-		font-size: 1.08em;
-	}
-	.parent--flex--row {
-		width: 60vw;
+
+	.homedraw--cont {
+		width: 440px;
 	}
 }
 @media (max-width: 879px) {
 	.checkbox--row--title {
 		font-size: 1.1em;
+	}
+	.checkbox--row {
+		font-size: 0.965em;
 	}
 	.checkbox--row label {
 		padding-top: 5px;
@@ -814,17 +798,12 @@ textarea.form-control {
 		font-size: 0.8em;
 		padding: 8px 18px;
 	}
-	.checkbox--row {
-		font-size: 0.965em;
-	}
-	.parent--flex--row {
-		/* background-color: aquamarine; */
-	}
 }
 @media (max-width: 767px) {
 	.wrapper {
-		height: auto;
+		height: 100vh;
 		display: block;
+		overflow-y: hidden;
 	}
 	.wrapper .image-holder {
 		width: 100%;
@@ -851,11 +830,19 @@ textarea.form-control {
 	.item .purchase {
 		margin-left: 11px;
 	}
+
+	.parent--flex--row {
+		width: 100%;
+		height: 100vh;
+	}
 	.flex--row {
 		width: max-content;
 	}
 	.checkbox--row--title {
 		font-size: 1.1em;
+	}
+	.checkbox--row {
+		font-size: 0.94em;
 	}
 	.checkbox--row label {
 		padding-top: 3px;
@@ -872,15 +859,17 @@ textarea.form-control {
 		font-size: 0.75em;
 		padding: 8px 18px;
 	}
-	.parent--flex--row {
-		width: 100%;
-	}
+	
 	.homedraw--cont {
-		width: 350px;
-		padding-top: 0;
+		width: 100%;
+		height: 100vh;
+		padding-bottom: 150px;
 	}
-	.checkbox--row {
-		font-size: 0.94em;
+	.homedraw--row {
+		width: 60%;
+	}
+	.homedraw--cont .flex--input--box {
+		width: 60%;
 	}
 }
 @media (max-width: 549px) {
@@ -890,8 +879,18 @@ textarea.form-control {
 	.checkbox--row label {
 		padding-top: 5px;
 	}
+
+	.homedraw--row {
+		width: 100%;
+	}
+	.homedraw--cont .flex--input--box {
+		width: 100%;
+	}
 }
 @media (max-width: 476px) {
+	.parent--flex--row {
+		padding: 1.5em;
+	}
 	.checkbox--row--title {
 		font-size: 0.95em;
 	}
@@ -909,19 +908,43 @@ textarea.form-control {
 	.checkbox--btn--row {
 		margin-top: 30px;
 	}
-	.checkbox--row {
+
+	.homedraw--cont {
+		padding: 1em;
+		padding-bottom: 100px;
 	}
-	.parent--flex--row {
-		padding: 1.5em;
+	.homedraw--cont p {
+		font-size: 1em;
+		margin-top: 0.75em;
+	}
+	.homedraw--row {
+		font-size: 0.9em;
+	}
+	.homedraw--row label {
+		font-size: 1em;
+		padding: 4px 12px;
+	}
+	.flex--input--box label {
+		font-size: 0.8em !important;
+	}
+	.flex--input--box input {
+		font-size: 0.9em;
+		padding: 2px 4px;
 	}
 }
 @media (max-width: 420px) {
+	.parent--flex--row {
+		padding: 1em;
+	}
 	.checkbox--row--title {
 		font-size: 0.85em;
 		margin: 1vh 0;
 	}
+	.checkbox--row {
+		font-size: 10px;
+	}
 	.checkbox--row label {
-		font-size: 0.7em;
+		font-size: 0.8em;
 	}
 	.checkbox--row input {
 		width: 13px;
@@ -934,25 +957,22 @@ textarea.form-control {
 		font-size: 0.65em;
 		padding: 7px 14px;
 	}
-	.homedraw--cont {
-		width: 250px;
-	}
-	.checkbox--row {
-		font-size: 10px;
-	}
-	.parent--flex--row {
-		padding: 1em;
-	}
 }
 @media (max-width: 370px) {
+	.parent--flex--row {
+		padding: 0.5em;
+	}
 	.checkbox--row--title {
-		font-size: 0.69em;
 		margin: 5px 0;
+		font-size: 0.69em;
+	}
+	.checkbox--row {
+		font-size: 7px;
 	}
 	.checkbox--row label {
+		font-size: 1em;
 		margin-left: 0px;
 		padding-top: 9px;
-		font-size: 0.8em;
 	}
 	.checkbox--row input {
 		width: 8px;
@@ -965,21 +985,37 @@ textarea.form-control {
 		font-size: 0.55em;
 		padding: 6px 12px;
 	}
-	.checkbox--row {
-		font-size: 7px;
+
+	.homedraw--cont p {
+		font-size: 0.9em;
+		margin-top: 0.5em;
 	}
-	.parent--flex--row {
-		padding: 0.5em;
+	.homedraw--row {
+		font-size: 0.8em;
+	}
+	.homedraw--row label {
+		font-size: 0.9em;
+		padding: 2px 6px;
+	}
+	.flex--input--box label {
+		font-size: 0.7em !important;
+	}
+	.flex--input--box input {
+		font-size: 0.8em;
+		padding: 2px 4px;
 	}
 }
 @media (max-width: 300px) {
+	.parent--flex--row {
+		padding: 5px;
+	}
 	.checkbox--row--title {
 		font-size: 0.57em;
 	}
 	.checkbox--row label {
 		margin-left: 0px;
 		padding-top: 10px;
-		font-size: 0.52em;
+		font-size: 0.9em;
 	}
 	.checkbox--row input {
 		width: 6px;
@@ -991,26 +1027,19 @@ textarea.form-control {
 	.checkbox--btn--row button {
 		font-size: 0.5em;
 		padding: 5px 10px;
-	}
-	.homedraw--cont {
-		width: 200px;
-	}
-	.checkbox--row {
-		background-color: yellow;
-	}
-	.parent--flex--row {
-		padding: 5px;
-		background-color: aquamarine;
 	}
 }
 @media (max-width: 275px) {
+	.parent--flex--row {
+		padding: 5px;
+	}
 	.checkbox--row--title {
 		font-size: 0.57em;
 	}
 	.checkbox--row label {
 		margin-left: 0px;
 		padding-top: 10px;
-		font-size: 0.52em;
+		font-size: 0.7em;
 	}
 	.checkbox--row input {
 		width: 6px;
@@ -1023,23 +1052,38 @@ textarea.form-control {
 		font-size: 0.5em;
 		padding: 5px 10px;
 	}
-	.homedraw--cont {
-		width: 200px;
-	}
-	.checkbox--row {
-		background-color: lightblue;
-	}
-	.parent--flex--row {
-		padding: 5px;
-		background-color: lightgreen;
-	}
 }
 @media (max-width: 250px) {
-	.checkbox--row--title {
-		font-size: 0.46em;
+	.checkbox--row label{
+		font-size: 0.55em;
 	}
+	
+	.homedraw--cont p {
+		font-size: 0.7em;
+	}
+	.homedraw--row {
+		font-size: 0.7em;
+	}
+	.homedraw--row label {
+		font-size: 0.8em;
+	}
+	.flex--input--box label {
+		font-size: 0.6em !important;
+	}
+	.flex--input--box input {
+		font-size: 0.7em;
+	}
+}
+@media (max-width: 225px) {
 	#wizard {
 		padding-left: 5px;
+	}
+
+	.parent--flex--row {
+		padding: 5px;
+	}
+	.checkbox--row--title {
+		font-size: 0.46em;
 	}
 	.flex--row {
 		justify-content: flex-start;
@@ -1047,7 +1091,7 @@ textarea.form-control {
 	.checkbox--row label {
 		margin-left: 1px;
 		padding-top: 12px;
-		font-size: 0.25em;
+		font-size: 0.35em;
 	}
 	.checkbox--row input {
 		width: 4px;
@@ -1059,16 +1103,6 @@ textarea.form-control {
 	.checkbox--btn--row button {
 		font-size: 0.5em;
 		padding: 5px 10px;
-	}
-	.homedraw--cont {
-		width: 170px;
-	}
-	.checkbox--row {
-		background-color: pink;
-	}
-	.parent--flex--row {
-		padding: 5px;
-		background-color: aqua;
 	}
 }
 

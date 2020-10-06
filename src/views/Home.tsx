@@ -7,14 +7,8 @@ export default function Home() {
 		<div style={{ overflowX: 'hidden' }}>
 			<header
 				id='home'
-				className='home-area hero-equal-height section-padding overflow-hidden d-flex align-items-center'>
-				{/* <div className='custom-heaader my-class'>
-					<img
-						className='navbar-brand js-scroll'
-						style={{ width: '20%' }}
-						src={require('../assets/images/logo-blue.png')}
-					/>
-				</div> */}
+				className='home-area hero-equal-height section-padding overflow-hidden d-flex align-items-center'
+			>
 				<div className='container'>
 					<div className='row align-items-center'>
 						<div className='col-12 col-md-12 col-lg-12'>

@@ -92,7 +92,6 @@ const Agreement = () => {
 								checked={firstCheckValue.a}
 								onChange={() => onFirstChange('a')}
 							/>
-							{/* <label htmlFor='bir'></label> */}
 						</div>
 						<div
 							className='checkbox--row'
@@ -169,9 +168,6 @@ const Agreement = () => {
 					</div>
 				</div>
 			</Card>
-			{/* <div id='wizard' style={{ overflow: 'hidden' }}>
-				
-			</div> */}
 		</div>
 	);
 };

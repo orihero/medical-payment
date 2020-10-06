@@ -235,7 +235,10 @@ const HomeDraw = () => {
 		} else {
 			let arr = [...errFullArr];
 
-			if (!visitDate.formattedValue) obj.visitDate = true;
+			if (!visitDate.formattedValue) {
+				obj.visitDate = true;
+				alert('Please select currect date')
+			}
 			if (!phone) obj.phone = true;
 			if (!address) obj.address = true;
 			if (!numberOfPeople) obj.numberOfPeople = true;
@@ -290,7 +293,6 @@ const HomeDraw = () => {
 		axios.post('https://appointment.accureference.com/api/homedraw', obj)
 			.then(res => {
 				if(res.data.status === 'success'){
-					console.log('res.data: ', res.data)
 					history.push(`/appointment?type=1&requestId=${res.data.data.id}`);
 				} else {
 					console.log('res.data: ', res.data)
@@ -486,8 +488,8 @@ const HomeDraw = () => {
 					</p>
 					{fullnameArr.length
 						? fullnameArr.map((item, index) => (
-								<div>
-									<div key={index}>
+								<div key={index}>
+									<div>
 										<div className='flex--input--box'>
 											<label
 												htmlFor={`firstnameLabel${index}`}>
@@ -545,8 +547,6 @@ const HomeDraw = () => {
 						<button onClick={onFinish}>Finish</button>
 					</div>
 				</div>
-			</Card>
-			{/* <div id='wizard' style={{ overflow: 'hidden', paddingTop: '2em' }}>
 				<Modal show={modalShow} onHide={() => setModalShow(false)}>
 					<Modal.Header closeButton>
 						<Modal.Title>Contract</Modal.Title>
@@ -592,8 +592,8 @@ const HomeDraw = () => {
 							</button>
 						</div>
 					</Modal.Body>
-				</Modal> */}
-			{/* </div> */}
+				</Modal>
+			</Card>
 		</div>
 	);
 };

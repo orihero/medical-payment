@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import '../App.css';
 import 'react-credit-cards/es/styles-compiled.css';
 import StepWizard, { StepWizardProps } from 'react-step-wizard';
-// import yup from 'yup';
+import { Card } from 'react-bootstrap'
 import axios from 'axios'
 
 import Wizard1 from '../components/wizard1';
@@ -133,59 +133,50 @@ const Wizard = (props) => {
 			<div className='image-holder'>
 				<img src={require('../assets/images/logo-blue.png')} />
 			</div>
-			<div id='wizard' style={{ overflow: 'hidden' }}>
-				<div className={'steps'}>
-					<ul className={`step-${currentStep + 1}`}>
-						{[...new Array(3)].map((item, index) => {
-							return (
-								<li
-									key={index}
-									onClick={() => goToStep(index)}
-									className={`${index === 0 && 'first'} ${
-										index === 2 && 'last'
-									} ${currentStep >= index && 'checked'}`}>
-									<a style={{ cursor: 'pointer' }}>
-										<span />
-									</a>
-								</li>
-							);
-						})}
-					</ul>
+			<Card>
+				<div className='wizard'>
+					<div className={'steps'}>
+						<ul className={`step-${currentStep + 1}`}>
+							{[...new Array(3)].map((item, index) => {
+								return (
+									<li
+										key={index}
+										onClick={() => goToStep(index)}
+										className={`${index === 0 && 'first'} ${
+											index === 2 && 'last'
+										} ${currentStep >= index && 'checked'}`}>
+										<a style={{ cursor: 'pointer' }}>
+											<span />
+										</a>
+									</li>
+								);
+							})}
+						</ul>
+					</div>
+					<StepWizard instance={(wizardInstance) => setWizard(wizardInstance)}>
+						<Wizard3
+							data={data}
+							setData={setData}
+							nextStep={nextStep}
+							setCurrentStep={setCurrentStep}
+						/>
+						<Wizard1
+							data={data}
+							setData={setData}
+							nextStep={nextStep}
+							previousStep={goPreviousStep}
+							setCurrentStep={setCurrentStep}
+						/>
+						<Wizard2
+							data={data}
+							setData={setData}
+							initialState={initialState}
+							previousStep={goPreviousStep}
+							setCurrentStep={setCurrentStep}
+						/>
+					</StepWizard>
 				</div>
-				<StepWizard
-					instance={(wizardInstance) => setWizard(wizardInstance)}>
-					<Wizard3
-						data={data}
-						setData={setData}
-						nextStep={nextStep}
-						setCurrentStep={setCurrentStep}
-						// previousStep={goPreviousStep}
-					/>
-					<Wizard1
-						data={data}
-						setData={setData}
-						nextStep={nextStep}
-						previousStep={goPreviousStep}
-						setCurrentStep={setCurrentStep}
-					/>
-					<Wizard2
-						data={data}
-						setData={setData}
-						initialState={initialState}
-						previousStep={goPreviousStep}
-						setCurrentStep={setCurrentStep}
-						// previousStep={() => wizard.previousStep()}
-					/>
-					{/* <Wizard3
-						data={data}
-						setData={setData}
-						goInitial={goToInitial}
-						previousStep={goPreviousStep}
-						setCurrentStep={setCurrentStep}
-						// previousStep={() => wizard.previousStep()}
-					/> */}
-				</StepWizard>
-			</div>
+			</Card>
 		</div>
 	);
 }

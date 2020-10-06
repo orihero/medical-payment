@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Form } from 'react-bootstrap';
+import { Form, FormCheck as Check } from 'react-bootstrap';
 import MaskedInput from 'react-maskedinput';
 import Cards from 'react-credit-cards';
 
@@ -10,7 +10,7 @@ enum Fields {
 
 const Wizard3 = ({ data, setData, nextStep, setCurrentStep }) => {
 	const [typeCont, setTypeCont] = useState(
-		!data.isRealPayment ? true : false
+		data.isRealPayment ? true : false
 	);
 
 	const [card, setCard] = useState({
@@ -168,36 +168,31 @@ const Wizard3 = ({ data, setData, nextStep, setCurrentStep }) => {
 
 	return (
 		// SECTION 3
-		<section>
+		<section className='wizard--3'>
 			<div id='PaymentForm'>
 				<div className='checkbox--row--title'>Payment Type</div>
-				<div className='flex--row' style={{ marginBottom: '2em' }}>
-					<div
-						className='checkbox--row'
-						onClick={() => setTypeCont(false)}>
-						<input
+				<div className='flex--row'>
+					<div className='checkbox--row'>
+						<Check
+							type='switch'
 							id='biir'
-							name='biir'
-							type='checkbox'
+							label='Card payment'
 							checked={!typeCont ? true : false}
+							onChange={() => setTypeCont(!typeCont)}
 						/>
-						<label htmlFor='biir'>Card payment</label>
 					</div>
-					<div
-						className='checkbox--row'
-						style={{ marginLeft: '2em' }}
-						onClick={() => setTypeCont(true)}>
-						<input
+					<div className='checkbox--row' style={{ marginLeft: '2em' }}>
+						<Check
+							type='switch'
 							id='ikkii'
-							name='ikkii'
-							type='checkbox'
+							label='Insurance'
 							checked={typeCont ? true : false}
+							onChange={() => setTypeCont(!typeCont)}
 						/>
-						<label htmlFor='ikkii'>Insurance</label>
 					</div>
 				</div>
 				{typeCont ? (
-					<div style={{ width: '35vw' }}>
+					<div className='insurance--cont'>
 						<label htmlFor='custom-file-1'>
 							{files.insurancePhoto
 								? 'Picture of State ID selected'
@@ -207,6 +202,7 @@ const Wizard3 = ({ data, setData, nextStep, setCurrentStep }) => {
 							<Form.File
 								custom
 								id='custom-file-1'
+								className='fileInput'
 								accept='.png, .jpg, .jpeg'
 								onChange={(e) => onSelectedFileChange(e, true)}
 								label={
@@ -228,6 +224,7 @@ const Wizard3 = ({ data, setData, nextStep, setCurrentStep }) => {
 							<Form.File
 								custom
 								id='custom-file-2'
+								className='fileInput'
 								accept='.png, .jpg, .jpeg'
 								onChange={(e) => onSelectedFileChange(e, false)}
 								label={
@@ -246,9 +243,8 @@ const Wizard3 = ({ data, setData, nextStep, setCurrentStep }) => {
 						<input
                             type='text'
 							name={'firstName'}
-                            className='form-control'
-							style={{ width: '50%' }}
 							value={insuranceNumber}
+                            className='form-control customFileInput'
 							onChange={e => setInsuranceNumber(e.target.value)}
                             // onChange={formik.handleChange}
                             // value={formik.values.firstName}

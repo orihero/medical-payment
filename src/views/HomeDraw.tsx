@@ -4,9 +4,9 @@ import { Modal, Card } from 'react-bootstrap';
 import DateTimePicker from 'reactstrap-date-picker';
 import validator from 'validator';
 import MaskedInput from 'react-maskedinput';
-import axios from 'axios'
-import { formData } from '../utils'
-import PlacesAutocomplete from 'react-places-autocomplete'
+import axios from 'axios';
+import { formData } from '../utils';
+import PlacesAutocomplete from 'react-places-autocomplete';
 
 const times = [
 	'9:00',
@@ -109,7 +109,7 @@ const times = [
 
 const HomeDraw = () => {
 	const history = useHistory();
-	const { typeTest } = useParams()
+	const { typeTest } = useParams();
 
 	const [state, setState] = useState({
 		phone: '',
@@ -154,21 +154,21 @@ const HomeDraw = () => {
 	}, [state.numberOfPeople]);
 
 	const onPickerDateChange = (value, formattedValue) => {
-		let currentDate = new Date()
-		let selectedDate = new Date(value)
-		currentDate.setHours(0)
-		selectedDate.setHours(0)
-		if(selectedDate > currentDate){
+		let currentDate = new Date();
+		let selectedDate = new Date(value);
+		currentDate.setHours(0);
+		selectedDate.setHours(0);
+		if (selectedDate > currentDate) {
 			setState({ ...state, visitDate: { value, formattedValue } });
 		} else {
 			setState({
 				...state,
 				visitDate: {
 					value: null,
-					formattedValue: null
-				}
-			})
-			alert('You cannot make an appointment on this day!')
+					formattedValue: null,
+				},
+			});
+			alert('You cannot make an appointment on this day!');
 		}
 	};
 
@@ -204,7 +204,7 @@ const HomeDraw = () => {
 			address,
 			visitDate,
 			apartment,
-			numberOfPeople
+			numberOfPeople,
 		} = state;
 
 		let obj = {
@@ -237,13 +237,13 @@ const HomeDraw = () => {
 
 			if (!visitDate.formattedValue) {
 				obj.visitDate = true;
-				alert('Please select currect date')
+				alert('Please select currect date');
 			}
 			if (!phone) obj.phone = true;
 			if (!address) obj.address = true;
 			if (!numberOfPeople) obj.numberOfPeople = true;
-			if (!suite) obj.suite = true
-			if (!apartment) obj.apartment = true
+			if (!suite) obj.suite = true;
+			if (!apartment) obj.apartment = true;
 
 			fullnameArr.map((item, index) => {
 				if (!item.firstname) arr[index].first = true;
@@ -263,16 +263,19 @@ const HomeDraw = () => {
 			suite,
 			address,
 			apartment,
-			visitDate: {
-				formattedValue
-			},
+			visitDate: { formattedValue },
 			visitTime,
 			numberOfPeople: number_of_peoples,
-		} = state
+		} = state;
 
-		let visitD = formattedValue.replace(/\//g, '-')
-		visitD = visitD.slice(6) + '-' + visitD.slice(3, 5) + '-' + visitD.slice(0, 2)
-		let visit_date_time = visitD + ' ' + visitTime + ':00'
+		let visitD = formattedValue.replace(/\//g, '-');
+		visitD =
+			visitD.slice(6) +
+			'-' +
+			visitD.slice(3, 5) +
+			'-' +
+			visitD.slice(0, 2);
+		let visit_date_time = visitD + ' ' + visitTime + ':00';
 
 		let obj: any = {
 			suite,
@@ -282,23 +285,26 @@ const HomeDraw = () => {
 			type: typeTest,
 			visit_date_time,
 			number_of_peoples,
+		};
+		for (let i = 0; i < number_of_peoples; i++) {
+			obj[`firstname[${i}]`] = fullnameArr[i].firstname;
+			obj[`lastname[${i}]`] = fullnameArr[i].lastname;
 		}
-		for(let i = 0; i < number_of_peoples; i++){
-			obj[`firstname[${i}]`] = fullnameArr[i].firstname
-			obj[`lastname[${i}]`] = fullnameArr[i].lastname
-		}
-		obj.type = parseInt(obj.type)
-		obj = formData(obj)
+		obj.type = parseInt(obj.type);
+		obj = formData(obj);
 
-		axios.post('https://appointment.accureference.com/api/homedraw', obj)
-			.then(res => {
-				if(res.data.status === 'success'){
-					history.push(`/appointment?type=1&requestId=${res.data.data.id}`);
+		axios
+			.post('https://appointment.accureference.com/api/homedraw', obj)
+			.then((res) => {
+				if (res.data.status === 'success') {
+					history.push(
+						`/appointment?type=1&requestId=${res.data.data.id}`
+					);
 				} else {
-					console.log('res.data: ', res.data)
-					alert('Invalid credentials')
+					console.log('res.data: ', res.data);
+					alert('Invalid credentials');
 				}
-			})
+			});
 	};
 
 	return (
@@ -342,9 +348,10 @@ const HomeDraw = () => {
 					</div>
 					<PlacesAutocomplete
 						value={state.address}
-						onChange={address => setState({...state, address})}
-						onSelect={(address, p1) => setState({ ...state, address })}
-					>
+						onChange={(address) => setState({ ...state, address })}
+						onSelect={(address, p1) =>
+							setState({ ...state, address })
+						}>
 						{({
 							getInputProps,
 							suggestions,
@@ -352,7 +359,9 @@ const HomeDraw = () => {
 							loading,
 						}) => (
 							<div className='homedraw--row'>
-								<label htmlFor='address' style={{ marginTop: '1em' }}>
+								<label
+									htmlFor='address'
+									style={{ marginTop: '1em' }}>
 									Address
 								</label>
 								<input
@@ -362,7 +371,10 @@ const HomeDraw = () => {
 									value={state.address}
 									placeholder='Enter address...'
 									onChange={(e) =>
-										setState({ ...state, address: e.target.value })
+										setState({
+											...state,
+											address: e.target.value,
+										})
 									}
 									{...getInputProps({
 										placeholder: 'Enter your address',
@@ -370,7 +382,9 @@ const HomeDraw = () => {
 									})}
 								/>
 								{errorState.address ? (
-									<div className='homedraw--error'>Required</div>
+									<div className='homedraw--error'>
+										Required
+									</div>
 								) : null}
 								<div className='autocomplete-dropdown-container'>
 									{loading && <div>Loading...</div>}
@@ -381,15 +395,13 @@ const HomeDraw = () => {
 										// inline style for demonstration purpose
 										const style = suggestion.active
 											? {
-													backgroundColor:
-														'#fafafa',
+													backgroundColor: '#fafafa',
 													cursor: 'pointer',
-												}
+											  }
 											: {
-													backgroundColor:
-														'#ffffff',
+													backgroundColor: '#ffffff',
 													cursor: 'pointer',
-												};
+											  };
 										return (
 											<div
 												{...getSuggestionItemProps(
@@ -420,7 +432,10 @@ const HomeDraw = () => {
 							value={state.apartment}
 							placeholder='Enter apartment...'
 							onChange={(e) =>
-								setState({ ...state, apartment: e.target.value })
+								setState({
+									...state,
+									apartment: e.target.value,
+								})
 							}
 						/>
 						{errorState.apartment ? (
@@ -454,9 +469,7 @@ const HomeDraw = () => {
 							className='input'
 							value={state.phone}
 							placeholder='Enter your phone number'
-							onFocus={() =>
-								setState({ ...state, phone: '+1' })
-							}
+							onFocus={() => setState({ ...state, phone: '+1' })}
 							onChange={({ target }) => {
 								if (
 									target.value &&
@@ -466,6 +479,9 @@ const HomeDraw = () => {
 										...state,
 										phone: '+1' + target.value,
 									});
+									return;
+								}
+								if (target.value.length > 12) {
 									return;
 								}
 								setState({ ...state, phone: target.value });
@@ -562,9 +578,8 @@ const HomeDraw = () => {
 										</div>
 									</div>
 								</div>
-							))
-						: null
-					}
+						  ))
+						: null}
 					<div className='checkbox--btn--row'>
 						<button onClick={onFinish}>Finish</button>
 					</div>
@@ -576,7 +591,23 @@ const HomeDraw = () => {
 
 					<Modal.Body>
 						<div>
-							The Company shall provide COVID testing for those Travellers identified by Pure Health and shall provide test results in accordance with the workflow and TAT herein agreed. The Traveller shall be notified by the Company as to a patient service centre location where the Traveller may obtain COVID testing. In compliance with local laws, Company may require that Travellers provide an order for COVID testing from an authorized medical practitioner prior to performing a COVID test. Pure Health will collect a fee of Five USD (5.00 USD) from the Travellers needing a testing order. This fee is collected by Pure Health on behalf of the ordering practitioner. Pure Health will transmit this fee to Company for Company to transmit to the ordering practitioner, without setoff or deduction by either party.
+							The Company shall provide COVID testing for those
+							Travellers identified by Pure Health and shall
+							provide test results in accordance with the workflow
+							and TAT herein agreed. The Traveller shall be
+							notified by the Company as to a patient service
+							centre location where the Traveller may obtain COVID
+							testing. In compliance with local laws, Company may
+							require that Travellers provide an order for COVID
+							testing from an authorized medical practitioner
+							prior to performing a COVID test. Pure Health will
+							collect a fee of Five USD (5.00 USD) from the
+							Travellers needing a testing order. This fee is
+							collected by Pure Health on behalf of the ordering
+							practitioner. Pure Health will transmit this fee to
+							Company for Company to transmit to the ordering
+							practitioner, without setoff or deduction by either
+							party.
 						</div>
 						<div className='modal--bottom--box'>
 							<div
@@ -595,8 +626,9 @@ const HomeDraw = () => {
 								onClick={onFinishClick}
 								disabled={!acceptChecked}
 								style={{ border: 'none', outline: 'none' }}
-								className={`${acceptChecked ? 'active--button' : ''}`}
-							>
+								className={`${
+									acceptChecked ? 'active--button' : ''
+								}`}>
 								Finish
 							</button>
 						</div>

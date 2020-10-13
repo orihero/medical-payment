@@ -229,6 +229,10 @@ body {
 	border: none;
 	padding: 0.5em 1em;
 }
+.modal--bottom--box .active--button{
+	background-color: #4bb543;
+	color: #fff;
+}
 .wizard > .steps .current-info,
 .wizard > .steps .number {
 	display: none;

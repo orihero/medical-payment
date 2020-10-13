@@ -449,14 +449,36 @@ const HomeDraw = () => {
 						<label htmlFor='phone' style={{ marginTop: '1em' }}>
 							Phone number
 						</label>
-						<MaskedInput
+						<input
+							type='text'
+							className='input'
+							value={state.phone}
+							placeholder='Enter your phone number'
+							onFocus={() =>
+								setState({ ...state, phone: '+1' })
+							}
+							onChange={({ target }) => {
+								if (
+									target.value &&
+									!target.value.startsWith('+')
+								) {
+									setState({
+										...state,
+										phone: '+1' + target.value,
+									});
+									return;
+								}
+								setState({ ...state, phone: target.value });
+							}}
+						/>
+						{/* <MaskedInput
 							type='text'
 							className='input'
 							value={state.phone}
 							mask='\+\1 (111) 111-1111'
 							onChange={onPhoneNumberChange}
 							placeholder={`+1 (XXX) XXX-XXXX`}
-						/>
+						/> */}
 						{errorState.phone ? (
 							<div className='homedraw--error'>
 								Please enter valid phone number
@@ -482,9 +504,9 @@ const HomeDraw = () => {
 						) : null}
 					</div>
 					<p>
-						{`60$  for each = Total cost ${
+						{`$60  for each = Total cost $${
 							60 * state.numberOfPeople
-						}$`}
+						}`}
 					</p>
 					{fullnameArr.length
 						? fullnameArr.map((item, index) => (
@@ -585,9 +607,11 @@ const HomeDraw = () => {
 								<label htmlFor='accept'>Accept</label>
 							</div>
 							<button
-								style={{ border: 'none', outline: 'none' }}
+								onClick={onFinishClick}
 								disabled={!acceptChecked}
-								onClick={onFinishClick}>
+								style={{ border: 'none', outline: 'none' }}
+								className={`${acceptChecked ? 'active--button' : ''}`}
+							>
 								Finish
 							</button>
 						</div>

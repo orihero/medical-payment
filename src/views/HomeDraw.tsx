@@ -576,22 +576,7 @@ const HomeDraw = () => {
 
 					<Modal.Body>
 						<div>
-							Lorem ipsum dolor sit amet consectetur, adipisicing
-							elit. Soluta neque nobis ea laudantium? Minima nihil
-							dicta voluptatum amet fugiat totam fugit, veritatis
-							molestiae earum placeat quos non sunt numquam
-							praesentium corrupti accusantium consequatur enim.
-							Quia totam quas ipsam ea, nulla sequi consequuntur.
-							Ex nostrum, molestias nisi iste eum a? Asperiores
-							perspiciatis natus laboriosam dolor adipisci
-							ducimus, labore minima eaque veritatis blanditiis
-							ratione fugit, molestias at neque ab nihil
-							repudiandae est dolorum dignissimos. Pariatur
-							expedita vero placeat delectus temporibus
-							necessitatibus assumenda! Rem molestiae odit optio
-							minus blanditiis doloribus necessitatibus enim quis.
-							Fuga asperiores recusandae eum sapiente tempora
-							reiciendis soluta sint repellendus!
+							The Company shall provide COVID testing for those Travellers identified by Pure Health and shall provide test results in accordance with the workflow and TAT herein agreed. The Traveller shall be notified by the Company as to a patient service centre location where the Traveller may obtain COVID testing. In compliance with local laws, Company may require that Travellers provide an order for COVID testing from an authorized medical practitioner prior to performing a COVID test. Pure Health will collect a fee of Five USD (5.00 USD) from the Travellers needing a testing order. This fee is collected by Pure Health on behalf of the ordering practitioner. Pure Health will transmit this fee to Company for Company to transmit to the ordering practitioner, without setoff or deduction by either party.
 						</div>
 						<div className='modal--bottom--box'>
 							<div

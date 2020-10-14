@@ -584,7 +584,7 @@ const HomeDraw = () => {
 				</div>
 				<Modal show={modalShow} onHide={() => setModalShow(false)}>
 					<Modal.Header closeButton>
-						<Modal.Title>Contract</Modal.Title>
+						<Modal.Title>Disclaimer</Modal.Title>
 					</Modal.Header>
 
 					<Modal.Body>
@@ -627,7 +627,7 @@ const HomeDraw = () => {
 								className={`${
 									acceptChecked ? 'active--button' : ''
 								}`}>
-								Finish
+								Accept and Sign
 							</button>
 						</div>
 					</Modal.Body>

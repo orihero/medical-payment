@@ -253,7 +253,7 @@ const Wizard2 = ({
 
 			<Modal show={modalShow} onHide={() => setModalShow(false)}>
 				<Modal.Header closeButton>
-					<Modal.Title>Contract</Modal.Title>
+					<Modal.Title>Disclaimer</Modal.Title>
 				</Modal.Header>
 
 				<Modal.Body>
@@ -288,8 +288,11 @@ const Wizard2 = ({
 						<button
 							style={{ border: 'none', outline: 'none' }}
 							disabled={!acceptChecked}
+							className={`${
+								acceptChecked ? 'active--button' : ''
+							}`}
 							onClick={onFinishClick}>
-							Finish
+							Accept and Sign
 						</button>
 					</div>
 				</Modal.Body>

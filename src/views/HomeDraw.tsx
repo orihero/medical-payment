@@ -121,7 +121,7 @@ const HomeDraw = () => {
 			formattedValue: null,
 		},
 		visitTime: '9:00',
-		numberOfPeople: 0,
+		numberOfPeople: 1,
 	});
 	const [errorState, setErrorState] = useState({
 		phone: false,
@@ -423,7 +423,7 @@ const HomeDraw = () => {
 					</PlacesAutocomplete>
 					<div className='homedraw--row'>
 						<label htmlFor='apartment' style={{ marginTop: '1em' }}>
-							Apartment
+							Apartment / Suite
 						</label>
 						<input
 							type='text'
@@ -442,7 +442,7 @@ const HomeDraw = () => {
 							<div className='homedraw--error'>Required</div>
 						) : null}
 					</div>
-					<div className='homedraw--row'>
+					{/* <div className='homedraw--row'>
 						<label htmlFor='suite' style={{ marginTop: '1em' }}>
 							Suite
 						</label>
@@ -459,7 +459,7 @@ const HomeDraw = () => {
 						{errorState.suite ? (
 							<div className='homedraw--error'>Required</div>
 						) : null}
-					</div>
+					</div> */}
 					<div className='homedraw--row'>
 						<label htmlFor='phone' style={{ marginTop: '1em' }}>
 							Phone number

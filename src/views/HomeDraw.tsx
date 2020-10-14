@@ -226,7 +226,6 @@ const HomeDraw = () => {
 			visitDate.formattedValue &&
 			phone &&
 			address &&
-			suite &&
 			apartment &&
 			numberOfPeople &&
 			fullnameArr.every((item) => item.firstname && item.lastname)
@@ -242,7 +241,6 @@ const HomeDraw = () => {
 			if (!phone) obj.phone = true;
 			if (!address) obj.address = true;
 			if (!numberOfPeople) obj.numberOfPeople = true;
-			if (!suite) obj.suite = true;
 			if (!apartment) obj.apartment = true;
 
 			fullnameArr.map((item, index) => {

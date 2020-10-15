@@ -296,7 +296,7 @@ const HomeDraw = () => {
 			.then((res) => {
 				if (res.data.status === 'success') {
 					history.push(
-						`/appointment?type=1&requestId=${res.data.data.id}`
+						`/appointment?type=2&requestId=${res.data.data.id}`
 					);
 				} else {
 					console.log('res.data: ', res.data);

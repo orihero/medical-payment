@@ -170,6 +170,9 @@ const Wizard3 = ({ data, setData, nextStep, setCurrentStep }) => {
 		// SECTION 3
 		<section className='wizard--3'>
 			<div id='PaymentForm'>
+				<div className='title-10d'>
+					{`Total sum: ${data.request_type === 2 ? '60$' : '10$'}`}
+				</div>
 				<div className='checkbox--row--title'>Payment Type</div>
 				<div className='flex--row'>
 					<div className='checkbox--row'>

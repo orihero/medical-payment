@@ -114,6 +114,12 @@ body {
 	font-weight: 500;
 	margin: 2vh 0 4vh 0;
 }
+.title-10d{
+	font-size: 1.2em;
+	color: #333;
+	margin: 1vh 0 2vh 0;
+	font-weight: 500;
+}
 .flex--row {
 	display: flex;
 	align-items: center;
@@ -685,7 +691,7 @@ textarea.form-control {
 		height: 100vh;
 	}
 
-	.checkbox--row--title {
+	.checkbox--row--title, .title-10d {
 		font-size: 1.3em;
 	}
 	.checkbox--row {
@@ -715,7 +721,7 @@ textarea.form-control {
 	}
 }
 @media (max-width: 1073px) {
-	.checkbox--row--title {
+	.checkbox--row--title, .title-10d {
 		font-size: 1.2em;
 	}
 	.checkbox--row {
@@ -756,7 +762,7 @@ textarea.form-control {
 	.parent--flex--row {
 		width: 60vw;
 	}
-	.checkbox--row--title {
+	.checkbox--row--title, .title-10d {
 		font-size: 1.15em;
 	}
 	.checkbox--row {
@@ -793,7 +799,7 @@ textarea.form-control {
 	}
 }
 @media (max-width: 879px) {
-	.checkbox--row--title {
+	.checkbox--row--title, .title-10d {
 		font-size: 1.1em;
 	}
 	.checkbox--row {
@@ -849,7 +855,7 @@ textarea.form-control {
 	.flex--row {
 		width: max-content;
 	}
-	.checkbox--row--title {
+	.checkbox--row--title, .title-10d {
 		font-size: 1.1em;
 	}
 	.checkbox--row {
@@ -910,7 +916,7 @@ textarea.form-control {
 	.parent--flex--row {
 		padding: 1.5em;
 	}
-	.checkbox--row--title {
+	.checkbox--row--title, {
 		font-size: 0.95em;
 	}
 	.checkbox--row {
@@ -954,7 +960,7 @@ textarea.form-control {
 	.wizard {
 		padding-top: 3em;
 	}
-	.wizard--3 .checkbox--row--title{
+	.wizard--3 .checkbox--row--title, .title-10d{
 		font-size: 1.1em;
 	}
 
@@ -986,7 +992,7 @@ textarea.form-control {
 	.parent--flex--row {
 		padding: 1em;
 	}
-	.checkbox--row--title {
+	.checkbox--row--title, .title-10d {
 		font-size: 0.85em;
 		margin: 1vh 0;
 	}
@@ -1019,7 +1025,7 @@ textarea.form-control {
 	.parent--flex--row {
 		padding: 0.5em;
 	}
-	.checkbox--row--title {
+	.checkbox--row--title, .title-10d {
 		margin: 5px 0;
 		font-size: 0.69em;
 	}
@@ -1066,7 +1072,7 @@ textarea.form-control {
 	.parent--flex--row {
 		padding: 5px;
 	}
-	.checkbox--row--title {
+	.checkbox--row--title, .title-10d {
 		font-size: 0.57em;
 	}
 	.checkbox--row label {
@@ -1108,7 +1114,7 @@ textarea.form-control {
 	.parent--flex--row {
 		padding: 5px;
 	}
-	.checkbox--row--title {
+	.checkbox--row--title, .title-10d {
 		font-size: 0.57em;
 	}
 	.checkbox--row label {
@@ -1167,7 +1173,7 @@ textarea.form-control {
 	.parent--flex--row {
 		padding: 5px;
 	}
-	.checkbox--row--title {
+	.checkbox--row--title, .title-10d {
 		font-size: 0.46em;
 	}
 	.flex--row {

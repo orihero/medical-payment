@@ -42,10 +42,15 @@ const Wizard = (props) => {
 
 	const effect = async () => {
 		const obj: any = getJsonFromUrl(window.location.href)
-		console.log('obj: ', obj)
+		let objState: any = {}
+		objState.requestId = obj.requestId
 
+		if(parseInt(obj.type) === 2){
+			objState.request_type = 2
+		}
+		
 		let response = await axios.get(`https://appointment.accureference.com/api/request/${obj.requestId}`)
-
+		
 		if(response.data.length){
 			let resData = {...response.data[0]}
 			let objData: any = {}
@@ -89,13 +94,11 @@ const Wizard = (props) => {
 				objData.country = addressArr[lastIndex]
 			}
 
-			if(parseInt(obj.type) === 1){
-				console.log('if:')
-				objData.request_type = 1
-			}
-
-			setData({...data, ...objData, requestId: obj.requestId})
+			
+			objState = {...objState, ...objData}
 		}
+
+		setData({...data, ...objState})
 	}
 
 	useEffect(() => {

@@ -258,6 +258,9 @@ const Wizard2 = ({
 
 				<Modal.Body>
 					<div>
+						<p style={{marginBottom: '10px'}}>
+							{`Total sum ${data.request_type === 2 ? '60$' : '10$'}`}
+						</p>
 						The Company shall provide COVID testing for those
 						Travellers identified by Pure Health and shall provide
 						test results in accordance with the workflow and TAT

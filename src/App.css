@@ -290,7 +290,26 @@ body {
 .steps ul.step-4:before {
 	content: 'Billing Method';
 }
-
+.err-btn-box{
+	padding: 20px;
+	display: flex;
+	justify-content: space-evenly;
+}
+.err-btn-green{
+	color: #fff;
+	cursor: pointer;
+	padding: 6px 12px;
+	border-radius: 4px;
+	background-color: lawngreen;
+}
+.err-btn-red{
+	color: #fff;
+	cursor: pointer;
+	padding: 6px 12px;
+	border-radius: 4px;
+	text-decoration: none;
+	background-color: #ed4337;
+}
 .wizard--3 .flex--row {
 	margin: 0em 0 2em 0;
 }

@@ -45,57 +45,110 @@ const Wizard = (props) => {
 		let objState: any = {}
 		objState.requestId = obj.requestId
 
+		let response
 		if(parseInt(obj.type) === 2){
 			objState.request_type = 2
-		}
-		
-		let response = await axios.get(`https://appointment.accureference.com/api/request/${obj.requestId}`)
-		
-		if(response.data.length){
-			let resData = {...response.data[0]}
-			let objData: any = {}
+			response = await axios.get(`https://appointment.accureference.com/api/homedraw/${obj.requestId}`)
+			
+			if(response.data.data.length){
+				let resData = {...response.data.data[0]}
+				let objData: any = {}
 
-			objData.email = resData.email
-			objData.phone = resData.phone
+				objData.phone = resData.phone
+				objData.firstName = resData.peoples[0].firstname
+				objData.lastName = resData.peoples[0].lastname
 
-			let fullnameArr = resData.fullname.split(' ').map(item => item.trim())
-			objData.firstName = fullnameArr[0]
-			objData.lastName = fullnameArr[1]
-
-			let addressArr = resData.address.split(',').map(item => item.trim())
-			if(addressArr.length === 1)
-				objData.country = addressArr[0]
-			if(addressArr.length === 2)
-				objData.townCity = addressArr[0]
-				objData.country = addressArr[1]
-			if(addressArr.length === 3)
-				objData.address2 = addressArr[0]
-				objData.townCity = addressArr[1]
-				objData.country = addressArr[2]
-			if(addressArr.length === 4)
-				objData.address1 = addressArr[0]
-				objData.address2 = addressArr[1]
-				objData.townCity = addressArr[2]
-				objData.country = addressArr[3]
-			if(addressArr.length > 4){
-				let lastIndex = addressArr.length - 1
-				let str = ''
-				for (let i = 0; i < lastIndex - 2; i++){
-					if(i !== 0){
-						str += `, ${addressArr[i]}`
-					} else {
-						str += addressArr[i]
+				let addressArr = resData.address.split(',').map(item => item.trim())
+				if(addressArr.length === 1){
+					objData.country = addressArr[0]
+				}
+				if(addressArr.length === 2){
+					objData.townCity = addressArr[0]
+					objData.country = addressArr[1]
+				}
+				if(addressArr.length === 3){
+					objData.address2 = addressArr[0]
+					objData.townCity = addressArr[1]
+					objData.country = addressArr[2]
+				}
+				if(addressArr.length === 4){
+					objData.address1 = addressArr[0]
+					objData.address2 = addressArr[1]
+					objData.townCity = addressArr[2]
+					objData.country = addressArr[3]
+				}
+				if(addressArr.length > 4){
+					let lastIndex = addressArr.length - 1
+					let str = ''
+					for (let i = 0; i < lastIndex - 2; i++){
+						if(i !== 0){
+							str += `, ${addressArr[i]}`
+						} else {
+							str += addressArr[i]
+						}
 					}
+	
+					objData.address1 = str
+					objData.address2 = addressArr[lastIndex-2]
+					objData.townCity = addressArr[lastIndex-1]
+					objData.country = addressArr[lastIndex]
 				}
 
-				objData.address1 = str
-				objData.address2 = addressArr[lastIndex-2]
-				objData.townCity = addressArr[lastIndex-1]
-				objData.country = addressArr[lastIndex]
+				objState = {...objState, ...objData}
 			}
-
+		} else {
+			response = await axios.get(`https://appointment.accureference.com/api/request/${obj.requestId}`)
 			
-			objState = {...objState, ...objData}
+			if(response.data.length){
+				let resData = {...response.data[0]}
+				let objData: any = {}
+	
+				objData.email = resData.email
+				objData.phone = resData.phone
+	
+				let fullnameArr = resData.fullname.split(' ').map(item => item.trim())
+				objData.firstName = fullnameArr[0]
+				objData.lastName = fullnameArr[1]
+	
+				let addressArr = resData.address.split(',').map(item => item.trim())
+				
+				if(addressArr.length === 1){
+					objData.country = addressArr[0]
+				}
+				if(addressArr.length === 2){
+					objData.townCity = addressArr[0]
+					objData.country = addressArr[1]
+				}
+				if(addressArr.length === 3){
+					objData.address2 = addressArr[0]
+					objData.townCity = addressArr[1]
+					objData.country = addressArr[2]
+				}
+				if(addressArr.length === 4){
+					objData.address1 = addressArr[0]
+					objData.address2 = addressArr[1]
+					objData.townCity = addressArr[2]
+					objData.country = addressArr[3]
+				}
+				if(addressArr.length > 4){
+					let lastIndex = addressArr.length - 1
+					let str = ''
+					for (let i = 0; i < lastIndex - 2; i++){
+						if(i !== 0){
+							str += `, ${addressArr[i]}`
+						} else {
+							str += addressArr[i]
+						}
+					}
+	
+					objData.address1 = str
+					objData.address2 = addressArr[lastIndex-2]
+					objData.townCity = addressArr[lastIndex-1]
+					objData.country = addressArr[lastIndex]
+				}
+	
+				objState = {...objState, ...objData}
+			}
 		}
 
 		setData({...data, ...objState})

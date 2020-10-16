@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import { Link } from 'react-router-dom'
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 // import validator from 'validator';
@@ -18,8 +18,10 @@ const Wizard2 = ({
 }) => {
 	const [errorText, setErrorText] = useState('');
 
-	const [modalShow, setModalShow] = useState(false);
 	const [acceptChecked, setAcceptChecked] = useState(false);
+
+	const [modalShow, setModalShow] = useState(false);
+	const [errModalShow, setErrModalShow] = useState(false)
 
 	useEffect(() => {
 		formik.setValues({
@@ -118,7 +120,7 @@ const Wizard2 = ({
 			request_id: requestId,
 			company_name: 'company_name',
 			add_address: 'add_address',
-			request_type,
+			request_type: request_type === 2 ? 1 : 0,
 		};
 
 		if (isRealPayment) {
@@ -140,26 +142,32 @@ const Wizard2 = ({
 		let fmData = formData(rawData);
 
 		console.log('rawData: ', rawData);
-		console.log('fmData: ', fmData);
 
 		try {
 			const response = await axios.post(
 				'https://appointment.accureference.com/api/payment',
 				fmData
 			);
+			
+			setModalShow(false)
+			console.log('response (f): ', response)
 
-			if (response.data.status === 'error') {
-				alert('Invalid credentials');
-			} else if (
-				response.data.type === 'error' &&
-				response.data.data === 'Insufficient funds'
-			) {
-				alert(response.data.data);
-			} else {
-				setData({ ...initialState });
-				window.location.reload();
-				// goInitial()
+			if(response.data.type === 'error'){
+				setErrModalShow(true)
 			}
+
+			// if (response.data.status === 'error') {
+			// 	alert('Invalid credentials');
+			// } else if (
+			// 	response.data.type === 'error' &&
+			// 	response.data.data === 'Insufficient funds'
+			// ) {
+			// 	alert(response.data.data);
+			// } else {
+			// 	setData({ ...initialState });
+			// 	window.location.reload();
+			// 	// goInitial()
+			// }
 		} catch (err) {
 			alert(`Error: ${err.toString()}`);
 			console.log('apiErr: ', err);
@@ -250,6 +258,29 @@ const Wizard2 = ({
 					</div>
 				</section>
 			</form>
+
+			<Modal show={errModalShow} onHide={() => setErrModalShow(false)}>
+				<Modal.Header closeButton>
+					<Modal.Title>Error: Invalid credentials</Modal.Title>
+				</Modal.Header>
+
+				<Modal.Body>
+					<div className='err-btn-box'>
+						<button
+							onClick={() => window.location.reload()}
+							className='err-btn-green'
+						>
+							Retry
+						</button>
+						<Link
+							to='/'
+							className='err-btn-red'
+						>
+							Without Payment
+						</Link>
+					</div>
+				</Modal.Body>
+			</Modal>
 
 			<Modal show={modalShow} onHide={() => setModalShow(false)}>
 				<Modal.Header closeButton>

@@ -28,7 +28,7 @@ const initialState = {
 	cardOwner: '',
 	expiry: '',
 	cvc: '',
-	isRealPayment: 1,
+	isRealPayment: 0,
 	insurancePhoto: null,
 	stateId: null,
 	requestId: null,

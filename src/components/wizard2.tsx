@@ -261,7 +261,7 @@ const Wizard2 = ({
 
 			<Modal show={errModalShow} onHide={() => setErrModalShow(false)}>
 				<Modal.Header closeButton>
-					<Modal.Title>Error: Invalid credentials</Modal.Title>
+					<Modal.Title>Error: Credit Card payment method failed</Modal.Title>
 				</Modal.Header>
 
 				<Modal.Body>

@@ -28,7 +28,7 @@ const initialState = {
 	cardOwner: '',
 	expiry: '',
 	cvc: '',
-	isRealPayment: 0,
+	isRealPayment: 1,
 	insurancePhoto: null,
 	stateId: null,
 	requestId: null,
@@ -49,7 +49,7 @@ const Wizard = (props) => {
 		if(parseInt(obj.type) === 2){
 			objState.request_type = 2
 			response = await axios.get(`https://appointment.accureference.com/api/homedraw/${obj.requestId}`)
-			
+			console.log('response: ', response)
 			if(response.data.data.length){
 				let resData = {...response.data.data[0]}
 				let objData: any = {}
@@ -191,7 +191,7 @@ const Wizard = (props) => {
 			</div>
 			<Card>
 				<div className='wizard'>
-					<div className={'steps'}>
+					{/* <div className={'steps'}>
 						<ul className={`step-${currentStep + 1}`}>
 							{[...new Array(3)].map((item, index) => {
 								return (
@@ -208,7 +208,7 @@ const Wizard = (props) => {
 								);
 							})}
 						</ul>
-					</div>
+					</div> */}
 					<StepWizard instance={(wizardInstance) => setWizard(wizardInstance)}>
 						<Wizard3
 							data={data}

@@ -17,11 +17,8 @@ const Wizard2 = ({
 	setCurrentStep,
 }) => {
 	const [errorText, setErrorText] = useState('');
-
 	const [acceptChecked, setAcceptChecked] = useState(false);
-
-	const [modalShow, setModalShow] = useState(false);
-	const [errModalShow, setErrModalShow] = useState(false)
+	const [modalShow, setModalShow] = useState<any>({});
 
 	useEffect(() => {
 		formik.setValues({
@@ -82,7 +79,7 @@ const Wizard2 = ({
 				postCode,
 				email,
 			});
-			setModalShow(true);
+			setModalShow({a: true});
 		},
 	});
 
@@ -149,11 +146,11 @@ const Wizard2 = ({
 				fmData
 			);
 			
-			setModalShow(false)
+			setModalShow({})
 			console.log('response (f): ', response)
 
 			if(response.data.type === 'error'){
-				setErrModalShow(true)
+				setModalShow({b: true})
 			}
 
 			// if (response.data.status === 'error') {
@@ -259,7 +256,7 @@ const Wizard2 = ({
 				</section>
 			</form>
 
-			<Modal show={errModalShow} onHide={() => setErrModalShow(false)}>
+			<Modal show={modalShow.b} onHide={() => setModalShow({})}>
 				<Modal.Header closeButton>
 					<Modal.Title>Error: Credit Card payment method failed</Modal.Title>
 				</Modal.Header>
@@ -276,13 +273,36 @@ const Wizard2 = ({
 							to='/'
 							className='err-btn-red'
 						>
-							Without Payment
+							Continue Un-Paid
 						</Link>
 					</div>
 				</Modal.Body>
 			</Modal>
 
-			<Modal show={modalShow} onHide={() => setModalShow(false)}>
+			<Modal show={modalShow.c} onHide={() => setModalShow({})}>
+				<Modal.Header closeButton>
+					<Modal.Title>Success</Modal.Title>
+				</Modal.Header>
+
+				<Modal.Body>
+					<div className='success-box'>
+						<p>
+							Thank you, Your Payment has been succesful!
+							Please await confirmation email from our staff.
+						</p>
+						<div className='success-btn-box'>
+							<Link
+								to='/'
+								className='success-btn-grey'
+							>
+								OK
+							</Link>
+						</div>
+					</div>
+				</Modal.Body>
+			</Modal>
+
+			<Modal show={modalShow.a} onHide={() => setModalShow({})}>
 				<Modal.Header closeButton>
 					<Modal.Title>Disclaimer</Modal.Title>
 				</Modal.Header>

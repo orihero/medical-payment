@@ -199,12 +199,13 @@ const HomeDraw = () => {
 		e.preventDefault();
 
 		const {
-			suite,
 			phone,
+			suite,
 			address,
-			visitDate,
 			apartment,
-			numberOfPeople,
+			visitDate: { formattedValue },
+			visitTime,
+			numberOfPeople: number_of_peoples,
 		} = state;
 
 		let obj = {
@@ -223,24 +224,60 @@ const HomeDraw = () => {
 		});
 
 		if (
-			visitDate.formattedValue &&
+			formattedValue &&
 			phone &&
 			address &&
 			apartment &&
-			numberOfPeople &&
+			number_of_peoples &&
 			fullnameArr.every((item) => item.firstname && item.lastname)
 		) {
-			setModalShow(true);
+			let visitD = formattedValue.replace(/\//g, '-');
+			visitD =
+				visitD.slice(6) +
+				'-' +
+				visitD.slice(3, 5) +
+				'-' +
+				visitD.slice(0, 2);
+			let visit_date_time = visitD + ' ' + visitTime + ':00';
+
+			let obj: any = {
+				suite,
+				phone,
+				address,
+				apartment,
+				type: typeTest,
+				visit_date_time,
+				number_of_peoples,
+			};
+			for (let i = 0; i < number_of_peoples; i++) {
+				obj[`firstname[${i}]`] = fullnameArr[i].firstname;
+				obj[`lastname[${i}]`] = fullnameArr[i].lastname;
+			}
+			obj.type = parseInt(obj.type);
+			obj = formData(obj);
+
+			axios
+				.post('https://appointment.accureference.com/api/homedraw', obj)
+				.then((res) => {
+					if (res.data.status === 'success') {
+						history.push(
+							`/appointment?type=2&requestId=${res.data.data.id}`
+						);
+					} else {
+						console.log('res.data: ', res.data);
+						alert('Invalid credentials');
+					}
+				});
 		} else {
 			let arr = [...errFullArr];
 
-			if (!visitDate.formattedValue) {
+			if (!formattedValue) {
 				obj.visitDate = true;
 				alert('Please select currect date');
 			}
 			if (!phone) obj.phone = true;
 			if (!address) obj.address = true;
-			if (!numberOfPeople) obj.numberOfPeople = true;
+			if (!number_of_peoples) obj.numberOfPeople = true;
 			if (!apartment) obj.apartment = true;
 
 			fullnameArr.map((item, index) => {
@@ -251,58 +288,6 @@ const HomeDraw = () => {
 
 		setErrFullArr([...arr]);
 		setErrorState(obj);
-	};
-
-	const onFinishClick = async (e) => {
-		e.preventDefault();
-
-		const {
-			phone,
-			suite,
-			address,
-			apartment,
-			visitDate: { formattedValue },
-			visitTime,
-			numberOfPeople: number_of_peoples,
-		} = state;
-
-		let visitD = formattedValue.replace(/\//g, '-');
-		visitD =
-			visitD.slice(6) +
-			'-' +
-			visitD.slice(3, 5) +
-			'-' +
-			visitD.slice(0, 2);
-		let visit_date_time = visitD + ' ' + visitTime + ':00';
-
-		let obj: any = {
-			suite,
-			phone,
-			address,
-			apartment,
-			type: typeTest,
-			visit_date_time,
-			number_of_peoples,
-		};
-		for (let i = 0; i < number_of_peoples; i++) {
-			obj[`firstname[${i}]`] = fullnameArr[i].firstname;
-			obj[`lastname[${i}]`] = fullnameArr[i].lastname;
-		}
-		obj.type = parseInt(obj.type);
-		obj = formData(obj);
-
-		axios
-			.post('https://appointment.accureference.com/api/homedraw', obj)
-			.then((res) => {
-				if (res.data.status === 'success') {
-					history.push(
-						`/appointment?type=2&requestId=${res.data.data.id}`
-					);
-				} else {
-					console.log('res.data: ', res.data);
-					alert('Invalid credentials');
-				}
-			});
 	};
 
 	return (
@@ -582,56 +567,6 @@ const HomeDraw = () => {
 						<button onClick={onFinish}>Finish</button>
 					</div>
 				</div>
-				<Modal show={modalShow} onHide={() => setModalShow(false)}>
-					<Modal.Header closeButton>
-						<Modal.Title>Disclaimer</Modal.Title>
-					</Modal.Header>
-
-					<Modal.Body>
-						<div>
-							The Company shall provide COVID testing for those
-							Travellers identified by Pure Health and shall
-							provide test results in accordance with the workflow
-							and TAT herein agreed. The Traveller shall be
-							notified by the Company as to a patient service
-							centre location where the Traveller may obtain COVID
-							testing. In compliance with local laws, Company may
-							require that Travellers provide an order for COVID
-							testing from an authorized medical practitioner
-							prior to performing a COVID test. Pure Health will
-							collect a fee of Five USD (5.00 USD) from the
-							Travellers needing a testing order. This fee is
-							collected by Pure Health on behalf of the ordering
-							practitioner. Pure Health will transmit this fee to
-							Company for Company to transmit to the ordering
-							practitioner, without setoff or deduction by either
-							party.
-						</div>
-						<div className='modal--bottom--box'>
-							<div
-								onClick={() =>
-									setAcceptChecked(!acceptChecked)
-								}>
-								<input
-									id='accept'
-									name='accept'
-									type='checkbox'
-									checked={acceptChecked}
-								/>
-								<label htmlFor='accept'>Accept</label>
-							</div>
-							<button
-								onClick={onFinishClick}
-								disabled={!acceptChecked}
-								style={{ border: 'none', outline: 'none' }}
-								className={`${
-									acceptChecked ? 'active--button' : ''
-								}`}>
-								Accept and Sign
-							</button>
-						</div>
-					</Modal.Body>
-				</Modal>
 			</Card>
 		</div>
 	);

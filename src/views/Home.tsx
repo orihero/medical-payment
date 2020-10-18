@@ -1,10 +1,24 @@
 import React from 'react';
 import '../assets/css/style.css';
 import { Link } from 'react-router-dom';
+import logoImg from '../assets/images/logo-blue.png'
 
 export default function Home() {
 	return (
 		<div style={{ overflowX: 'hidden' }}>
+			<div
+				style={{
+					padding: '10px',
+					height: '5em',
+					backgroundColor: '#fff',
+				}}
+			>
+				<img
+					alt="img"
+					src={logoImg}
+					style={{height: '100%'}}
+				/>
+			</div>
 			<header
 				id='home'
 				className='home-area hero-equal-height section-padding overflow-hidden d-flex align-items-center'
@@ -54,10 +68,10 @@ export default function Home() {
 								</div>
 								<div className='prevention-text'>
 									<h3>1. Cover Cough</h3>
-									<p>
+									{/* <p>
 										Lorem Ipsum is simply dummy text of the
 										printing and typesetting industry.
-									</p>
+									</p> */}
 								</div>
 							</div>
 						</div>
@@ -71,10 +85,10 @@ export default function Home() {
 								</div>
 								<div className='prevention-text'>
 									<h3>2. Wear Mask When go Outside</h3>
-									<p>
+									{/* <p>
 										Lorem Ipsum is simply dummy text of the
 										printing and typesetting industry.
-									</p>
+									</p> */}
 								</div>
 							</div>
 						</div>
@@ -88,10 +102,10 @@ export default function Home() {
 								</div>
 								<div className='prevention-text'>
 									<h3>3. Keep Social Distance</h3>
-									<p>
+									{/* <p>
 										Lorem Ipsum is simply dummy text of the
 										printing and typesetting industry.
-									</p>
+									</p> */}
 								</div>
 							</div>
 						</div>
@@ -105,10 +119,10 @@ export default function Home() {
 								</div>
 								<div className='prevention-text'>
 									<h3>4. Wash Your Hands regularly</h3>
-									<p>
+									{/* <p>
 										Lorem Ipsum is simply dummy text of the
 										printing and typesetting industry.
-									</p>
+									</p> */}
 								</div>
 							</div>
 						</div>
@@ -122,10 +136,10 @@ export default function Home() {
 								</div>
 								<div className='prevention-text'>
 									<h3>5. Don't touch your Face</h3>
-									<p>
+									{/* <p>
 										Lorem Ipsum is simply dummy text of the
 										printing and typesetting industry.
-									</p>
+									</p> */}
 								</div>
 							</div>
 						</div>
@@ -139,10 +153,10 @@ export default function Home() {
 								</div>
 								<div className='prevention-text'>
 									<h3>6. Stay At home </h3>
-									<p>
+									{/* <p>
 										Lorem Ipsum is simply dummy text of the
 										printing and typesetting industry.
-									</p>
+									</p> */}
 								</div>
 							</div>
 						</div>
@@ -156,11 +170,11 @@ export default function Home() {
 							<div className='col-lg-3 col-md-6 footer-link'>
 								<div className='footer-logo-box'>
 									<h5>Covid 19</h5>
-									<p>
+									{/* <p>
 										Lorem ipsum dolor sit amet, consectetur
 										adipiscing elit, sed do eiusmod tempor
 										incididunt.
-									</p>
+									</p> */}
 									<div className='footer-social-icon'>
 										<a href='#' className='icon'>
 											{' '}

@@ -171,7 +171,7 @@ const Wizard3 = ({ data, setData, nextStep, setCurrentStep }) => {
 		<section className='wizard--3'>
 			<div id='PaymentForm'>
 				<div className='title-10d'>
-					{`CC primary: ${data.request_type === 2 ? '60$' : '10$'}`}
+					{`Credit Card Payment amount = ${data.request_type === 2 ? '60$' : '10$'}`}
 				</div>
 				<div className='checkbox--row--title'>Payment Type</div>
 				<div className='flex--row'>
@@ -220,8 +220,8 @@ const Wizard3 = ({ data, setData, nextStep, setCurrentStep }) => {
 							style={{ marginTop: '2em' }}
 						>
 							{files.stateId
-								? 'Picture of Insurance selected'
-								: 'Picture of Insurance'}
+								? 'Picture of Insurance Card selected'
+								: 'Picture of Insurance Card'}
 						</label>
 						<Form>
 							<Form.File

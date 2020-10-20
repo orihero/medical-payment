@@ -258,7 +258,13 @@ const Wizard2 = ({
 
 			<Modal show={modalShow.b} onHide={() => setModalShow({})}>
 				<Modal.Header closeButton>
-					<Modal.Title>Error: Credit Card payment method failed</Modal.Title>
+					<Modal.Title>
+						<h5>Error:</h5>
+						{/* <br/> */}
+						<h6>Credit Card payment method failed</h6>
+						{/* {`Error: 
+							Credit Card payment method failed`} */}
+					</Modal.Title>
 				</Modal.Header>
 
 				<Modal.Body>

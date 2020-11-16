@@ -172,7 +172,7 @@ const Wizard3 = ({ data, setData, nextStep, setCurrentStep }) => {
 			<div id='PaymentForm'>
 				{!typeCont ? (
 					<div className='title-10d'>
-						{`Credit Card Payment amount = ${data.request_type === 2 ? '$60' : '$10'}`}
+						{`Credit Card Payment amount = $${data.price}`}
 					</div>
 				) : null}
 				<div className='checkbox--row--title'>Payment Type</div>

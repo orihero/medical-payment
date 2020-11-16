@@ -180,6 +180,7 @@ const HomeDraw = () => {
 				obj[`lastname[${i}]`] = fullnameArr[i].lastname;
 			}
 			obj.type = parseInt(obj.type);
+			// console.log('obj: ', obj)
 			obj = formData(obj);
 
 			axios

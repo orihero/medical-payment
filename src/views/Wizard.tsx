@@ -33,6 +33,7 @@ const initialState = {
 	stateId: null,
 	requestId: null,
 	request_type: 0,
+	price: 0,
 };
 
 const Wizard = (props) => {
@@ -54,6 +55,25 @@ const Wizard = (props) => {
 				let resData = {...response.data.data[0]}
 				let objData: any = {}
 
+				let testTypePrice = 0
+				let pricePresc = resData.has_prescription ? 0 : 5
+				let priceForPeople = 0
+				if(resData.peoples.length > 1){
+					for(let i = 1; i < resData.peoples.length; i++){
+						priceForPeople += 18
+					}
+				}
+				if(resData.type === 0){
+					testTypePrice = 100	
+				}
+				if(resData.type === 1){
+					testTypePrice = 50	
+				}
+				if(resData.type === 2){
+					testTypePrice = 150	
+				}
+
+				objData.price = 45 + testTypePrice + pricePresc + priceForPeople
 				objData.phone = resData.phone
 				objData.firstName = resData.peoples[0].firstname
 				objData.lastName = resData.peoples[0].lastname

@@ -14,6 +14,7 @@ const Agreement = () => {
 		a: false,
 		b: false,
 	});
+	const [hasPresc, setHasPresc] = useState(true)
 	const [errorText, setErrorText] = useState({ a: false, b: false });
 
 	const onFirstChange = (value) => {
@@ -50,13 +51,13 @@ const Agreement = () => {
 				window.location.href = 'https://appointment.accureference.com';
 			} else {
 				if (firstCheckValue.a) {
-					history.push('/home-draw/0');
+					history.push(`/home-draw/0/${hasPresc}`);
 				}
 				if (firstCheckValue.b) {
-					history.push('/home-draw/1');
+					history.push(`/home-draw/1/${hasPresc}`);
 				}
 				if (firstCheckValue.c) {
-					history.push('/home-draw/2');
+					history.push(`/home-draw/2/${hasPresc}`);
 				}
 			}
 		} else {
@@ -161,6 +162,23 @@ const Agreement = () => {
 							Type location required
 						</div>
 					) : null}
+					<div
+						style={{ marginTop: '2em' }}
+						className='checkbox--row--title'>
+						Do you have Prescription ?
+					</div>
+					<div className='flex--row'>
+						<div className='checkbox--row'>
+							<Check
+								type='switch'
+								id='custom-switch6'
+								label='Yes'
+								checked={hasPresc}
+								onChange={() => setHasPresc(!hasPresc)}
+							/>
+							{/* <label htmlFor='besh'>Home Draw</label> */}
+						</div>
+					</div>
 					<div
 						className='checkbox--btn--row'
 						style={{ justifyContent: 'center' }}>

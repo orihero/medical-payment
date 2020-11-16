@@ -14,7 +14,7 @@ const Agreement = () => {
 		a: false,
 		b: false,
 	});
-	const [hasPresc, setHasPresc] = useState(true)
+	// const [hasPresc, setHasPresc] = useState(true)
 	const [errorText, setErrorText] = useState({ a: false, b: false });
 
 	const onFirstChange = (value) => {
@@ -48,16 +48,24 @@ const Agreement = () => {
 			(secondCheckValue.a || secondCheckValue.b)
 		) {
 			if (secondCheckValue.a) {
-				window.location.href = 'https://appointment.accureference.com';
+				if(firstCheckValue.a){
+					window.location.href = 'https://appointment.accureference.com/?param=0'
+				}
+				if(firstCheckValue.b){
+					window.location.href = 'https://appointment.accureference.com/?param=1'
+				}
+				if(firstCheckValue.c){
+					window.location.href = 'https://appointment.accureference.com/?param=2'
+				}
 			} else {
 				if (firstCheckValue.a) {
-					history.push(`/home-draw/0/${hasPresc}`);
+					history.push('/home-draw/0');
 				}
 				if (firstCheckValue.b) {
-					history.push(`/home-draw/1/${hasPresc}`);
+					history.push('/home-draw/1');
 				}
 				if (firstCheckValue.c) {
-					history.push(`/home-draw/2/${hasPresc}`);
+					history.push('/home-draw/2');
 				}
 			}
 		} else {
@@ -162,7 +170,7 @@ const Agreement = () => {
 							Type location required
 						</div>
 					) : null}
-					<div
+					{/* <div
 						style={{ marginTop: '2em' }}
 						className='checkbox--row--title'>
 						Do you have Prescription ?
@@ -176,9 +184,8 @@ const Agreement = () => {
 								checked={hasPresc}
 								onChange={() => setHasPresc(!hasPresc)}
 							/>
-							{/* <label htmlFor='besh'>Home Draw</label> */}
 						</div>
-					</div>
+					</div> */}
 					<div
 						className='checkbox--btn--row'
 						style={{ justifyContent: 'center' }}>

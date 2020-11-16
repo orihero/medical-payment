@@ -8,7 +8,14 @@ enum Fields {
 	cvc = 'cvc',
 }
 
-const Wizard3 = ({ data, setData, nextStep, setCurrentStep }) => {
+const Wizard3 = ({
+	data,
+	setData,
+	hasPresc,
+	setHasPresc,
+	nextStep,
+	setCurrentStep
+}) => {
 	const [typeCont, setTypeCont] = useState(
 		data.isRealPayment ? true : false
 	);
@@ -175,7 +182,23 @@ const Wizard3 = ({ data, setData, nextStep, setCurrentStep }) => {
 						{`Credit Card Payment amount = $${data.price}`}
 					</div>
 				) : null}
-				<div className='checkbox--row--title'>Payment Type</div>
+				<div className='checkbox--row--title'>
+					Do you have Prescription ?
+				</div>
+				<div className='flex--row'>
+					<div className='checkbox--row'>
+						<Check
+							type='switch'
+							id='custom-switch6'
+							label='Yes'
+							checked={hasPresc}
+							onChange={() => setHasPresc(!hasPresc)}
+						/>
+					</div>
+				</div>
+				<div className='checkbox--row--title'>
+					Payment Type
+				</div>
 				<div className='flex--row'>
 					<div className='checkbox--row'>
 						<Check

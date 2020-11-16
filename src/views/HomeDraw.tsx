@@ -56,24 +56,15 @@ const HomeDraw = () => {
 			setState({ ...state, numberOfPeople: 0 });
 		}
 
-		let typeTestPrice = 0
 		let priceForPeople = 0
-		let pricePresc = hasPresc === 'true' ? 0 : 5
-		if(state.numberOfPeople > 1){
-			for(let i = 1; i < state.numberOfPeople; i++){
+		if(state.numberOfPeople === 1) {
+			priceForPeople = 45
+		} else {
+			for(let i = 0; i < state.numberOfPeople; i++){
 				priceForPeople += 18
 			}
 		}
-		if(typeTest === '0'){
-			typeTestPrice = 100
-		}
-		if(typeTest === '1'){
-			typeTestPrice = 50
-		}
-		if(typeTest === '2'){
-			typeTestPrice = 150
-		}
-		setPrice(typeTestPrice + 45 + priceForPeople + pricePresc)
+		setPrice(45 + priceForPeople)
 	}, [state.numberOfPeople]);
 
 	const onPickerDateChange = (value, formattedValue) => {

@@ -40,6 +40,21 @@ const Wizard = (props) => {
 	const [wizard, setWizard] = useState<StepWizardProps>();
 	const [currentStep, setCurrentStep] = useState(0);
 	const [data, setData] = useState({ ...initialState });
+	const [hasPresc, setHasPresc] = useState(false)
+
+	useEffect(() => {
+		if(hasPresc){
+			setData({
+				...data,
+				price: data.price - 5
+			})
+		} else {
+			setData({
+				...data,
+				price: data.price + 5
+			})
+		}
+	}, [hasPresc])
 
 	const effect = async () => {
 		const obj: any = getJsonFromUrl(window.location.href)
@@ -55,25 +70,16 @@ const Wizard = (props) => {
 				let resData = {...response.data.data[0]}
 				let objData: any = {}
 
-				let testTypePrice = 0
-				let pricePresc = resData.has_prescription ? 0 : 5
 				let priceForPeople = 0
-				if(resData.peoples.length > 1){
-					for(let i = 1; i < resData.peoples.length; i++){
+				if(resData.peoples.length === 1){
+					priceForPeople = 45
+				} else {
+					for(let i = 0; i < resData.peoples.length; i++){
 						priceForPeople += 18
 					}
 				}
-				if(resData.type === 0){
-					testTypePrice = 100	
-				}
-				if(resData.type === 1){
-					testTypePrice = 50	
-				}
-				if(resData.type === 2){
-					testTypePrice = 150	
-				}
 
-				objData.price = 45 + testTypePrice + pricePresc + priceForPeople
+				objData.price = 45 + priceForPeople + 5
 				objData.phone = resData.phone
 				objData.firstName = resData.peoples[0].firstname
 				objData.lastName = resData.peoples[0].lastname
@@ -118,11 +124,23 @@ const Wizard = (props) => {
 			}
 		} else {
 			response = await axios.get(`https://appointment.accureference.com/api/request/${obj.requestId}`)
-			
+			console.log('response: ', response)
 			if(response.data.length){
 				let resData = {...response.data[0]}
 				let objData: any = {}
-	
+
+				let typeTestPrice = 0
+				if(resData.type === 0){
+					typeTestPrice = 100
+				}
+				if(resData.type === 1){
+					typeTestPrice = 50
+				}
+				if(resData.type === 2){
+					typeTestPrice = 150
+				}
+
+				objData.price = typeTestPrice + 5
 				objData.email = resData.email
 				objData.phone = resData.phone
 	
@@ -233,6 +251,8 @@ const Wizard = (props) => {
 						<Wizard3
 							data={data}
 							setData={setData}
+							hasPresc={hasPresc}
+							setHasPresc={setHasPresc}
 							nextStep={nextStep}
 							setCurrentStep={setCurrentStep}
 						/>

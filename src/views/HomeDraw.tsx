@@ -56,11 +56,9 @@ const HomeDraw = () => {
 			setState({ ...state, numberOfPeople: 0 });
 		}
 
-		let priceForPeople = 0
-		if(state.numberOfPeople === 1) {
-			priceForPeople = 45
-		} else {
-			for(let i = 0; i < state.numberOfPeople; i++){
+		let priceForPeople = 45
+		if(state.numberOfPeople > 1) {
+			for(let i = 1; i < state.numberOfPeople; i++){
 				priceForPeople += 18
 			}
 		}

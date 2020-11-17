@@ -71,11 +71,9 @@ const Wizard = (props) => {
 				let resData = {...response.data.data[0]}
 				let objData: any = {}
 
-				let priceForPeople = 0
-				if(resData.peoples.length === 1){
-					priceForPeople = 45
-				} else {
-					for(let i = 0; i < resData.peoples.length; i++){
+				let priceForPeople = 45
+				if(resData.peoples.length > 1) {
+					for(let i = 1; i < resData.peoples.length; i++){
 						priceForPeople += 18
 					}
 				}

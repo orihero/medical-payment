@@ -110,103 +110,51 @@ const Agreement = () => {
 							Type location required
 						</div>
 					) : null}
-					{secondCheckValue.a ? (
-						<>
-							<div
-								style={{ marginTop: '2em' }}
-								className='checkbox--row--title'>
-								Choose type of the Test
-							</div>
-							<div className='flex--row'>
-								<div className='checkbox--row'>
-									<Check
-										type='switch'
-										id='custom-switch1'
-										label='Covid 19'
-										checked={firstCheckValue.a}
-										onChange={() => onFirstChange('a')}
-									/>
-								</div>
-								<div
-									className='checkbox--row'
-									style={{ marginLeft: '2em' }}>
-									<Check
-										type='switch'
-										id='custom-switch2'
-										label='Antibody Test'
-										checked={firstCheckValue.b}
-										onChange={() => onFirstChange('b')}
-									/>
-								</div>
-								<div
-									className='checkbox--row'
-									style={{ marginLeft: '2em' }}>
-									<Check
-										type='switch'
-										id='custom-switch3'
-										label='Covid 19 + Antibody Test'
-										checked={firstCheckValue.c}
-										onChange={() => onFirstChange('c')}
-									/>
-								</div>
-							</div>
-							{errorText.a ? (
-								<div
-									style={{ marginTop: '10px' }}
-									className='validation-error'>
-									Type test required
-								</div>
-							) : null}
-						</>
-					) : (
-						<div style={{visibility: 'hidden'}}>
-							<div
-								style={{ marginTop: '2em' }}
-								className='checkbox--row--title'>
-								Choose type of the Test
-							</div>
-							<div className='flex--row'>
-								<div className='checkbox--row'>
-									<Check
-										type='switch'
-										id='custom-switch1'
-										label='Covid 19'
-										checked={firstCheckValue.a}
-										onChange={() => onFirstChange('a')}
-									/>
-								</div>
-								<div
-									className='checkbox--row'
-									style={{ marginLeft: '2em' }}>
-									<Check
-										type='switch'
-										id='custom-switch2'
-										label='Antibody Test'
-										checked={firstCheckValue.b}
-										onChange={() => onFirstChange('b')}
-									/>
-								</div>
-								<div
-									className='checkbox--row'
-									style={{ marginLeft: '2em' }}>
-									<Check
-										type='switch'
-										id='custom-switch3'
-										label='Covid 19 + Antibody Test'
-										checked={firstCheckValue.c}
-										onChange={() => onFirstChange('c')}
-									/>
-								</div>
-							</div>
-							{errorText.a ? (
-								<div
-									style={{ marginTop: '10px' }}
-									className='validation-error'>
-									Type test required
-								</div>
-							) : null}
+					<div
+						style={{ marginTop: '2em' }}
+						className='checkbox--row--title'>
+						Choose type of the Test
+					</div>
+					<div className='flex--row'>
+						<div className='checkbox--row'>
+							<Check
+								type='switch'
+								id='custom-switch1'
+								label='Covid 19'
+								checked={firstCheckValue.a}
+								onChange={() => onFirstChange('a')}
+							/>
 						</div>
-					)}
+						<div
+							className='checkbox--row'
+							style={{ marginLeft: '2em' }}>
+							<Check
+								type='switch'
+								id='custom-switch2'
+								label='Antibody Test'
+								checked={firstCheckValue.b}
+								onChange={() => onFirstChange('b')}
+							/>
+						</div>
+						<div
+							className='checkbox--row'
+							style={{ marginLeft: '2em' }}>
+							<Check
+								type='switch'
+								id='custom-switch3'
+								label='Covid 19 + Antibody Test'
+								checked={firstCheckValue.c}
+								onChange={() => onFirstChange('c')}
+							/>
+						</div>
+					</div>
+					{errorText.a ? (
+						<div
+							style={{ marginTop: '10px' }}
+							className='validation-error'>
+							Type test required
+						</div>
+					) : null}
 					<div
 						className='checkbox--btn--row'
 						style={{ justifyContent: 'center' }}>

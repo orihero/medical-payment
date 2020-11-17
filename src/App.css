@@ -4,6 +4,7 @@
 
 .validation-error {
 	color: red;
+	margin-top: 1em;
 	font-size: 0.8em;
 	line-height: 2em;
 }

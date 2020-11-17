@@ -64,7 +64,7 @@ const HomeDraw = () => {
 				priceForPeople += 18
 			}
 		}
-		setPrice(45 + priceForPeople)
+		setPrice(priceForPeople)
 	}, [state.numberOfPeople]);
 
 	const onPickerDateChange = (value, formattedValue) => {
@@ -161,7 +161,7 @@ const HomeDraw = () => {
 				phone,
 				address,
 				apartment,
-				type: typeTest,
+				type: 0,
 				visit_date_time,
 				has_prescription,
 				number_of_peoples,

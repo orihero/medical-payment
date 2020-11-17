@@ -79,7 +79,7 @@ const Wizard = (props) => {
 					}
 				}
 
-				objData.price = 45 + priceForPeople + 5
+				objData.price = priceForPeople + 5
 				objData.phone = resData.phone
 				objData.firstName = resData.peoples[0].firstname
 				objData.lastName = resData.peoples[0].lastname

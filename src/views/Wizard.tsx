@@ -34,6 +34,7 @@ const initialState = {
 	requestId: null,
 	request_type: 0,
 	price: 0,
+	testType: null
 };
 
 const Wizard = (props) => {
@@ -140,6 +141,7 @@ const Wizard = (props) => {
 					typeTestPrice = 150
 				}
 
+				objData.testType = resData.type
 				objData.price = typeTestPrice + 5
 				objData.email = resData.email
 				objData.phone = resData.phone

@@ -102,6 +102,7 @@ const Wizard2 = ({
 			stateId,
 			requestId,
 			request_type,
+			testType
 		} = data;
 
 		let rawData: any = {
@@ -118,6 +119,7 @@ const Wizard2 = ({
 			company_name: 'company_name',
 			add_address: 'add_address',
 			request_type: request_type === 2 ? 1 : 0,
+			type: request_type !== 2 ? testType : 0
 		};
 
 		if (isRealPayment) {
@@ -147,9 +149,9 @@ const Wizard2 = ({
 			);
 			
 			setModalShow({})
-			console.log('response (f): ', response)
-
+			
 			if(response.data.type === 'error'){
+				console.log('response (f): ', response)
 				setModalShow({b: true})
 			}
 

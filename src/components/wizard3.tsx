@@ -79,6 +79,7 @@ const Wizard3 = ({
 		} else {
 			setErrorText({ ...errorText, expiry: '' });
 		}
+		console.log('expiry: ', a)
 		setCard({ ...card, expiry: a });
 	};
 
@@ -322,11 +323,23 @@ const Wizard3 = ({
 								<div className='form-row form-group'>
 									<div className='form-holder'>
 										<label>Expiry *</label>
-										<input
+										{/* <MaskedInput
+											type='tel'
+											name='number'
+											value={card.number}
+											className='form-control'
+											onFocus={handleInputFocus}
+											mask='1111-1111-1111-1111'
+											onChange={onCardNumberChange}
+											placeholder={`XXXX-XXXX-XXXX-XXXX`}
+										/> */}
+										<MaskedInput
 											type='tel'
 											name='expiry'
 											maxLength={4}
 											value={card.expiry}
+											mask='11/11'
+											placeholder='mm/YY'
 											className='form-control'
 											onFocus={handleInputFocus}
 											onChange={onExpiryChange}

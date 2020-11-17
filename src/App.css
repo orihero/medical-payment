@@ -314,22 +314,22 @@ body {
 	justify-content: space-evenly;
 }
 .err-btn-green{
-	color: #fff;
+	color: #212529;
 	cursor: pointer;
 	padding: 6px 12px;
 	border-radius: 4px;
-	background-color: #4bb543;
+	background-color: #e6e6e6;
 }
 .err-btn-red{
-	color: #fff;
+	color: #666;
 	cursor: pointer;
 	padding: 6px 12px;
 	border-radius: 4px;
 	text-decoration: none;
-	background-color: #ed4337;
+	background-color: #f3d4b7;
 }
 .err-btn-red:hover{
-	color: #fff;
+	color: #666;
 }
 .wizard--3 .flex--row {
 	margin: 0em 0 2em 0;

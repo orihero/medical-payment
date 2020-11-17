@@ -318,7 +318,7 @@ const Wizard2 = ({
 				<Modal.Body>
 					<div>
 						<p style={{marginBottom: '10px'}}>
-							{`Total sum ${data.price}`}
+							{`Total price ${data.price}`}
 						</p>
 						The Company shall provide COVID testing for those
 						Travellers identified by Pure Health and shall provide

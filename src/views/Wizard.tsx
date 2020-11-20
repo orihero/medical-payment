@@ -130,13 +130,13 @@ const Wizard = (props) => {
 
 				let typeTestPrice = 0
 				if(resData.type === 0){
-					typeTestPrice = 100
+					typeTestPrice = 45
 				}
 				if(resData.type === 1){
 					typeTestPrice = 50
 				}
 				if(resData.type === 2){
-					typeTestPrice = 150
+					typeTestPrice = 95
 				}
 
 				objData.testType = resData.type

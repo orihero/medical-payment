@@ -56,7 +56,16 @@ const HomeDraw = () => {
 			setState({ ...state, numberOfPeople: 0 });
 		}
 
-		let priceForPeople = 45
+		let priceForPeople
+		if(typeTest === '0'){
+			priceForPeople = 45
+		}
+		if(typeTest === '1'){
+			priceForPeople = 50
+		}
+		if(typeTest === '2'){
+			priceForPeople = 95
+		}
 		if(state.numberOfPeople > 1) {
 			for(let i = 1; i < state.numberOfPeople; i++){
 				priceForPeople += 18
@@ -159,7 +168,7 @@ const HomeDraw = () => {
 				phone,
 				address,
 				apartment,
-				type: 0,
+				type: typeTest,
 				visit_date_time,
 				has_prescription,
 				number_of_peoples,

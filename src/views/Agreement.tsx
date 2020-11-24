@@ -62,7 +62,22 @@ const Agreement = () => {
 					})
 				}
 			} else {
-				history.push('/home-draw');
+				if(firstCheckValue.a || firstCheckValue.b || firstCheckValue.c){
+					if(firstCheckValue.a){
+						history.push('/home-draw/0');
+					}
+					if(firstCheckValue.b){
+						history.push('/home-draw/1');
+					}
+					if(firstCheckValue.c){
+						history.push('/home-draw/2');
+					}
+				} else {
+					setErrorText({
+						...errorText,
+						a: true
+					})
+				}
 			}
 		} else {
 			setErrorText({

@@ -71,7 +71,16 @@ const Wizard = (props) => {
 				let resData = {...response.data.data[0]}
 				let objData: any = {}
 
-				let priceForPeople = 45
+				let priceForPeople
+				if(resData.type === 0){
+					priceForPeople = 45
+				}
+				if(resData.type === 1){
+					priceForPeople = 50
+				}
+				if(resData.type === 2){
+					priceForPeople = 95
+				}
 				if(resData.peoples.length > 1) {
 					for(let i = 1; i < resData.peoples.length; i++){
 						priceForPeople += 18
@@ -130,13 +139,13 @@ const Wizard = (props) => {
 
 				let typeTestPrice = 0
 				if(resData.type === 0){
-					typeTestPrice = 100
+					typeTestPrice = 45
 				}
 				if(resData.type === 1){
 					typeTestPrice = 50
 				}
 				if(resData.type === 2){
-					typeTestPrice = 150
+					typeTestPrice = 95
 				}
 
 				objData.testType = resData.type

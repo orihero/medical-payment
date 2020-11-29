@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 
+import MaskedInput from 'react-maskedinput';
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -18,6 +19,7 @@ let Wizard1 = ({
             address1: data.address1 || '',
             address2: data.address2 || '',
             townCity: data.townCity || '',
+            dateOfBirth: data.dateOfBirth || ''
         })
     }, [data])
 
@@ -33,6 +35,7 @@ let Wizard1 = ({
             address1: data.address1 || '',
             address2: data.address2 || '',
             townCity: data.townCity || '',
+            dateOfBirth: data.dateOfBirth || ''
         },
         validationSchema: () => Yup.object().shape({
             firstName: Yup.string().required('Required'),
@@ -40,6 +43,7 @@ let Wizard1 = ({
             address1: Yup.string().required('Required'),
             address2: Yup.string().required('Required'),
             townCity: Yup.string().required('Required'),
+            dateOfBirth: Yup.string().required('Required'),
         }),
         onSubmit: values => {
             const {
@@ -48,6 +52,7 @@ let Wizard1 = ({
                 address1,
                 address2,
                 townCity,
+                dateOfBirth,
             } = values
 
             setData({
@@ -57,6 +62,7 @@ let Wizard1 = ({
                 address1,
                 address2,
                 townCity,
+                dateOfBirth
             })
 
             setCurrentStep(2)
@@ -94,6 +100,21 @@ let Wizard1 = ({
                             <div className='validation-error'>{formik.errors.lastName}</div>
                         ) : null}
                     </div>
+                </div>
+                <div className='form-row'>
+                    <label>Date of birth *</label>
+                    <MaskedInput
+                        type='text'
+                        name={'dateOfBirth'}
+                        className='form-control'
+                        onChange={formik.handleChange}
+                        value={formik.values.dateOfBirth}
+                        mask='11-11-1111'
+                        placeholder={`DD-MM-YYYY`}
+                    />
+                    {formik.touched.dateOfBirth && formik.errors.dateOfBirth ? (
+                        <div className='validation-error'>{formik.errors.dateOfBirth}</div>
+                    ) : null}
                 </div>
                 <div className='form-row'>
                     <label>Address *</label>

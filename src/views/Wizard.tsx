@@ -28,13 +28,15 @@ const initialState = {
 	cardOwner: '',
 	expiry: '',
 	cvc: '',
+	dateOfBirth: '',
+	prescription: null,
 	isRealPayment: 0,
 	insurancePhoto: null,
 	stateId: null,
 	requestId: null,
 	request_type: 0,
 	price: 0,
-	testType: null
+	testType: null,
 };
 
 const Wizard = (props) => {
@@ -152,6 +154,16 @@ const Wizard = (props) => {
 				objData.price = typeTestPrice + 5
 				objData.email = resData.email
 				objData.phone = resData.phone
+
+				if(resData.datebirth){
+					// objData.dateOfBirth = resData.datebirth
+					let str = resData.datebirth
+					objData.dateOfBirth = [
+						str.split('-')[2],
+						str.split('-')[1],
+						str.split('-')[0],
+					].join('-')
+				}
 	
 				let fullnameArr = resData.fullname.split(' ').map(item => item.trim())
 				objData.firstName = fullnameArr[0]

@@ -116,7 +116,7 @@ const HomeDraw = () => {
 		setFullnameArr([...arr]);
 	};
 
-	const onFinish = (e) => {
+	const onFinish = async (e) => {
 		e.preventDefault();
 
 		const {
@@ -181,19 +181,21 @@ const HomeDraw = () => {
 			// console.log('obj: ', obj)
 			obj = formData(obj);
 
-			axios
-				.post('https://appointment.accureference.com/api/homedraw', obj)
-				.then((res) => {
-					console.log('res: ', res)
-					if (res.data.status === 'success') {
-						history.push(
-							`/appointment?type=2&requestId=${res.data.data.id}`
-						);
-					} else {
-						console.log('res.data: ', res.data);
-						alert('Invalid credentials');
-					}
-				});
+			try{
+				let res = await axios.post('https://appointment.accureference.com/api/homedraw', obj)
+
+				console.log('res: ', res)
+				if (res.data.status === 'success') {
+					history.push(
+						`/appointment?type=2&requestId=${res.data.data.id}`
+					);
+				} else {
+					console.log('res.data: ', res.data);
+					alert('Invalid credentials');
+				}
+			} catch(err) {
+				alert('Invalid credentials');
+			}
 		} else {
 			let arr = [...errFullArr];
 

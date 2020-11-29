@@ -6,6 +6,7 @@ import { useFormik } from 'formik';
 import MaskedInput from 'react-maskedinput';
 import { Modal } from 'react-bootstrap';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom'
 
 import { formData } from '../utils';
 
@@ -16,6 +17,8 @@ const Wizard2 = ({
 	previousStep,
 	setCurrentStep,
 }) => {
+	const history = useHistory()
+
 	const [errorText, setErrorText] = useState('');
 	const [acceptChecked, setAcceptChecked] = useState(false);
 	const [modalShow, setModalShow] = useState<any>({});
@@ -102,7 +105,8 @@ const Wizard2 = ({
 			stateId,
 			requestId,
 			request_type,
-			testType
+			testType,
+			prescription
 		} = data;
 
 		let rawData: any = {
@@ -113,6 +117,7 @@ const Wizard2 = ({
 			postcode: postCode,
 			phone,
 			email,
+			prescription,
 			country: '1',
 			isRealPayment,
 			request_id: requestId,
@@ -147,13 +152,19 @@ const Wizard2 = ({
 				'https://appointment.accureference.com/api/payment',
 				fmData
 			);
+
+			console.log('response: ', response)
 			
 			setModalShow({})
 			
 			if(response.data.type === 'error'){
 				console.log('response (f): ', response)
 				setModalShow({b: true})
+				return
 			}
+
+			history.push('/')
+			window.location.reload()
 
 			// if (response.data.status === 'error') {
 			// 	alert('Invalid credentials');

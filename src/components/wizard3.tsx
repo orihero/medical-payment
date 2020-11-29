@@ -79,7 +79,6 @@ const Wizard3 = ({
 		} else {
 			setErrorText({ ...errorText, expiry: '' });
 		}
-		console.log('expiry: ', a)
 		setCard({ ...card, expiry: a });
 	};
 
@@ -108,6 +107,14 @@ const Wizard3 = ({
 	const onSubmit = async (e: any) => {
 		e.preventDefault();
 		setErrorText({ ...errorText, last: '' });
+
+		if(hasPresc && data.prescription === null){
+			setErrorText({
+				...errorText,
+				last: 'Make sure you selected file prescription'
+			})
+			return
+		}
 
 		if (typeCont) {
 			const { stateId, insurancePhoto } = files;
@@ -197,6 +204,31 @@ const Wizard3 = ({
 						/>
 					</div>
 				</div>
+				{hasPresc ? (
+					<div style={{marginBottom: '2em'}}>
+						<label htmlFor='presciption-file'>
+							{data.prescription
+								? 'Prescription selected'
+								: 'Upload prescription'}
+						</label>
+						<Form>
+							<Form.File
+								custom
+								id='prescription-file'
+								className='fileInput'
+								onChange={(e) => setData({
+									...data,
+									prescription: e.target.files[0]
+								})}
+								label={
+									data.prescription
+										? 'File Selected'
+										: 'Choose file'
+								}
+							/>
+						</Form>
+					</div>
+				) : null}
 				<div className='checkbox--row--title'>
 					Payment Type
 				</div>
